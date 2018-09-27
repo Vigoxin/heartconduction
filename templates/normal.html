@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="/static/normal.css">
+	<link rel="stylesheet" href="/static/buttons.css">
+	<script type="text/javascript" src='/static/lib/jquery-3.2.1.min.js'></script>
+	<script type="text/javascript" src='/static/lib/pixi.min.js'></script>
+</head>
+<body>
+
+<div class="canvas"></div>
+<button class="play-button btn btn-6 btn-6c">Play/pause</button>
+<input type="range" class="fps-slider">
+<input type="number" class="fps-number">
+
+<script>
+	var pd = {{pd | tojson}};
+	for (key in pd) {
+		window[key] = pd[key];
+	}
+</script>
+<script type="text/javascript" src='/static/constants.js'></script>
+<script type="text/javascript" src='/static/square.js'></script>
+<script type="text/javascript" src='/static/normal.js'></script>
+<script type="text/javascript" src='/static/gridFunctions.js'></script>
+<script type="text/javascript" src='/static/eventListeners.js'></script>
+<script type="text/javascript" src='/static/utilities.js'></script>
+</body>
+</html>
