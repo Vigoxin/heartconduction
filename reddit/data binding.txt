@@ -1,0 +1,7 @@
+Can I use reactjs to data bind between two very quickly updating html canvases?
+
+Hi, beginner here. Would be really grateful for any detailed answers.
+I have a working interactive simulation/animation using a html canvas element and pixi js. The simulation consists of a Grid object, which is a two-dimensional array of multiple Square objects. Each Square object is associated with a pixijs sprite which has been added to the html canvas element. Finally, with every requestAnimationFrame, the Grid.play() function is called, which makes the squares change and the simulation play.
+There can be up to 10,000 square objects in the grid, changing color at 60fps. PixiJS is able to handle this fine (although p5js wasn't able to).
+However, now I would like to set up the ability for users to interactively create other canvases and divs, on the page, that mirror squares from the main canvas, and display via text what certain properties of that square is, also changing automatically at 60fps. These accessory canvases and divs should be easily addable and removable with a single click from the user on a square from the main canvas. It should also be possible to change 
+From what I know this seems like data binding, which can be solved with ReactJS. I assume the way to go about interactively binding new canvases and div elements to the main canvas is to actually put the Grid object in the 'state' of an html parent div that contains both canvases, and then make . Then with every frame I should update the state, and then make the canvas

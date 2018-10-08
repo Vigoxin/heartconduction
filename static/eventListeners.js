@@ -1,8 +1,11 @@
-var isPlaying = false;
+// Play settings
+var isPlaying = true;
 $('.play-button').on('click', () => {isPlaying = !isPlaying});
+$('.frame-button').on('click', drawFrame);
 
+var fpsMax = 80;
 $('.fps-slider').prop({
-	'max': 60,
+	'max': fpsMax,
 	'min': 1,
 	'value': fps
 });
@@ -12,11 +15,16 @@ $('.fps-slider').on('input', function() {
 })
 
 $('.fps-number').prop({
-	'max': 60,
+	'max': fpsMax,
 	'min': 1,
 	'value': fps
 });
 $('.fps-number').on('input', function() {
 	$('.fps-slider').val($(this).val());
 	fps = parseInt($(this).val());
+})
+
+// State settings
+$('.state-radio').on('click', function() {
+	grid.selector = $(".state-radio[name=state]:checked").val();
 })

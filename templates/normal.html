@@ -2,17 +2,32 @@
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" href="/static/normal.css">
+	<link rel="stylesheet" href="/static/main.css">
 	<link rel="stylesheet" href="/static/buttons.css">
 	<script type="text/javascript" src='/static/lib/jquery-3.2.1.min.js'></script>
 	<script type="text/javascript" src='/static/lib/pixi.min.js'></script>
 </head>
 <body>
 
-<div class="canvas"></div>
-<button class="play-button btn btn-6 btn-6c">Play/pause</button>
-<input type="range" class="fps-slider">
-<input type="number" class="fps-number">
+<div class="canvas">
+	<div class="actions">
+		<div class="play-box settings-section">
+			<button class="play-button btn btn-6 btn-6c">Play/pause</button>
+			<button class="frame-button btn btn-6 btn-6c">Frame</button>
+			<input type="range" class="fps-slider">
+			<input type="number" class="fps-number">
+		</div>
+		<div class="state-box settings-section">
+			<input class='state-radio depo' type="radio" name="state" value='depo' checked='checked'> <label>Depo</label>
+			<input class='state-radio repo' type="radio" name="state" value='repo'> <label>Repo</label>
+			<input class='state-radio clear' type="radio" name="state" value='clear'> <label>Clear</label>
+		</div>
+	</div>
+</div>
+
+<div class="canvas2">
+	
+</div>
 
 <script>
 	var pd = {{pd | tojson}};
@@ -20,10 +35,17 @@
 		window[key] = pd[key];
 	}
 </script>
+<script type="text/javascript" src='/static/prototypeModifications.js'></script>
+
 <script type="text/javascript" src='/static/constants.js'></script>
-<script type="text/javascript" src='/static/square.js'></script>
-<script type="text/javascript" src='/static/normal.js'></script>
+
+<script type="text/javascript" src='/static/classes/Grid.js'></script>
+<script type="text/javascript" src='/static/classes/Square.js'></script>
+<script type="text/javascript" src='/static/classes/TimeStrip.js'></script>
+
+<script type="text/javascript" src='/static/main.js'></script>
 <script type="text/javascript" src='/static/gridFunctions.js'></script>
+
 <script type="text/javascript" src='/static/eventListeners.js'></script>
 <script type="text/javascript" src='/static/utilities.js'></script>
 </body>

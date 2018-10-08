@@ -6,8 +6,15 @@ body {
 	font-family: verdana;
 }
 
+.actions > input {
+	display: block;
+}
 
-
+.settings-section {
+	width: 800px;
+	background-color: darkred;
+	color: white;
+}
 
 /*Buttons*/
 .btn {
