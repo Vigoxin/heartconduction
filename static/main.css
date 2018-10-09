@@ -6,6 +6,11 @@ body {
 	font-family: verdana;
 }
 
+.canvas {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
 .actions > input {
 	display: block;
 }

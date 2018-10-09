@@ -14,13 +14,19 @@
 		<div class="play-box settings-section">
 			<button class="play-button btn btn-6 btn-6c">Play/pause</button>
 			<button class="frame-button btn btn-6 btn-6c">Frame</button>
+			<br>
 			<input type="range" class="fps-slider">
 			<input type="number" class="fps-number">
 		</div>
 		<div class="state-box settings-section">
-			<input class='state-radio depo' type="radio" name="state" value='depo' checked='checked'> <label>Depo</label>
-			<input class='state-radio repo' type="radio" name="state" value='repo'> <label>Repo</label>
-			<input class='state-radio clear' type="radio" name="state" value='clear'> <label>Clear</label>
+			<input class='state-radio depo' type="radio" data-selector-type="state"name="selector" value='depo' checked='checked'> <label>Depo</label>
+			<input class='state-radio repo' type="radio" data-selector-type="state"name="selector" value='repo'> <label>Repo</label>
+			<input class='state-radio clear' type="radio" data-selector-type="state"name="selector" value='clear'> <label>Clear</label>
+		</div>
+		<div class="condVel-box settings-section">
+			<input class='condVel-radio fast' type="radio" data-selector-type="condVel"name="selector" value='fast'> <label>Fast</label>
+			<input class='condVel-radio normal' type="radio" data-selector-type="condVel"name="selector" value='normal'> <label>Normal</label>
+			<input class='condVel-radio slow' type="radio" data-selector-type="condVel"name="selector" value='slow'> <label>Slow</label>
 		</div>
 	</div>
 </div>

@@ -25,6 +25,14 @@ $('.fps-number').on('input', function() {
 })
 
 // State settings
-$('.state-radio').on('click', function() {
-	grid.selector = $(".state-radio[name=state]:checked").val();
+$("input[name='selector']").on('click', function() {
+	grid.selector = $("input[name='selector']:checked").val();
+	grid.selectorType = $(this).data('selectorType');
+	console.log(`current selector value:\n${grid.selector}, type: ${grid.selectorType}`);
+})
+
+// condVel settings
+$('.condVel-radio').on('click', function() {
+	grid.selector = $(".condVel-radio:checked").val();
+	grid.selectorType = $(this).data('selectorType');
 })

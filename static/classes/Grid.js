@@ -7,7 +7,9 @@ class Grid extends Array {
 			// constants specific to class
 		this.cellSize = cellSize;
 		this.cellDim = cellDim;
-		this.masterState = 'repo';
+		this.masterState = 'clear';
+		this.masterRefracLength = 'normal';
+		this.masterCondVel = 'normal';
 		this.clickSelector;
 		this.toPropagateTogether = [];
 
@@ -37,6 +39,32 @@ class Grid extends Array {
 		// Adds the PIXI Application to the css selector element specified in the constructor
 		$(canvasElement)[0].prepend(this.pixiapp.view);
 
+		// dicts and mappings for the squares
+		this.refracLengthDict = {
+			'short': 5,
+			'normal': 10,
+			'long': 20
+		}
+
+		this.condVelDict = {
+			'fast': 0,
+			'normal': 1,
+			'slow': 3
+		}
+
+		this.stateColorMapping = {
+			'repo': 0xffffff,
+			'depo': 0xff0000,
+			'clear': 0x333333,
+			'refrac': 0xff8e00
+		}
+
+		this.condVelColorMapping = {
+			'fast': 0x00ff00,
+			'slow': 0xff0000
+		}
+
+
 		// Transforms grid into a two dimensional grid of Square objects
 		for (var i=0; i<this.cellDim; i++) {
 			this[i] = [];
@@ -62,13 +90,6 @@ class Grid extends Array {
 			}
 		}
 
-		this.stateColorMapping = {
-			'repo': 0xffffff,
-			'depo': 0xff0000,
-			'clear': 0x333333,
-			'refrac': 0xff8e00
-		}
-
 		// setting event listeners
 		this.pixiapp.stage.interactive = true;
 
@@ -80,15 +101,18 @@ class Grid extends Array {
 			this.click(e);
 		}
 
+		for (let col of this) {
+			for (let square of col) {
+				square.display();
+			}
+		}
+		
+
 	}
 
 	play() {
 
-		// this.paceTracker++;
-
-		// this.toPropagate = [];
-		
-		this.APcounterGrid = this.map2drray('APcounter');
+		this.APcounterGrid = this.map2adrray('APcounter');
 
 		for (let col of this) {
 			for (let square of col) {
@@ -97,13 +121,6 @@ class Grid extends Array {
 				}
 			}
 		}
-
-		// for (let square of this.toPropagate) {
-		// 	square.APcounter = 0;
-		// }
-
-		// console.log(grid[0][0].APcounter);
-
 
 
 		for (let col of this) {
@@ -158,7 +175,7 @@ class Grid extends Array {
 		}
 	}
 
-	map2drray(string) {
+	map2adrray(string) {
 		var a = [];
 		for (let i=0; i<this.cellDim; i++) {
 			a.push([]);

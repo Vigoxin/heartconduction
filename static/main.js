@@ -5,7 +5,7 @@ for (let file of textureFiles) {
 PIXI.loader.load(setup);
 
 function setup() {
-	grid = new Grid('.canvas', cellSize=10, cellDim=40);
+	grid = new Grid('.canvas', cellSize=30, cellDim=20);
 
 	drawingFunction();
 }

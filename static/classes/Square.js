@@ -14,23 +14,12 @@ class Square {
 
 		this.neighbours = [];
 
-		this.refracLengthSetting = 'normal';
-		this.condVelSetting = 'slow';
+		this.refracLengthSetting = this.parentGrid.masterRefracLength;
+		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
+		
+		this.condVelSetting = this.parentGrid.masterCondVel;
+		this.condVel = this.parentGrid.condVelDict[this.condVelSetting];
 
-		this.refracLengthDict = {
-			'short': 5,
-			'normal': 10,
-			'long': 20
-		}
-
-		this.condVelDict = {
-			'normal': 0,
-			'slow': 1,
-			'very slow': 3
-		}
-
-		this.refracLength = this.refracLengthDict[this.refracLengthSetting];
-		this.condVel = this.condVelDict[this.condVelSetting];
 
 
 		// Setting up the sprites needed to display the square
@@ -39,7 +28,7 @@ class Square {
 		for (let image of this.images) {
 			if (PIXI.loader.resources[texturesPath+image+'10'+'.png']) {
 				this.sprites[image] = new PIXI.Sprite(PIXI.loader.resources[texturesPath+image+'10'+'.png'].texture);	
-			}	
+			}
 		}
 
 		// Setting the sprites' positions
@@ -57,9 +46,9 @@ class Square {
 		// }	
 
 		// Setting up visibility of different sprites
-		this.sprites.square.visible = true;
-		this.sprites.plus.visible = false;
-		this.sprites.plus.tint = 0x0000ff;
+		// this.sprites.square.visible = true;
+		// this.sprites.plus.visible = false;
+		// this.sprites.plus.tint = 0x00ff00;
 	}
 
 	actionPotential() {
@@ -96,8 +85,25 @@ class Square {
 	}
 
 	display() {
+		// State
 		this.sprites.square.tint = this.parentGrid.stateColorMapping[this.state];
+		
+		// refracLength
 
+		// condVel
+		if (this.state === 'clear') {
+			for (let sprite of Object.keys(this.sprites).filter(x => x !== 'square')) {
+				sprite = this.sprites[sprite];
+				sprite.visible = false;
+			}
+		} else {
+			if (this.condVelSetting !== 'normal') {
+				this.sprites.plus.visible = true;
+				this.sprites.plus.tint = this.parentGrid.condVelColorMapping[this.condVelSetting];
+			} else {
+				this.sprites.plus.visible = false;
+			}		
+		}
 
 		// Debugging speed:
 			// var colors = [0xff0000, 0x00ff00, 0x0000ff];
@@ -113,24 +119,36 @@ class Square {
 	clickSet() {
 		if (this.parentGrid.selectorType === 'state') {
 			if (this.parentGrid.selector === 'clear') {
-				this.state = 'clear';
-				this.APcounter = -1;
-				this.display();
+				this.clickClear();
 			} else if (this.parentGrid.selector === 'depo') {
 				this.clickDepolarise();
 			} else if (this.parentGrid.selector === 'repo') {
 				this.clickRepolarise();
 			}
+		} else if (this.parentGrid.selectorType === 'condVel' && this.state !== 'clear') {
+			this.condVelSetting = this.parentGrid.selector;
+			this.applyCondVelSetting();
+		} else if (this.parentGrid.selectorType === 'refracLength' && this.state !== 'clear') {
+		
 		}
 	}
 
+	clickClear() {
+		console.log(`(${this.col}, ${this.row}) - Clearing`);
+		this.state = 'clear';
+		this.APcounter = -1;
+		this.display();
+	}
+
 	clickDepolarise() {
+		console.log(`(${this.col}, ${this.row}) - Depolarising`);
 		this.state = 'depo';
 		this.APcounter = 0;
 		this.display();
 	}
 	
 	clickRepolarise() {
+		console.log(`(${this.col}, ${this.row}) - Repolarising`);
 		this.state = 'repo';
 		this.APcounter = -1;
 		this.display();
@@ -138,7 +156,10 @@ class Square {
 
 
 
-
+	applyCondVelSetting() {
+		console.log(`(${this.col}, ${this.row}) - Setting conduction velocity to ${this.condVelSetting}`);
+		this.condVel = this.parentGrid.condVelDict[this.condVelSetting];
+	}
 
 
 
