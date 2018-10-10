@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" href="/static/main.css">
 	<link rel="stylesheet" href="/static/buttons.css">
+	<link rel="stylesheet" href="/static/main.css">
 	<script type="text/javascript" src='/static/lib/jquery-3.2.1.min.js'></script>
 	<script type="text/javascript" src='/static/lib/pixi.min.js'></script>
 </head>
@@ -13,6 +13,7 @@
 	<div class="actions">
 		<div class="play-box settings-section">
 			<button class="play-button btn btn-6 btn-6c">Play/pause</button>
+			<br>
 			<button class="frame-button btn btn-6 btn-6c">Frame</button>
 			<br>
 			<input type="range" class="fps-slider">
@@ -37,9 +38,13 @@
 			<input class='pacing-radio extPace' type="radio" data-selector-type="pacing" name="selector" value='extPace'> <label>External Pacing</label>
 			<input class='pacing-radio autoFocus' type="radio" data-selector-type="pacing" name="selector" value='autoFocus'> <label>Automatic Focus</label>
 			<input class='pacing-radio noPace' type="radio" data-selector-type="pacing" name="selector" value='noPace'> <label>No pace</label>
+			<br>
+			<label>Pacing interval</label><input type="number" name="pacing" class="pacingInterval pacing-number">
+			<label>Pacing offset</label><input type="number" name="pacing" class="pacingOffset pacing-number">
 		</div>
 		<div class="apply-to-all-box settings-section">
 			<button class="apply-to-all-button btn btn-6 btn-6c">Apply to all non-clear squares</button>
+			<br>
 			<button class="unclear-all-cells-button btn btn-6 btn-6c">Unclear all cells</button>
 		</div>
 	</div>

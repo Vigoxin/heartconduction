@@ -29,7 +29,7 @@ class Square {
 		this.refracLengthSetting = this.parentGrid.masterRefracLength;
 		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
 
-		this.randomRefracLengths = true;
+		this.randomRefracLengths = false;
 		this.randomRefracRangeConstant = 0.5;
 		this.refracPoint;
 		this.setRefracPoint();
@@ -60,6 +60,10 @@ class Square {
 		this.stateTrail.shift();
 		this.stateTrail.push(this.state);
 
+		this.isDebugging ? console.log(this.pacingInterval) : null;
+		this.isDebugging ? console.log(this.pacingTracker) : null;
+	
+
 		// Updating of cell itself
 		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
 
@@ -87,11 +91,11 @@ class Square {
 				}
 		} else {
 			// AP cycle
-			this.isDebugging ? console.log('path 3') : null;
-			this.isDebugging ? console.log('this.randomRefracLengths: ', this.randomRefracLengths) : null;
-			this.isDebugging ? console.log('this.APcounter: ', this.APcounter) : null;
-			this.isDebugging ? console.log('this.refracLength: ', this.refracLength) : null;
-			this.isDebugging ? console.log('this.refracPoint: ', this.refracPoint) : null;
+			// this.isDebugging ? console.log('path 3') : null;
+			// this.isDebugging ? console.log('this.randomRefracLengths: ', this.randomRefracLengths) : null;
+			// this.isDebugging ? console.log('this.APcounter: ', this.APcounter) : null;
+			// this.isDebugging ? console.log('this.refracLength: ', this.refracLength) : null;
+			// this.isDebugging ? console.log('this.refracPoint: ', this.refracPoint) : null;
 			if (this.APcounter < 0) {
 				this.APcounter = -1;
 			} else if (this.APcounter === 0) {
@@ -133,7 +137,7 @@ class Square {
 	changePacingTracker() {
 		if (this.isPacing) {
 			this.pacingTracker++;
-			this.isDebugging ? console.log(this.pacingTracker) : 0;
+			// this.isDebugging ? console.log(this.pacingTracker) : 0;
 		}
 	}
 
@@ -216,8 +220,11 @@ class Square {
 				
 			if (this.parentGrid.selector !== 'noPace')	{
 				this.isPacing = true;
-				this.resetPacingTracker();
-				this.clickDepolarise();
+				this.pacingInterval = parseInt($('.pacingInterval').val());
+				this.pacingTracker = this.pacingInterval-parseInt($('.pacingOffset').val());
+				// if (this.pacingTracker === 0) {
+
+				// }
 			}
 			
 			// console.log(`(${this.col}, ${this.row}) - Changing pacing setting to ${this.pacingSetting}`);

@@ -14,6 +14,9 @@ class Grid extends Array {
 		this.toPropagateTogether = [];
 
 		this.masterPacingTracker = 0;
+		
+		this.masterPacingIntervalSelector = 100;
+		this.masterPacingOffsetSelector = 0;
 
 		this.selector = 'depo';
 		this.selectorType = 'state';
@@ -127,7 +130,7 @@ class Grid extends Array {
 	play() {
 		// console.log(this.masterPacingTracker);
 		// this.masterPacingTracker++;
-		// this[0][0].isDebugging = true;
+		this[0][0].isDebugging = true;
 
 		this.APcounterGrid = this.map2adrray('APcounter');
 

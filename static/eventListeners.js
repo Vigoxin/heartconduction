@@ -47,3 +47,13 @@ $('.unclear-all-cells-button').on('click', function() {
 		}
 	}
 })
+
+// Pacing numbers
+$('.pacingInterval').prop({
+	'value': 100,
+	'min': 1
+})
+
+$('.pacingOffset').prop({
+	'value': 0
+})

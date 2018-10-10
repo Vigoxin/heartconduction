@@ -21,6 +21,11 @@ body {
 	color: white;
 }
 
+input[type=number] {
+	max-width: 40px;
+}
+
+
 /*Buttons*/
 .btn {
 	border: none;
@@ -29,9 +34,9 @@ body {
 	color: inherit;
 	background: none;
 	cursor: pointer;
-	padding: 25px 80px;
+	padding: 5px 5px;
 	display: inline-block;
-	margin: 15px 30px;
+	margin: 10px 10px;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-weight: 700;
