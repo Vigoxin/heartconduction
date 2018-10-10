@@ -13,7 +13,7 @@ class Grid extends Array {
 		this.clickSelector;
 		this.toPropagateTogether = [];
 
-		this.paceTracker = 0;
+		this.masterPacingTracker = 0;
 
 		this.selector = 'depo';
 		this.selectorType = 'state';
@@ -40,18 +40,7 @@ class Grid extends Array {
 		$(canvasElement)[0].prepend(this.pixiapp.view);
 
 		// dicts and mappings for the squares
-		this.refracLengthDict = {
-			'short': 5,
-			'normal': 10,
-			'long': 20
-		}
-
-		this.condVelDict = {
-			'fast': 0,
-			'normal': 1,
-			'slow': 3
-		}
-
+		
 		this.stateColorMapping = {
 			'repo': 0xffffff,
 			'depo': 0xff0000,
@@ -59,10 +48,35 @@ class Grid extends Array {
 			'refrac': 0xff8e00
 		}
 
+		this.refracLengthDict = {
+			'short': 10,
+			'normal': 20,
+			'long': 50
+		}
+
+		this.refracLengthColorMapping = {
+			'long': 0x056afa,
+			'short': 0xff8e00
+		}
+
+		this.condVelDict = {
+			'fast': 0,
+			'normal': 0,
+			'slow': 4
+		}
+
 		this.condVelColorMapping = {
-			'fast': 0x00ff00,
+			'fast': 0x00aa00,
 			'slow': 0xff0000
 		}
+
+		this.pacingColorMapping = {
+			'autoFocus': 0x00aa00,
+			'extPace': 0x0000ff
+		}
+
+
+
 
 
 		// Transforms grid into a two dimensional grid of Square objects
@@ -111,6 +125,9 @@ class Grid extends Array {
 	}
 
 	play() {
+		// console.log(this.masterPacingTracker);
+		// this.masterPacingTracker++;
+		// this[0][0].isDebugging = true;
 
 		this.APcounterGrid = this.map2adrray('APcounter');
 
@@ -131,13 +148,20 @@ class Grid extends Array {
 			}
 		}
 
-		// console.log(grid[0][0].state);
+		for (let col of this) {
+			for (let square of col) {
+				if (square.state !== 'clear') {
+					square.changePacingTracker();
+				}
+			}
+		}
 
 		for (let col of this) {
 			for (let square of col) {
 				square.display();
 			}
 		}
+
 
 	}
 

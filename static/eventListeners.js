@@ -24,15 +24,26 @@ $('.fps-number').on('input', function() {
 	fps = parseInt($(this).val());
 })
 
-// State settings
+// Setting state, condVel and refracLengths
 $("input[name='selector']").on('click', function() {
 	grid.selector = $("input[name='selector']:checked").val();
 	grid.selectorType = $(this).data('selectorType');
 	console.log(`current selector value:\n${grid.selector}, type: ${grid.selectorType}`);
 })
 
-// condVel settings
-$('.condVel-radio').on('click', function() {
-	grid.selector = $(".condVel-radio:checked").val();
-	grid.selectorType = $(this).data('selectorType');
+// Apply to all box
+$('.apply-to-all-button').on('click', function() {
+	for (let col of grid) {
+		for (let square of col) {
+			if (square.state !== 'clear') {square.clickSet()};
+		}
+	}
+})
+
+$('.unclear-all-cells-button').on('click', function() {
+	for (let col of grid) {
+		for (let square of col) {
+			square.clickRepolarise();
+		}
+	}
 })

@@ -1,5 +1,7 @@
 class Square {
 	constructor(col=0, row=0, parentGrid=grid) {
+		this.isDebugging;
+
 		this.parentGrid = parentGrid;
 
 		this.col = col;
@@ -10,24 +12,38 @@ class Square {
 		this.state = this.parentGrid.masterState;
 		this.stateTrail = new Array(20).fill();
 		this.APcounter = -1;
-		
 
 		this.neighbours = [];
 
-		this.refracLengthSetting = this.parentGrid.masterRefracLength;
-		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
+		this.pacingTracker = 0;
+		this.isPacing = false;
+		this.isExtPace = false;
+		this.isAutoFocus = false;
+		this.pacingSetting = 'noPace';
+		this.pacingInterval = 100;
 		
+
 		this.condVelSetting = this.parentGrid.masterCondVel;
 		this.condVel = this.parentGrid.condVelDict[this.condVelSetting];
+
+		this.refracLengthSetting = this.parentGrid.masterRefracLength;
+		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
+
+		this.randomRefracLengths = true;
+		this.randomRefracRangeConstant = 0.5;
+		this.refracPoint;
+		this.setRefracPoint();
+		
 
 
 
 		// Setting up the sprites needed to display the square
-		this.images = ['square', 'plus']; // update as more features added
+		this.images = ['square', 'plus', 'circle', 'border']; // update as more features added
 		this.sprites = {};
 		for (let image of this.images) {
-			if (PIXI.loader.resources[texturesPath+image+'10'+'.png']) {
-				this.sprites[image] = new PIXI.Sprite(PIXI.loader.resources[texturesPath+image+'10'+'.png'].texture);	
+			var fullImage = texturesPath+image+'.png'
+			if (PIXI.loader.resources[fullImage]) {
+				this.sprites[image] = new PIXI.Sprite(PIXI.loader.resources[fullImage].texture);	
 			}
 		}
 
@@ -37,18 +53,6 @@ class Square {
 			[sprite.position.x, sprite.position.y] = [this.x, this.y];
 			[sprite.width, sprite.height] = [this.parentGrid.cellSize, this.parentGrid.cellSize];
 		}
-
-		// // Setting the sprites' positions
-		// for (let sprite in this.sprites) {
-		// 	sprite = this.sprites[sprite];
-		// 	sprite.width = this.parentGrid.cellSize;
-		// 	sprite.height = this.parentGrid.cellSize;
-		// }	
-
-		// Setting up visibility of different sprites
-		// this.sprites.square.visible = true;
-		// this.sprites.plus.visible = false;
-		// this.sprites.plus.tint = 0x00ff00;
 	}
 
 	actionPotential() {
@@ -56,22 +60,64 @@ class Square {
 		this.stateTrail.shift();
 		this.stateTrail.push(this.state);
 
-		// Updating of cell itself - with this setup, depo + refrac = refracLength. So the refracLength includes the depo state.
+		// Updating of cell itself
+		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
+
 		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
-			this.state = 'depo';
-			this.APcounter = 0;
-			// this.parentGrid.toPropagate.push(this);
+			// If this square is repolarised (APcounter < 0) and at least one neighbour is depolarised, then depolarise this square
+			this.propDepolarise();
+			// Then, if this square is an automatic focus, reset its pacingTracker
+			if (this.pacingSetting === 'autoFocus') {
+				this.resetPacingTracker();
+			}
+		} else if (this.isPacing && this.pacingTracker === this.pacingInterval) {
+			// Or, if this square is a pacing square and it has reached its pacing interval time
+				if (this.pacingSetting === 'extPace') {
+					// then if it's an external paced square (i.e. there is a lead touching it), then depolarise this square
+					this.propDepolarise();
+					this.resetPacingTracker();
+				} else if (this.pacingSetting === 'autoFocus') {
+					// OR if it's not externally paced, but is an automatic focal pacemaker from the cell itself, then...
+					if (this.state === 'repo') {
+						// only depolarise if this square is repolarised
+						this.propDepolarise();
+						this.resetPacingTracker();
+					}
+							// The logic here is that if a cell has a pacing lead attached to it, then it will get a huge voltage of electricity that will depolarise it even if it's in its refractory period, but if the square is an automatic focus, then it won't fire again if it's already refractory				
+				}
 		} else {
+			// AP cycle
+			this.isDebugging ? console.log('path 3') : null;
+			this.isDebugging ? console.log('this.randomRefracLengths: ', this.randomRefracLengths) : null;
+			this.isDebugging ? console.log('this.APcounter: ', this.APcounter) : null;
+			this.isDebugging ? console.log('this.refracLength: ', this.refracLength) : null;
+			this.isDebugging ? console.log('this.refracPoint: ', this.refracPoint) : null;
 			if (this.APcounter < 0) {
 				this.APcounter = -1;
 			} else if (this.APcounter === 0) {
 				this.APcounter ++;
-			} else if ( this.APcounter >= 1 && this.APcounter < this.refracLength) {
+			} else if ( this.APcounter >= 1 && this.APcounter < (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
 				this.APcounter ++;
-			} else if ( this.APcounter >= this.refracLength ) {
+			} else if ( this.APcounter >= (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
 				this.APcounter = -1;
 			}
 		}
+	}
+
+
+	propDepolarise() {
+		this.state = 'depo';
+		this.APcounter = 0;
+		if (this.randomRefracLengths) {
+			this.setRefracPoint();
+		}
+
+	}
+
+	setRefracPoint() {
+		var min = this.refracLength * (1-this.randomRefracRangeConstant);
+		var max = this.refracLength * (1+this.randomRefracRangeConstant);
+		this.refracPoint = randInt(min, max);
 	}
 
 	changeState() {
@@ -84,24 +130,58 @@ class Square {
 		}
 	}
 
+	changePacingTracker() {
+		if (this.isPacing) {
+			this.pacingTracker++;
+			this.isDebugging ? console.log(this.pacingTracker) : 0;
+		}
+	}
+
+	resetPacingTracker() {
+		this.pacingTracker = 0;
+	}
+
 	display() {
 		// State
 		this.sprites.square.tint = this.parentGrid.stateColorMapping[this.state];
 		
-		// refracLength
 
-		// condVel
+		// If state is clear, remove all sprites (other than the main square) from view
 		if (this.state === 'clear') {
 			for (let sprite of Object.keys(this.sprites).filter(x => x !== 'square')) {
 				sprite = this.sprites[sprite];
 				sprite.visible = false;
-			}
-		} else {
-			if (this.condVelSetting !== 'normal') {
+			}			
+		}
+
+		// refracLength
+		if (this.state !== 'clear') {
+			if (this.refracLengthSetting !== 'normal') {
 				this.sprites.plus.visible = true;
-				this.sprites.plus.tint = this.parentGrid.condVelColorMapping[this.condVelSetting];
+				this.sprites.plus.tint = this.parentGrid.refracLengthColorMapping[this.refracLengthSetting];
 			} else {
 				this.sprites.plus.visible = false;
+			}
+		}
+
+
+		// condVel
+		if (this.state !== 'clear') {
+			if (this.condVelSetting !== 'normal') {
+				this.sprites.circle.visible = true;
+				this.sprites.circle.tint = this.parentGrid.condVelColorMapping[this.condVelSetting];
+			} else {
+				this.sprites.circle.visible = false;
+			}		
+		}
+
+		// pacing
+		if (this.state !== 'clear') {
+			if (this.isPacing) {
+				this.sprites.border.visible = true;
+				this.sprites.border.tint = this.parentGrid.pacingColorMapping[this.pacingSetting];
+			} else {
+				this.sprites.border.visible = false;
 			}		
 		}
 
@@ -129,26 +209,37 @@ class Square {
 			this.condVelSetting = this.parentGrid.selector;
 			this.applyCondVelSetting();
 		} else if (this.parentGrid.selectorType === 'refracLength' && this.state !== 'clear') {
-		
+			this.refracLengthSetting = this.parentGrid.selector;
+			this.applyRefracLengthSetting();
+		} else if (this.parentGrid.selectorType === 'pacing' && this.state !== 'clear') {
+			this.pacingSetting = this.parentGrid.selector;
+				
+			if (this.parentGrid.selector !== 'noPace')	{
+				this.isPacing = true;
+				this.resetPacingTracker();
+				this.clickDepolarise();
+			}
+			
+			// console.log(`(${this.col}, ${this.row}) - Changing pacing setting to ${this.pacingSetting}`);
 		}
 	}
 
-	clickClear() {
-		console.log(`(${this.col}, ${this.row}) - Clearing`);
-		this.state = 'clear';
-		this.APcounter = -1;
-		this.display();
-	}
-
 	clickDepolarise() {
-		console.log(`(${this.col}, ${this.row}) - Depolarising`);
+		// console.log(`(${this.col}, ${this.row}) - Depolarising`);
 		this.state = 'depo';
 		this.APcounter = 0;
 		this.display();
 	}
 	
+	clickClear() {
+		// console.log(`(${this.col}, ${this.row}) - Clearing`);
+		this.state = 'clear';
+		this.APcounter = -1;
+		this.display();
+	}
+
 	clickRepolarise() {
-		console.log(`(${this.col}, ${this.row}) - Repolarising`);
+		// console.log(`(${this.col}, ${this.row}) - Repolarising`);
 		this.state = 'repo';
 		this.APcounter = -1;
 		this.display();
@@ -161,7 +252,10 @@ class Square {
 		this.condVel = this.parentGrid.condVelDict[this.condVelSetting];
 	}
 
-
+	applyRefracLengthSetting() {
+		console.log(`(${this.col}, ${this.row}) - Setting refractory period length to ${this.refracLengthSetting}`);
+		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
+	}
 
 
 	setNeighbours() {

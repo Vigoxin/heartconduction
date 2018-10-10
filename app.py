@@ -5,7 +5,13 @@ app = Flask(__name__)
 
 # Variables to pass in
 textures_path = 'static/textures/'
+# texture_files_short = ['square.png', 'plus.png', 'circle.png']
+# texture_files_short = ['square.png', 'plus.png', 'circle.png', 'dot.png']
+# texture_files_short = ['square.png', 'circle.png']
+# print(texture_files_short)
+# print(os.listdir(textures_path))
 texture_files = [textures_path+f for f in os.listdir(textures_path) if os.path.isfile(os.path.join(textures_path, f))]
+# texture_files = [textures_path+f for f in texture_files_short]
 
 # Final pd (python dictionary) variable to pass in
 pd = {
