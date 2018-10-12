@@ -43,7 +43,7 @@ $('.apply-to-all-button').on('click', function() {
 $('.unclear-all-cells-button').on('click', function() {
 	for (let col of grid) {
 		for (let square of col) {
-			square.clickRepolarise();
+			if (square.state === 'clear') (square.clickRepolarise());
 		}
 	}
 })

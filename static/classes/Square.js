@@ -10,10 +10,12 @@ class Square {
 		this.y = this.parentGrid.grid2pixel(this.row);
 
 		this.state = this.parentGrid.masterState;
-		this.stateTrail = new Array(20).fill();
+		// this.stateTrail = new Array(20).fill();
 		this.APcounter = -1;
 
+		this.neighbourVectors = [];
 		this.neighbours = [];
+		this.setNeighbours();
 
 		this.pacingTracker = 0;
 		this.isPacing = false;
@@ -29,7 +31,7 @@ class Square {
 		this.refracLengthSetting = this.parentGrid.masterRefracLength;
 		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
 
-		this.randomRefracLengths = false;
+		this.randomRefracLengths = true;
 		this.randomRefracRangeConstant = 0.5;
 		this.refracPoint;
 		this.setRefracPoint();
@@ -37,13 +39,19 @@ class Square {
 
 
 
-		// Setting up the sprites needed to display the square
 		this.images = ['square', 'plus', 'circle', 'border']; // update as more features added
+		// Setting up the sprites needed to display the square
+		this.setSprites();
+		this.addSpritesToApp();
+
+	}
+
+	setSprites() {
 		this.sprites = {};
 		for (let image of this.images) {
-			var fullImage = texturesPath+image+'.png'
+			var fullImage = texturesPath+image+'.png';
 			if (PIXI.loader.resources[fullImage]) {
-				this.sprites[image] = new PIXI.Sprite(PIXI.loader.resources[fullImage].texture);	
+				this.sprites[image] = new PIXI.Sprite(PIXI.loader.resources[fullImage].texture);
 			}
 		}
 
@@ -55,10 +63,28 @@ class Square {
 		}
 	}
 
+	addSpritesToApp() {
+		for (let sprite of this.images) {
+			sprite = this.sprites[sprite];
+
+			// Remove sprites which already exist - i.e. those with same x and y positions, and those made from the same image file/texture:
+			_.remove(this.parentGrid.pixiapp.stage.children, function(a) {
+				return (
+					a.x === sprite.x &&
+					a.y === sprite.y &&
+					a.texture.baseTexture.textureCacheIds[0] === sprite.texture.baseTexture.textureCacheIds[0]
+				)
+			})
+				
+			this.parentGrid.pixiapp.stage.addChild(sprite);
+		}
+		// console.log(this.parentGrid.pixiapp.stage.children);
+	}
+
 	actionPotential() {
 		// Stores previous state in trail
-		this.stateTrail.shift();
-		this.stateTrail.push(this.state);
+			// this.stateTrail.shift();
+			// this.stateTrail.push(this.state);
 
 		this.isDebugging ? console.log(this.pacingInterval) : null;
 		this.isDebugging ? console.log(this.pacingTracker) : null;
@@ -68,7 +94,7 @@ class Square {
 		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
 
 		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
-			// If this square is repolarised (APcounter < 0) and at least one neighbour is depolarised, then depolarise this square
+			// If this square is repolarised (APcounter < 0) and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. what AP counter squares this square will receive propagation from), then depolarise this square
 			this.propDepolarise();
 			// Then, if this square is an automatic focus, reset its pacingTracker
 			if (this.pacingSetting === 'autoFocus') {
@@ -225,6 +251,8 @@ class Square {
 				// if (this.pacingTracker === 0) {
 
 				// }
+			} else {
+				this.isPacing = false;
 			}
 			
 			// console.log(`(${this.col}, ${this.row}) - Changing pacing setting to ${this.pacingSetting}`);
@@ -265,26 +293,35 @@ class Square {
 	}
 
 
-	setNeighbours() {
+	setNeighbourVectors() {
 		
-		var vectors = [[-1, 0], [0, -1], [0, 1], [1, 0]];
+		this.neighbourVectors = [[-1, 0], [0, -1], [0, 1], [1, 0]];
 		if (this.parentGrid.diagonalPropagation) {
-			var vectors = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
-		}
-
-		for (let vector of vectors) {
-			try {
-				this.neighbours.push(this.parentGrid[this.col+vector[0]][this.row+vector[1]]);
-			} catch {
-			}
-
-			this.neighbours = this.neighbours.filter(x => x !== undefined);
+			this.neighbourVectors = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
 		}
 
 	}
 
+	setNeighboursFromNeighbourVectors() {
+		this.neighbours = [];
+		for (let vector of this.neighbourVectors) {
+			if (this.parentGrid[this.col+vector[0]] && this.parentGrid[this.col+vector[0]][this.row+vector[1]]) {
+				this.neighbours.push(this.parentGrid[this.col+vector[0]][this.row+vector[1]]);
+			} else {
+				// console.log(`col: ${this.col}, row: ${this.row}.`, 'neighbour col and/or neighbour row not present');
+			}
+
+			this.neighbours = this.neighbours.filter(x => x !== undefined);
+		}		
+	}
+
+	setNeighbours() {
+		this.setNeighbourVectors();
+		this.setNeighboursFromNeighbourVectors();		
+	}
 
 
+	
 
 
 

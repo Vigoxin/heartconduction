@@ -1,5 +1,5 @@
 class Grid extends Array {
-	constructor(canvasElement='.canvas', cellSize=10, cellDim=60) {
+	constructor(canvasElementSelector='.canvas', cellSize=10, cellDim=60) {
 		// Inherit from Array
 		super();
 
@@ -11,7 +11,6 @@ class Grid extends Array {
 		this.masterRefracLength = 'normal';
 		this.masterCondVel = 'normal';
 		this.clickSelector;
-		this.toPropagateTogether = [];
 
 		this.masterPacingTracker = 0;
 		
@@ -26,21 +25,11 @@ class Grid extends Array {
 			// pixi constants
 		this.cWidth = this.cellSize*this.cellDim;
 		this.cHeight = this.cellSize*this.cellDim;
+		this.canvasElementSelector = canvasElementSelector;
 
 		// Initialises PIXI Application f
-		this.pixiapp = new PIXI.Application({
-			width: this.cWidth+1,
-			height: this.cHeight+1,
-			antialias: true,			// default: false
-			transparent: false, 		// default: false
-			resolution: 1,			 	// default: 1
-			backgroundColor: 0xff00ff,
-			clearBeforeRender: false,
-			preserveDrawingBuffer: true
-		})
-
-		// Adds the PIXI Application to the css selector element specified in the constructor
-		$(canvasElement)[0].prepend(this.pixiapp.view);
+		this.initialisePIXIapp();
+		
 
 		// dicts and mappings for the squares
 		
@@ -91,14 +80,7 @@ class Grid extends Array {
 		}
 
 		// Adding all the squares to the app
-		for (let col of this) {
-			for (let square of col) {
-				for (let sprite in square.sprites) {
-					sprite = square.sprites[sprite];
-					this.pixiapp.stage.addChild(sprite);
-				}
-			}
-		}
+		// this.addSpritesToApp();
 
 		// Setting neighbours
 		for (let col of this) {
@@ -130,9 +112,9 @@ class Grid extends Array {
 	play() {
 		// console.log(this.masterPacingTracker);
 		// this.masterPacingTracker++;
-		this[0][0].isDebugging = true;
+		// this[0][0].isDebugging = true;
 
-		this.APcounterGrid = this.map2adrray('APcounter');
+		this.APcounterGrid = this.map2Darray('APcounter');
 
 		for (let col of this) {
 			for (let square of col) {
@@ -202,7 +184,167 @@ class Grid extends Array {
 		}
 	}
 
-	map2adrray(string) {
+	
+
+
+
+
+	initialisePIXIapp() {
+		this.pixiapp = new PIXI.Application({
+			width: this.cWidth+1,
+			height: this.cHeight+1,
+			antialias: true,			// default: false
+			transparent: false, 		// default: false
+			resolution: 1,			 	// default: 1
+			backgroundColor: 0xff00ff,
+			clearBeforeRender: false,
+			preserveDrawingBuffer: true
+		})
+
+		// Adds the PIXI Application to the css selector element specified in the constructor
+		$(this.canvasElementSelector)[0].prepend(this.pixiapp.view);
+	}
+
+	// addSpritesToApp() {
+	// 	for (let col of this) {
+	// 		for (let square of col) {
+	// 			for (let sprite of square.images) {
+	// 				sprite = square.sprites[sprite];
+	// 				this.pixiapp.stage.addChild(sprite);
+	// 			}
+	// 		}
+	// 	}	
+	// }
+
+	saveGrid() {
+
+		
+		var toSave = Object.assign({}, this);
+		console.log('toSave: ', toSave);
+
+		var squareKeysToExclude = ['neighbours', 'parentGrid', 'sprites'];
+		var saved2dArray = {};
+		for (var i=0; i<toSave.cellDim; i++) {
+			saved2dArray[i] = [];
+			for (var j=0; j<toSave[0].length; j++) {
+				// console.log(toSave[i][j][key]);
+				saved2dArray[i].push({});
+				for (let key in toSave[i][j] ) {
+					!(squareKeysToExclude.includes(key)) ? saved2dArray[i][j][key] = toSave[i][j][key] : null;
+				}
+			}
+		}
+
+		console.log(saved2dArray);
+
+		var gridKeysToExclude = ['pixiapp'];
+		var savedGridProperties = {};
+
+		for (let key in toSave) {
+			if (!$.isNumeric(key)) {
+				!(gridKeysToExclude.includes(key)) ? savedGridProperties[key] = toSave[key] : null;
+			}
+		}
+		
+		console.log(savedGridProperties);
+
+		// for (var i=0; i<toSave.cellDim; i++) {
+		// 	var col = toSave[i];
+		// 	for (let square of col) {
+		// 		square.neighbours = [];
+		// 		square.sprites = [];
+		// 		square.parentGrid = undefined;					
+		// 	}
+		// }
+		// tempPixiApp = toSave.pixiapp;
+		// toSave.pixiapp = undefined;
+
+
+		var json = JSON.stringify([saved2dArray, savedGridProperties]);
+	
+		// this.rescueGrid();
+
+		return json;
+		
+	}
+
+
+
+	loadGrid(json) {
+
+		var saved2dArray = JSON.parse(json)[0];
+		var savedGridProperties = JSON.parse(json)[1];
+
+		for (let key in savedGridProperties) {
+			if (!$.isNumeric(key)) {
+				this[key] = savedGridProperties[key];
+			}
+		}
+
+		var firstLim = Math.max(...Object.keys(saved2dArray).map(x => Number(x)))+1;
+		for (var i=0; i<firstLim; i++) {
+			for (var j=0; j<saved2dArray[0].length; j++) {
+				this[i][j] = new Square(i, j, this);
+				for (let key in saved2dArray[i][j]) {
+					this[i][j][key] = saved2dArray[i][j][key];
+				}
+			}
+		}
+
+
+		for (let col of this) {
+			for (let square of col) {
+				square.display();
+			}
+		}
+
+		// this.rescueGrid();
+	}
+
+
+	rescueGrid() {
+		// Obsolete now
+
+		for (let col of grid) {
+			for (let square of col) {
+				square.parentGrid = this;
+			}
+		}
+
+		for (let col of grid) {
+			for (let square of col) {
+				square.setNeighboursFromNeighbourVectors();				
+			}
+		}
+
+		for (let col of grid) {
+			for (let square of col) {
+				square.setSprites();				
+			}
+		}
+		this.addSpritesToApp();
+
+		for (let col of grid) {
+			for (let square of col) {
+				square.display();				
+			}
+		}
+
+		this.pixiapp = tempPixiApp;
+	}
+
+	copy2Darray() {
+		var a = [];
+		for (let i=0; i<this.cellDim; i++) {
+			a.push([]);
+			for (let j=0;j<this.cellDim; j++) {
+				a[i].push(this[i][j].copy());
+			}
+		}
+		return a;
+	}
+
+	map2Darray(string) {
 		var a = [];
 		for (let i=0; i<this.cellDim; i++) {
 			a.push([]);
@@ -212,4 +354,5 @@ class Grid extends Array {
 		}
 		return a;
 	}
+
 }
