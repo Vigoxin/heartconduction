@@ -10,6 +10,14 @@
 </head>
 <body>
 
+		<div class="resize-box settings-section">
+			<input type="range" class="resize-slider">
+			<input type="number" class="resize-number">
+			<br>
+			<input type="range" class="renum-slider">
+			<input type="number" class="renum-number">
+		</div>
+
 <div class="canvas">
 	<div class="actions">
 		<div class="play-box settings-section">
@@ -20,6 +28,9 @@
 			<input type="range" class="fps-slider">
 			<input type="number" class="fps-number">
 		</div>
+		
+
+
 		<div class="state-box settings-section">
 			<input class='state-radio depo' type="radio" data-selector-type="state" name="selector" value='depo' checked='checked'> <label>Depo</label>
 			<input class='state-radio repo' type="radio" data-selector-type="state" name="selector" value='repo'> <label>Repo</label>
@@ -47,6 +58,11 @@
 			<button class="apply-to-all-button btn btn-6 btn-6c">Apply to all non-clear squares</button>
 			<br>
 			<button class="unclear-all-cells-button btn btn-6 btn-6c">Unclear all cells</button>
+		</div>
+		<div class="saveload-box settings-section">
+			<button class="save-button btn btn-6 btn-6c">Save grid state</button>
+			<br>
+			<button class="load-button btn btn-6 btn-6c">Load grid state</button>
 		</div>
 	</div>
 </div>

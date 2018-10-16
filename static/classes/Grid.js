@@ -1,13 +1,13 @@
 class Grid extends Array {
-	constructor(canvasElementSelector='.canvas', cellSize=10, cellDim=60) {
+	constructor(canvasElementSelector='.canvas', cellSize=10, cellNum=60) {
 		// Inherit from Array
 		super();
 
 		// Sets constants
 			// constants specific to class
 		this.cellSize = cellSize;
-		this.cellDim = cellDim;
-		this.masterState = 'clear';
+		this.cellNum = cellNum;
+		this.masterState = 'repo';
 		this.masterRefracLength = 'normal';
 		this.masterCondVel = 'normal';
 		this.clickSelector;
@@ -23,8 +23,8 @@ class Grid extends Array {
 		this.diagonalPropagation = true;
 			
 			// pixi constants
-		this.cWidth = this.cellSize*this.cellDim;
-		this.cHeight = this.cellSize*this.cellDim;
+		this.cWidth = this.cellSize*this.cellNum;
+		this.cHeight = this.cellSize*this.cellNum;
 		this.canvasElementSelector = canvasElementSelector;
 
 		// Initialises PIXI Application f
@@ -54,7 +54,7 @@ class Grid extends Array {
 		this.condVelDict = {
 			'fast': 0,
 			'normal': 0,
-			'slow': 4
+			'slow': 8
 		}
 
 		this.condVelColorMapping = {
@@ -72,9 +72,9 @@ class Grid extends Array {
 
 
 		// Transforms grid into a two dimensional grid of Square objects
-		for (var i=0; i<this.cellDim; i++) {
+		for (var i=0; i<this.cellNum; i++) {
 			this[i] = [];
-			for (var j=0; j<this.cellDim; j++) {
+			for (var j=0; j<this.cellNum; j++) {
 				this[i].push(new Square(i, j, this));
 			}
 		}
@@ -90,13 +90,13 @@ class Grid extends Array {
 		}
 
 		// setting event listeners
-		this.pixiapp.stage.interactive = true;
+		this.app.stage.interactive = true;
 
-		this.pixiapp.stage.mousemove = (e) => {
+		this.app.stage.mousemove = (e) => {
 			this.click(e);
 		}
 
-		this.pixiapp.stage.mousedown = (e) => {
+		this.app.stage.mousedown = (e) => {
 			this.click(e);
 		}
 
@@ -108,6 +108,28 @@ class Grid extends Array {
 		
 
 	}
+
+
+
+	initialisePIXIapp() {
+		this.app = new PIXI.Application({
+			width: this.cWidth+1,
+			height: this.cHeight+1,
+			// width: 1200,
+			// height: 1200,
+			antialias: true,			// default: false
+			transparent: false, 		// default: false
+			resolution: 1,			 	// default: 1
+			backgroundColor: 0xff00ff,
+			clearBeforeRender: false,
+			preserveDrawingBuffer: true
+		})
+		this.app.renderer.autoresize = true;
+
+		// Adds the PIXI Application to the css selector element specified in the constructor
+		$(this.canvasElementSelector)[0].prepend(this.app.view);
+	}
+
 
 	play() {
 		// console.log(this.masterPacingTracker);
@@ -160,14 +182,86 @@ class Grid extends Array {
 		return x * this.cellSize;
 	}
 
-	click(e) {
+	resize(size) {
+		this.cellSize = size;
+		[this.cWidth, this.cHeight] = [this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1];
+		this.app.renderer.resize(this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1);
+		for (let col of this) {
+			for (let square of col) {
+				square.resize();
+			}
+		}
+	}
 
+	renum(num, masterState) {
+		this.masterState = masterState;
+		
+		if (num > this.cellNum) {
+			var l = this.length;
+			
+			for (var i=0; i<num; i++) {
+				if (i >= l) {
+					this.push([]);
+				}
+				for (var j=0; j<num; j++) {
+					if (i < l) {
+						if (j >= l) {
+							this[i].push(new Square(i, j, this));
+						}
+					} else if (i >= l) {
+						this[i].push(new Square(i, j, this));
+					}
+				}
+			}
+
+
+		} else if (num < this.cellNum) {
+			var l = num;
+
+			for (var i=this.cellNum-1; i>=0; i--) {
+				if (i >= l) {
+					for (var j=this.cellNum-1; j>=0; j--) {
+						this[i][j].destroy();						
+					}
+					this.pop();
+				} else if (i < l) {
+					for (var j=this.cellNum-1; j>=l; j--) {
+						this[i][j].destroy();
+						this[i].pop();
+					}					
+				}
+
+			}
+		}
+
+		this.cellNum = this.length;
+		[this.cWidth, this.cHeight] = [this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1];
+		this.app.renderer.resize(this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1);
+
+		for (var i=0; i<this.cellNum; i++) {
+			for (var j=0; j<this.cellNum; j++) {
+				this[i][j].setNeighbours();
+			}
+		}
+
+		$('.resize-slider').prop({
+			'max': grid.resizeMax,
+			'min': grid.resizeMin,
+		});
+	}
+
+	click(e) {
 		var mouseX = e.data.global.x;
 		var mouseY = e.data.global.y;
-		if (mouseX < this.cWidth && mouseX > 0 && mouseY < this.cHeight && mouseY > 0) {
+		if (e.data.originalEvent.altKey) {
+			console.log(`x: ${mouseX}, y: ${mouseY}`);
+		}
+		if (mouseX < this.app.view.width && mouseX > 0 && mouseY < this.app.view.height && mouseY > 0) {
 			var col = this.pixel2grid(mouseX);
 			var row = this.pixel2grid(mouseY);
-			var clickedSquare = this[col][row];
+			if (this[col] && this[col][row]) {
+				var clickedSquare = this[col][row];
+			}
 		}
 
 		if (clickedSquare) {
@@ -188,29 +282,12 @@ class Grid extends Array {
 
 
 
-
-	initialisePIXIapp() {
-		this.pixiapp = new PIXI.Application({
-			width: this.cWidth+1,
-			height: this.cHeight+1,
-			antialias: true,			// default: false
-			transparent: false, 		// default: false
-			resolution: 1,			 	// default: 1
-			backgroundColor: 0xff00ff,
-			clearBeforeRender: false,
-			preserveDrawingBuffer: true
-		})
-
-		// Adds the PIXI Application to the css selector element specified in the constructor
-		$(this.canvasElementSelector)[0].prepend(this.pixiapp.view);
-	}
-
 	// addSpritesToApp() {
 	// 	for (let col of this) {
 	// 		for (let square of col) {
 	// 			for (let sprite of square.images) {
 	// 				sprite = square.sprites[sprite];
-	// 				this.pixiapp.stage.addChild(sprite);
+	// 				this.app.stage.addChild(sprite);
 	// 			}
 	// 		}
 	// 	}	
@@ -224,7 +301,7 @@ class Grid extends Array {
 
 		var squareKeysToExclude = ['neighbours', 'parentGrid', 'sprites'];
 		var saved2dArray = {};
-		for (var i=0; i<toSave.cellDim; i++) {
+		for (var i=0; i<toSave.cellNum; i++) {
 			saved2dArray[i] = [];
 			for (var j=0; j<toSave[0].length; j++) {
 				// console.log(toSave[i][j][key]);
@@ -237,7 +314,7 @@ class Grid extends Array {
 
 		console.log(saved2dArray);
 
-		var gridKeysToExclude = ['pixiapp'];
+		var gridKeysToExclude = ['app'];
 		var savedGridProperties = {};
 
 		for (let key in toSave) {
@@ -248,7 +325,7 @@ class Grid extends Array {
 		
 		console.log(savedGridProperties);
 
-		// for (var i=0; i<toSave.cellDim; i++) {
+		// for (var i=0; i<toSave.cellNum; i++) {
 		// 	var col = toSave[i];
 		// 	for (let square of col) {
 		// 		square.neighbours = [];
@@ -256,8 +333,8 @@ class Grid extends Array {
 		// 		square.parentGrid = undefined;					
 		// 	}
 		// }
-		// tempPixiApp = toSave.pixiapp;
-		// toSave.pixiapp = undefined;
+		// tempPixiApp = toSave.app;
+		// toSave.app = undefined;
 
 
 		var json = JSON.stringify([saved2dArray, savedGridProperties]);
@@ -274,6 +351,13 @@ class Grid extends Array {
 
 		var saved2dArray = JSON.parse(json)[0];
 		var savedGridProperties = JSON.parse(json)[1];
+
+		var cellNum = savedGridProperties.cellNum || savedGridProperties.cellDim;
+		console.log(cellNum);
+		this.renum(cellNum);
+		var cellSize = savedGridProperties.cellSize;
+		console.log(cellSize);
+		this.resize(cellSize);
 
 		for (let key in savedGridProperties) {
 			if (!$.isNumeric(key)) {
@@ -330,14 +414,15 @@ class Grid extends Array {
 			}
 		}
 
-		this.pixiapp = tempPixiApp;
+		this.app = tempPixiApp;
 	}
+
 
 	copy2Darray() {
 		var a = [];
-		for (let i=0; i<this.cellDim; i++) {
+		for (let i=0; i<this.cellNum; i++) {
 			a.push([]);
-			for (let j=0;j<this.cellDim; j++) {
+			for (let j=0;j<this.cellNum; j++) {
 				a[i].push(this[i][j].copy());
 			}
 		}
@@ -346,9 +431,9 @@ class Grid extends Array {
 
 	map2Darray(string) {
 		var a = [];
-		for (let i=0; i<this.cellDim; i++) {
+		for (let i=0; i<this.cellNum; i++) {
 			a.push([]);
-			for (let j=0;j<this.cellDim; j++) {
+			for (let j=0;j<this.cellNum; j++) {
 				a[i].push(this[i][j][string]);
 			}
 		}

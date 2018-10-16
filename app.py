@@ -13,6 +13,7 @@ textures_path = 'static/textures/'
 texture_files = [textures_path+f for f in os.listdir(textures_path) if os.path.isfile(os.path.join(textures_path, f))]
 # texture_files = [textures_path+f for f in texture_files_short]
 
+
 # Final pd (python dictionary) variable to pass in
 pd = {
 	'asdf': 'asdf',
@@ -25,8 +26,14 @@ pd = {
 def index():
 	return render_template('landing.html')
 
-@app.route('/normal')
-def normal():
+# @app.route('/sandbox')
+# def normal():
+# 	return render_template('normal.html', pd=pd)
+
+@app.route('/<arrhythmia>')
+def arrhythmia(arrhythmia):
+	with open(f'static/grids/{arrhythmia}.txt', 'r') as file:
+		pd['gridToLoad'] = file.read()
 	return render_template('normal.html', pd=pd)
 
 @app.route('/testing')

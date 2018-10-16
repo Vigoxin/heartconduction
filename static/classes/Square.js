@@ -31,7 +31,7 @@ class Square {
 		this.refracLengthSetting = this.parentGrid.masterRefracLength;
 		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
 
-		this.randomRefracLengths = true;
+		this.randomRefracLengths = false;
 		this.randomRefracRangeConstant = 0.5;
 		this.refracPoint;
 		this.setRefracPoint();
@@ -68,7 +68,7 @@ class Square {
 			sprite = this.sprites[sprite];
 
 			// Remove sprites which already exist - i.e. those with same x and y positions, and those made from the same image file/texture:
-			_.remove(this.parentGrid.pixiapp.stage.children, function(a) {
+			_.remove(this.parentGrid.app.stage.children, function(a) {
 				return (
 					a.x === sprite.x &&
 					a.y === sprite.y &&
@@ -76,9 +76,9 @@ class Square {
 				)
 			})
 				
-			this.parentGrid.pixiapp.stage.addChild(sprite);
+			this.parentGrid.app.stage.addChild(sprite);
 		}
-		// console.log(this.parentGrid.pixiapp.stage.children);
+		// console.log(this.parentGrid.app.stage.children);
 	}
 
 	actionPotential() {
@@ -218,7 +218,7 @@ class Square {
 		// Debugging speed:
 			// var colors = [0xff0000, 0x00ff00, 0x0000ff];
 			// this.sprites.square.tint = randFromArray(colors);
-			// if (this.parentGrid.paceTracker % this.parentGrid.cellDim - this.row === 0) {
+			// if (this.parentGrid.paceTracker % this.parentGrid.cellNum - this.row === 0) {
 			// 	this.sprites.square.tint = 0xff0000;
 			// } else {
 			// 	this.sprites.square.tint = 0xffffff;
@@ -238,9 +238,11 @@ class Square {
 		} else if (this.parentGrid.selectorType === 'condVel' && this.state !== 'clear') {
 			this.condVelSetting = this.parentGrid.selector;
 			this.applyCondVelSetting();
+			this.display();
 		} else if (this.parentGrid.selectorType === 'refracLength' && this.state !== 'clear') {
 			this.refracLengthSetting = this.parentGrid.selector;
 			this.applyRefracLengthSetting();
+			this.display();
 		} else if (this.parentGrid.selectorType === 'pacing' && this.state !== 'clear') {
 			this.pacingSetting = this.parentGrid.selector;
 				
@@ -323,10 +325,23 @@ class Square {
 
 	
 
+	resize() {
+		for (let sprite in this.sprites) {
+			sprite = this.sprites[sprite];
+			[sprite.width, sprite.height] = [this.parentGrid.cellSize, this.parentGrid.cellSize];
+			[sprite.x, sprite.y] = [this.parentGrid.grid2pixel(this.col), this.parentGrid.grid2pixel(this.row)];
+		}
+	}
 
 
 
-
+	destroy() {
+		for (let sprite in this.sprites) {
+			sprite = this.sprites[sprite];
+			sprite.visible = false;
+			// sprite.destroy({children:true, texture:true, baseTexture:true});
+		}
+	}
 
 	copy() {
 		return Object.assign(new Square(this.col, this.row, this.parentGrid), this);

@@ -1,59 +1,123 @@
-// Play settings
-var isPlaying = true;
-$('.play-button').on('click', () => {isPlaying = !isPlaying});
-$('.frame-button').on('click', drawFrame);
+function eventListeners() {
+	console.log(grid);
 
-var fpsMax = 80;
-$('.fps-slider').prop({
-	'max': fpsMax,
-	'min': 1,
-	'value': fps
-});
-$('.fps-slider').on('input', function() {
-	$('.fps-number').val($(this).val());
-	fps = parseInt($(this).val());
-})
+	// Play settings
+	isPlaying = true;
+	$('.play-button').on('click', () => {isPlaying = !isPlaying});
+	$('.frame-button').on('click', drawFrame);
 
-$('.fps-number').prop({
-	'max': fpsMax,
-	'min': 1,
-	'value': fps
-});
-$('.fps-number').on('input', function() {
-	$('.fps-slider').val($(this).val());
-	fps = parseInt($(this).val());
-})
+	fpsMax = 80;
+	$('.fps-slider').prop({
+		'max': fpsMax,
+		'min': 1,
+		'value': fps
+	});
+	$('.fps-slider').on('input', function() {
+		$('.fps-number').val($(this).val());
+		fps = parseInt($(this).val());
+	})
 
-// Setting state, condVel and refracLengths
-$("input[name='selector']").on('click', function() {
+	$('.fps-number').prop({
+		'max': fpsMax,
+		'min': 1,
+		'value': fps
+	});
+	$('.fps-number').on('input', function() {
+		$('.fps-slider').val($(this).val());
+		fps = parseInt($(this).val());
+	})
+
+	// Resize settings
+	grid.resizeMin = 10;
+	grid.resizeMax = 100;
+	$('.resize-slider').prop({
+		'max': grid.resizeMax,
+		'min': grid.resizeMin,
+		'value': 20
+	});
+	$('.resize-slider').on('input', function() {
+		$('.resize-number').val($(this).val());
+		grid.resize(parseInt($(this).val()));
+	})
+
+	$('.resize-number').prop({
+		'max': grid.resizeMax,
+		'min': grid.resizeMin,
+		'value': 20
+	});
+	$('.resize-number').on('input', function() {
+		$('.resize-slider').val($(this).val());
+		grid.resize(parseInt($(this).val()));
+	})
+
+	// Renumber settings
+	grid.renumMin = 1;
+	grid.renumMax = 100;
+	$('.renum-slider').prop({
+		'max': grid.renumMax,
+		'min': grid.renumMin,
+		'value': grid.cellNum
+	});
+	
+	$('.renum-slider').on('change', function() {
+		grid.renum(parseInt($(this).val()), 'repo');
+	})
+	$('.renum-slider').on('input', function() {	
+		$('.renum-number').val($(this).val());
+	})
+
+	$('.renum-number').prop({
+		'max': grid.renumMax,
+		'min': grid.renumMin,
+		'value': grid.cellNum
+	});
+	$('.renum-number').on('change', function() {
+		$('.renum-slider').val($(this).val());
+		grid.renum(parseInt($(this).val()), 'repo');
+	})
+
+	// Setting state, condVel and refracLengths
+	$("input[name='selector']").on('click', function() {
+		grid.selector = $("input[name='selector']:checked").val();
+		grid.selectorType = $(this).data('selectorType');
+		console.log(`current selector value:\n${grid.selector}, type: ${grid.selectorType}`);
+	})
 	grid.selector = $("input[name='selector']:checked").val();
-	grid.selectorType = $(this).data('selectorType');
-	console.log(`current selector value:\n${grid.selector}, type: ${grid.selectorType}`);
-})
 
-// Apply to all box
-$('.apply-to-all-button').on('click', function() {
-	for (let col of grid) {
-		for (let square of col) {
-			if (square.state !== 'clear') {square.clickSet()};
+	// Apply to all box
+	$('.apply-to-all-button').on('click', function() {
+		for (let col of grid) {
+			for (let square of col) {
+				if (square.state !== 'clear') {square.clickSet()};
+			}
 		}
-	}
-})
+	})
 
-$('.unclear-all-cells-button').on('click', function() {
-	for (let col of grid) {
-		for (let square of col) {
-			if (square.state === 'clear') (square.clickRepolarise());
+	$('.unclear-all-cells-button').on('click', function() {
+		for (let col of grid) {
+			for (let square of col) {
+				if (square.state === 'clear') (square.clickRepolarise());
+			}
 		}
-	}
-})
+	})
 
-// Pacing numbers
-$('.pacingInterval').prop({
-	'value': 100,
-	'min': 1
-})
+	// Save Load box
+	$('.save-button').on('click', function() {
+		gridInStorage = grid.saveGrid();
+		console.log(gridInStorage);
+	})
 
-$('.pacingOffset').prop({
-	'value': 0
-})
+	$('.load-button').on('click', function() {
+		grid.loadGrid(gridInStorage);
+	})
+
+	// Pacing numbers
+	$('.pacingInterval').prop({
+		'value': 100,
+		'min': 1
+	})
+
+	$('.pacingOffset').prop({
+		'value': 0
+	})
+}
