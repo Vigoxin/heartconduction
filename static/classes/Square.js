@@ -32,7 +32,7 @@ class Square {
 		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
 
 		this.randomRefracLengths = false;
-		this.randomRefracRangeConstant = 0.5;
+		this.randomRefracRangeConstant = 0.8;
 		this.refracPoint;
 		this.setRefracPoint();
 		
