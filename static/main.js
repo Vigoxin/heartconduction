@@ -9,8 +9,8 @@ function setup() {
 	
 	grid.loadGrid(gridToLoad);
 
-	drawingFunction();
 	eventListeners();
+	drawingFunction();
 }
 
 function drawingFunction() {

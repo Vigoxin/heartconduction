@@ -127,7 +127,7 @@ class Grid extends Array {
 		this.app.renderer.autoresize = true;
 
 		// Adds the PIXI Application to the css selector element specified in the constructor
-		$(this.canvasElementSelector)[0].prepend(this.app.view);
+		$(this.canvasElementSelector)[0].append(this.app.view);
 	}
 
 

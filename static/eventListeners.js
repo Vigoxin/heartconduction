@@ -28,12 +28,12 @@ function eventListeners() {
 	})
 
 	// Resize settings
-	grid.resizeMin = 10;
+	grid.resizeMin = 5;
 	grid.resizeMax = 100;
 	$('.resize-slider').prop({
 		'max': grid.resizeMax,
 		'min': grid.resizeMin,
-		'value': 20
+		'value': grid.cellSize
 	});
 	$('.resize-slider').on('input', function() {
 		$('.resize-number').val($(this).val());
@@ -43,7 +43,7 @@ function eventListeners() {
 	$('.resize-number').prop({
 		'max': grid.resizeMax,
 		'min': grid.resizeMin,
-		'value': 20
+		'value': grid.cellSize
 	});
 	$('.resize-number').on('input', function() {
 		$('.resize-slider').val($(this).val());
@@ -83,6 +83,7 @@ function eventListeners() {
 		console.log(`current selector value:\n${grid.selector}, type: ${grid.selectorType}`);
 	})
 	grid.selector = $("input[name='selector']:checked").val();
+	grid.selectorType = $("input[name='selector']:checked").data('selectorType');
 
 	// Apply to all box
 	$('.apply-to-all-button').on('click', function() {

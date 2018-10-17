@@ -257,6 +257,7 @@ class Square {
 				this.isPacing = false;
 			}
 			
+			this.display();
 			// console.log(`(${this.col}, ${this.row}) - Changing pacing setting to ${this.pacingSetting}`);
 		}
 	}
