@@ -1,0 +1,40 @@
+/* The slider itself */
+input[type="range"] {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100px; /* Full-width */
+    height: 10px; /* Specified height */
+    background: blanchedalmond;
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity transform .2s;
+    margin: 10px;
+
+    border-radius: 5px;
+}
+
+/* Mouse-over effects */
+input[type="range"]:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+    transform: scale(1.2);
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #f94466; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #f94466; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 50%;
+}

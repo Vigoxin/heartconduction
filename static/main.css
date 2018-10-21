@@ -1,95 +1,176 @@
+/* Coolors Exported Palette - coolors.co/cfe8ef-0eb1d2-34e4ea-c6dbf0-eabbd0 */
+/* HSL */
+/* RGB */
 body {
-  background-color: #F9F4F5;
+  background-color: lavenderblush;
+  padding: 10px 0;
 }
 
 * {
   font-family: ariel, helvetica, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .content {
-  width: 1000px;
+  width: 90%;
+  min-width: 750px;
   margin: 0 auto;
+}
+
+.container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+.row:not(:last-child) {
+  margin-bottom: 10px;
+}
+.row > *:not(:last-child) {
+  margin-right: 50px;
+}
+
+label {
+  color: black;
+}
+
+button {
+  background: #f94466cc !important;
+}
+button:hover {
+  background: #f94466 !important;
+  cursor: pointer;
+}
+
+[type=radio]:checked + span:after, [type=radio].with-gap:checked + span:after {
+  background-color: #f94466 !important;
+}
+
+[type=radio]:checked + span:after, [type=radio].with-gap:checked + span:before, [type=radio].with-gap:checked + span:after {
+  border: 2px solid #f94466;
 }
 
 .header {
   text-align: center;
-  border: 1px solid #000;
-  background: coral url() 0 0 no-repeat;
+  background: #f94466;
+  font-size: 30px;
+  border-radius: 10px 10px 0 0;
+}
+.header h2, .header h4 {
+  padding: 10px 0;
+  margin: 0;
+  color: #fff;
+}
+.header h4 {
+  text-transform: lowercase;
+  letter-spacing: 2px;
+  font-weight: 400;
 }
 
 .navbar {
-  background: lightcoral;
+  background: #70587C;
   padding: 10px;
   text-align: center;
+  color: white;
 }
 
-.main .canvas {
-  background: palevioletred;
-  padding: 20px 0;
+.main {
+  color: black;
 }
-.main .canvas canvas {
+.main .grid-split-in-two {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  background: #F9F4F5;
+}
+.main .grid-split-in-two > * {
+  padding: 10px;
+}
+.main .grid-split-in-two .canvas {
+  overflow: auto;
+  border-right: dashed 2px white;
+}
+.main .grid-split-in-two .canvas .container {
+  width: 50px;
+  margin: 0 auto;
+}
+.main .grid-split-in-two .canvas canvas {
   padding: 0;
   margin: auto;
   display: block;
 }
-.main .actions > input {
-  display: block;
+.main .grid-split-in-two .info-section {
+  border-radius: 0 5px 5px 0;
+  padding: 10px 30px;
+  max-height: 750px;
+  overflow-y: auto;
+}
+.main .grid-split-in-two .info-section .info {
+  height: 100%;
+}
+.main .grid-split-in-two .info-section .info .info-item {
+  overflow: vertical;
+}
+.main .grid-split-in-two .info-section .info h4 {
+  margin-bottom: 10px;
+}
+.main .grid-split-in-two .info-section .info p:not(:last-child) {
+  margin-bottom: 10px;
+}
+.main .grid-split-in-two .info-section .info .slick-arrow::before {
+  background-color: dodgerblue;
+  opacity: 1;
+}
+.main .grid-split-in-two .info-section .info button {
+  background-color: blue;
+}
+.main .grid-split-in-two .info-section .info .info-item {
+  padding: 10px;
+}
+.main .actions .tabs {
+  display: flex;
+  justify-content: center;
+  background-color: #C8B8DB;
+}
+.main .actions .tabs a {
+  background-color: lavender;
+  color: #f94466;
+}
+.main .actions .tabs a:focus.active {
+  background-color: #f94466;
+  color: #fff;
+}
+.main .actions .tabs a:hover {
+  background-color: #e2847c;
 }
 .main .settings-section {
   background-color: #C8B8DB;
   color: white;
-  margin: 0 auto;
+}
+.main .settings-section.tabbed-settings-section {
+  padding: 20px;
+}
+.main .settings-section.nontabbed-settings-section {
+  padding: 5px;
+}
+.main .settings-section button {
+  margin: 2px;
+}
+
+.footer {
+  background: #f94466;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  border-radius: 0 0 10px 10px;
 }
 
 input[type=number] {
   max-width: 40px;
-}
-
-/*Buttons*/
-.btn {
-  border: none;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  background: none;
-  cursor: pointer;
-  padding: 5px 5px;
-  display: inline-block;
-  margin: 10px 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 700;
-  outline: none;
-  position: relative;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-.btn:after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-.btn-6 {
-  color: #fff;
-  background: black;
-  -webkit-transition: none;
-  -moz-transition: none;
-  transition: none;
-}
-
-.btn-6:active {
-  top: 2px;
-}
-
-.btn-6c {
-  border: 4px solid #226fbe;
-  border-radius: 60px;
 }
 
 /*# sourceMappingURL=main.css.map */

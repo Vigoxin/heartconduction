@@ -35,7 +35,7 @@ class Grid extends Array {
 		
 		this.stateColorMapping = {
 			'repo': 0xffffff,
-			'depo': 0xff0000,
+			'depo': 0xf94466,
 			'clear': 0x333333,
 			'refrac': 0xff8e00
 		}
@@ -59,7 +59,7 @@ class Grid extends Array {
 
 		this.condVelColorMapping = {
 			'fast': 0x00aa00,
-			'slow': 0xff0000
+			'slow': 0xf94466
 		}
 
 		this.pacingColorMapping = {
@@ -297,7 +297,7 @@ class Grid extends Array {
 
 		
 		var toSave = Object.assign({}, this);
-		console.log('toSave: ', toSave);
+		// console.log('toSave: ', toSave);
 
 		var squareKeysToExclude = ['neighbours', 'parentGrid', 'sprites'];
 		var saved2dArray = {};
@@ -312,7 +312,7 @@ class Grid extends Array {
 			}
 		}
 
-		console.log(saved2dArray);
+		// console.log(saved2dArray);
 
 		var gridKeysToExclude = ['app'];
 		var savedGridProperties = {};
@@ -323,23 +323,10 @@ class Grid extends Array {
 			}
 		}
 		
-		console.log(savedGridProperties);
-
-		// for (var i=0; i<toSave.cellNum; i++) {
-		// 	var col = toSave[i];
-		// 	for (let square of col) {
-		// 		square.neighbours = [];
-		// 		square.sprites = [];
-		// 		square.parentGrid = undefined;					
-		// 	}
-		// }
-		// tempPixiApp = toSave.app;
-		// toSave.app = undefined;
+		// console.log(savedGridProperties);
 
 
 		var json = JSON.stringify([saved2dArray, savedGridProperties]);
-	
-		// this.rescueGrid();
 
 		return json;
 		
@@ -353,10 +340,10 @@ class Grid extends Array {
 		var savedGridProperties = JSON.parse(json)[1];
 
 		var cellNum = savedGridProperties.cellNum || savedGridProperties.cellDim;
-		console.log(cellNum);
+		// console.log(cellNum);
 		this.renum(cellNum);
 		var cellSize = savedGridProperties.cellSize;
-		console.log(cellSize);
+		// console.log(cellSize);
 		this.resize(cellSize);
 
 		for (let key in savedGridProperties) {

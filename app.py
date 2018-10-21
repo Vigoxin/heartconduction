@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import os
+import re
 
 app = Flask(__name__)
 
@@ -32,8 +33,26 @@ def index():
 
 @app.route('/<arrhythmia>')
 def arrhythmia(arrhythmia):
-	with open(f'static/grids/{arrhythmia}.txt', 'r') as file:
+	arr_dir = f'static/arrhythmias/{arrhythmia}/'
+
+	with open(arr_dir + 'grid.txt', 'r') as file:
 		pd['gridToLoad'] = file.read()
+
+	pd['info'] = []
+	with open(arr_dir + 'info.txt', 'r') as file:
+		for line in file.readlines():
+			line = re.sub('\n', '', line)		# Removing new line characters
+			if bool(re.search(r'\w', line)):	# If the line is not an empty one
+				if line.startswith('H: '):
+					heading = line.split('H: ')[1]
+					pd['info'].append({'heading': heading, 'paragraphs': []})
+				elif line.startswith('P: '):
+					paragraph = line.split('P: ')[1]
+					pd['info'][-1]['paragraphs'].append(paragraph)
+				else:
+					pd['info'][-1]['paragraphs'][-1] += ' ' + line
+
+
 	return render_template('normal.html', pd=pd)
 
 @app.route('/testing')
