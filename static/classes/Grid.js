@@ -20,6 +20,9 @@ class Grid extends Array {
 		this.selector = 'depo';
 		this.selectorType = 'state';
 
+		this.tempSelecting = {};
+		this.tempHighlighted = [];
+
 		this.diagonalPropagation = true;
 			
 			// pixi constants
@@ -90,15 +93,53 @@ class Grid extends Array {
 		}
 
 		// setting event listeners
+			// Setting so that events only trigger when inside sprite
+			this.app.renderer.plugins.interaction.moveWhenInside = true;
+		
 		this.app.stage.interactive = true;
 
-		this.app.stage.mousemove = (e) => {
-			this.click(e);
-		}
+		this.app.stage.on('pointerdown', (e) => {
+			var {shiftKey, altKey, buttons} = e.data.originalEvent;
+			var {x:mouseX, y:mouseY} = e.data.global;
+			var square = this[this.pixel2grid(mouseX)][this.pixel2grid(mouseY)];
 
-		this.app.stage.mousedown = (e) => {
-			this.click(e);
-		}
+			if (shiftKey) {
+				this.tempSelecting.square1 = square;
+				this.tempSelecting.square2 = square;
+				this.multipleHighlight(this.tempSelecting);
+			} else {
+				square.clickSet();
+			}
+
+		})
+
+		this.app.stage.on('pointermove', (e) => {
+			var {shiftKey, altKey, buttons} = e.data.originalEvent;
+			var {x:mouseX, y:mouseY} = e.data.global;
+			var square = this[this.pixel2grid(mouseX)][this.pixel2grid(mouseY)];
+			
+			if (shiftKey) {
+				if (buttons === 1) {			
+					var col = constrain(this.pixel2grid(mouseX), 0, this.cellNum-1);
+					var row = constrain(this.pixel2grid(mouseY), 0, this.cellNum-1);
+					var square = this[col][row];
+					this.tempSelecting.square2 = square;
+					this.multipleHighlight(this.tempSelecting);
+				}
+			} else {
+				if (buttons === 1) {
+					square.clickSet();
+				}
+			}		
+		})
+
+		this.app.stage.on('pointerup', (e) => {
+			this.dragEnd(e);
+		})
+
+		this.app.stage.on('pointerupoutside', (e) => {
+			this.dragEnd(e);
+		})
 
 		for (let col of this) {
 			for (let square of col) {
@@ -250,12 +291,15 @@ class Grid extends Array {
 		});
 	}
 
-	click(e) {
-		var mouseX = e.data.global.x;
-		var mouseY = e.data.global.y;
-		if (e.data.originalEvent.altKey) {
+	mouseFunction(e) {
+		var {shiftKey, altKey, buttons} = e.data.originalEvent;
+		var {x:mouseX, y:mouseY} = e.data.global;
+		if (altKey) {
 			console.log(`x: ${mouseX}, y: ${mouseY}`);
 		}
+
+		
+
 		if (mouseX < this.app.view.width && mouseX > 0 && mouseY < this.app.view.height && mouseY > 0) {
 			var col = this.pixel2grid(mouseX);
 			var row = this.pixel2grid(mouseY);
@@ -265,11 +309,11 @@ class Grid extends Array {
 		}
 
 		if (clickedSquare) {
-			if (e.data.originalEvent.buttons === 1) {
-				if (e.data.originalEvent.altKey) {
+			if (buttons === 1) {
+				if (altKey) {
 					console.log(mouseX, mouseY, e.data.originalEvent);
 				}
-				if (e.data.originalEvent.shiftKey) {
+				if (shiftKey) {
 					console.log(clickedSquare);
 				} else {
 					clickedSquare.clickSet();
@@ -278,8 +322,80 @@ class Grid extends Array {
 		}
 	}
 
-	
+	dragStart(e) {
 
+	}
+
+	dragEnd(e) {
+		console.log(this);
+		var {shiftKey, altKey, buttons} = e.data.originalEvent;
+		var {x: mouseX, y: mouseY} = e.data.global;
+
+		var col = constrain(this.pixel2grid(mouseX), 0, this.cellNum-1);
+		var row = constrain(this.pixel2grid(mouseY), 0, this.cellNum-1);
+		var square = this[col][row];
+		
+		if (shiftKey) {
+			this.tempSelecting.square2 = square;
+			this.multipleSet(this.tempSelecting);
+			this.tempSelecting = [];
+			this.multipleHighlight(this.tempSelecting);
+		} else {
+			// do nothing
+		}
+	}
+
+	normalClick(e) {
+		
+	}
+
+	
+	multipleSet({square1, square2}) {
+		var colStart = Math.min(square1.col, square2.col);
+		var colEnd = Math.max(square1.col, square2.col)+1;
+		var rowStart = Math.min(square1.row, square2.row);
+		var rowEnd = Math.max(square1.row, square2.row)+1;
+		for (var i=colStart; i<colEnd; i++) {
+			for (var j=rowStart; j<rowEnd; j++) {
+				grid[i][j].clickSet();
+			}
+		}
+	}
+
+	multipleHighlight({square1, square2}) {
+			// Dehighlight the 4 squares that should already be highlighted
+			this.tempHighlighted.forEach(square => {
+				square.dehighlight();
+			})
+
+			// Remove the 4 squares from this.tempHighlighted
+			this.tempHighlighted = [];
+
+			// // Decide the col and row nums of the 4 squares that should be highlighted
+			// var colStart = Math.min(square1.col, square2.col);
+			// var colEnd = Math.max(square1.col, square2.col)+1;
+			// var rowStart = Math.min(square1.row, square2.row);
+			// var rowEnd = Math.max(square1.row, square2.row)+1;
+			
+			// // Add them to this.tempHighlighted
+			// this.tempHighlighted.push(this[colStart][rowStart]);
+			// this.tempHighlighted.push(this[colStart][rowEnd]);
+			// this.tempHighlighted.push(this[colEnd][rowStart]);
+			// this.tempHighlighted.push(this[colEnd][rowEnd]);
+			
+			if (square1 && square2) {
+				this.tempHighlighted.push(square1);
+				this.tempHighlighted.push(square2);
+				this.tempHighlighted.push(this[square1.col][square2.row]);
+				this.tempHighlighted.push(this[square2.col][square1.row]);
+
+
+				// Highlight them
+				this.tempHighlighted.forEach(square => {
+					square.highlight();
+				});
+			}
+	}
 
 
 	// addSpritesToApp() {

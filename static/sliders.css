@@ -17,7 +17,7 @@ input[type="range"] {
 /* Mouse-over effects */
 input[type="range"]:hover {
     opacity: 1; /* Fully shown on mouse-over */
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 

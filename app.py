@@ -17,7 +17,6 @@ texture_files = [textures_path+f for f in os.listdir(textures_path) if os.path.i
 
 # Final pd (python dictionary) variable to pass in
 pd = {
-	'asdf': 'asdf',
 	'textureFiles': texture_files,
 	'texturesPath': textures_path
 }
@@ -41,9 +40,13 @@ def arrhythmia(arrhythmia):
 	pd['info'] = []
 	with open(arr_dir + 'info.txt', 'r') as file:
 		for line in file.readlines():
+			
 			line = re.sub('\n', '', line)		# Removing new line characters
 			if bool(re.search(r'\w', line)):	# If the line is not an empty one
-				if line.startswith('H: '):
+				if line.startswith('A: '):
+					current_arrhythmia = line.split('A: ')[1]
+					pd['arrhythmia'] = current_arrhythmia
+				elif line.startswith('H: '):
 					heading = line.split('H: ')[1]
 					pd['info'].append({'heading': heading, 'paragraphs': []})
 				elif line.startswith('P: '):

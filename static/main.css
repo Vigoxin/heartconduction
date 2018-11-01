@@ -15,7 +15,7 @@ body {
 
 .content {
   width: 90%;
-  min-width: 750px;
+  min-width: 1050px;
   margin: 0 auto;
 }
 
@@ -39,12 +39,17 @@ label {
   color: black;
 }
 
-button {
+.btn-custom {
   background: #f94466cc !important;
+  transition: transform 0.2s !important;
 }
-button:hover {
+.btn-custom:hover {
   background: #f94466 !important;
   cursor: pointer;
+  transform: scale(1.05);
+}
+.btn-custom:active {
+  transform: scale(1);
 }
 
 [type=radio]:checked + span:after, [type=radio].with-gap:checked + span:after {
@@ -106,7 +111,7 @@ button:hover {
 .main .grid-split-in-two .info-section {
   border-radius: 0 5px 5px 0;
   padding: 10px 30px;
-  max-height: 750px;
+  max-height: 600px;
   overflow-y: auto;
 }
 .main .grid-split-in-two .info-section .info {
@@ -126,7 +131,7 @@ button:hover {
   opacity: 1;
 }
 .main .grid-split-in-two .info-section .info button {
-  background-color: blue;
+  background-color: #F9F4F5;
 }
 .main .grid-split-in-two .info-section .info .info-item {
   padding: 10px;
@@ -145,7 +150,8 @@ button:hover {
   color: #fff;
 }
 .main .actions .tabs a:hover {
-  background-color: #e2847c;
+  background-color: #f94466;
+  color: #fff;
 }
 .main .settings-section {
   background-color: #C8B8DB;

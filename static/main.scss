@@ -48,7 +48,7 @@ body {
 // Anywhere
 .content {
 	width: 90%;
-	min-width: 750px;
+	min-width: 1050px;
 	margin: 0 auto;
 }
 
@@ -80,11 +80,18 @@ label {
 	color: black;
 }
 
-button {
+.btn-custom {
 	background: $cool-red-trans !important;
+	transition: transform .2s !important;
+
 	&:hover {
 		background: $cool-red !important;
 		cursor: pointer;
+		transform: scale(1.05);
+	}
+
+	&:active {
+		transform: scale(1);
 	}
 }
 
@@ -164,7 +171,7 @@ $radio-color: $cool-red;
 		.info-section {
 			border-radius: 0 5px 5px 0;
 			padding: 10px 30px;
-			max-height: 750px;
+			max-height: 600px;
 			overflow-y: auto;
 
 			.info {
@@ -192,7 +199,7 @@ $radio-color: $cool-red;
 				}
 
 				button {
-					background-color: blue;
+					background-color: $grid-color;
 				}
 	
 				.info-item {
@@ -221,7 +228,8 @@ $radio-color: $cool-red;
 			}
 
 			a:hover {
-				background-color: #e2847c;
+				background-color: $cool-red;
+				color: #fff
 			}
 		}
 	}

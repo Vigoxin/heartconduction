@@ -39,7 +39,7 @@ class Square {
 
 
 
-		this.images = ['square', 'plus', 'circle', 'border']; // update as more features added
+		this.images = ['square', 'plus', 'circle', 'border', 'highlight']; // update as more features added
 		// Setting up the sprites needed to display the square
 		this.setSprites();
 		this.addSpritesToApp();
@@ -61,13 +61,16 @@ class Square {
 			[sprite.position.x, sprite.position.y] = [this.x, this.y];
 			[sprite.width, sprite.height] = [this.parentGrid.cellSize, this.parentGrid.cellSize];
 		}
+
+		this.sprites['highlight'].tint = 0xA020F0;
+		this.sprites['highlight'].visible = false;
 	}
 
 	addSpritesToApp() {
 		for (let sprite of this.images) {
 			sprite = this.sprites[sprite];
 
-			// Remove sprites which already exist - i.e. those with same x and y positions, and those made from the same image file/texture:
+			// Remove sprites which already exist - i.e. those with same x and y positions AND made from the same image file/texture:
 			_.remove(this.parentGrid.app.stage.children, function(a) {
 				return (
 					a.x === sprite.x &&
@@ -283,6 +286,14 @@ class Square {
 		this.display();
 	}
 
+
+	highlight() {
+		this.sprites.highlight.visible = true;
+	}
+
+	dehighlight() {
+		this.sprites.highlight.visible = false;
+	}
 
 
 	applyCondVelSetting() {

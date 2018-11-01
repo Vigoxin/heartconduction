@@ -33,7 +33,6 @@
 
 </head>
 <body>
-
 	<div class="content">
 		<div class="materialize-sandbox">
 
@@ -65,8 +64,8 @@
 			<div id="play-box" class="play-box settings-section nontabbed-settings-section">
 				<div class="container">
 					<div class="row">
-						<button class="play-button btn"><i class="material-icons">play_arrow</i>/<i class="material-icons">pause</i></button>
-						<button class="frame-button btn">Frame</button>
+						<button class="play-button btn btn-custom"><i class="material-icons">play_arrow</i>/<i class="material-icons">pause</i></button>
+						<button class="frame-button btn btn-custom">Frame</button>
 						<label class="slider-number-pair">
 							<input type="range" class="fps-slider">
 							<input type="number" class="fps-number">Framerate
@@ -92,10 +91,10 @@
 					</div>
 				</div>
 				<div class="info-section">
+					<h4>{{pd['arrhythmia']}}</h4>
 					<div class="info">
 						{% for info_item in pd['info'] %}
 							<div class='info-item'>
-								<h4>{{info_item['heading']}}</h6>
 								{% for paragraph in info_item['paragraphs'] %}
 									<p class="info-item-paragraph">{{paragraph}}</p>
 								{% endfor %}
@@ -194,8 +193,8 @@
 				<div id="saveload-box" class="saveload-box settings-section tabbed-settings-section">
 					<div class="container">
 						<div class="row">
-							<button class="save-button btn">Save grid state</button>
-							<button class="load-button btn">Load grid state</button>
+							<button class="save-button btn btn-custom">Save grid state</button>
+							<button class="load-button btn btn-custom">Load grid state</button>
 						</div>
 					</div>
 				</div>
@@ -203,8 +202,8 @@
 				<div class="apply-to-all-box settings-section tabbed-settings-section">
 					<div class="container">
 						<div class="row">
-							<button class="apply-to-all-button btn">Apply to all non-clear squares</button>
-							<button class="unclear-all-cells-button btn">Unclear all cells</button>
+							<button class="apply-to-all-button btn btn-custom">Apply to all non-clear squares</button>
+							<button class="unclear-all-cells-button btn btn-custom">Unclear all cells</button>
 						</div>
 					</div>
 				</div>
@@ -212,7 +211,7 @@
 			</div>
 
 		</div>
-		<div class="footer"> Vignesh Dhileepan &copy; 2018</div>
+		<div class="footer"> Vignesh Dhileepan &copy; 2018 - <a href="mailto: vignesh.dhileepan@gmai">vignesh.dhileepan@gmail.com</a></div>
 	</div>
 
 

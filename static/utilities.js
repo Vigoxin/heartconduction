@@ -13,3 +13,9 @@ function between(target, min, max) {
 		return false;
 	}
 }
+
+function constrain(n, low2, high2) {
+	var low = Math.min(low2, high2);
+	var high = Math.max(low2, high2);
+    return Math.max(Math.min(n, high), low);
+}
