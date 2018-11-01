@@ -46,7 +46,7 @@ class Grid extends Array {
 		this.refracLengthDict = {
 			'short': 10,
 			'normal': 20,
-			'long': 50
+			'long': 100
 		}
 
 		this.refracLengthColorMapping = {

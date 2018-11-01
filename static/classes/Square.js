@@ -181,7 +181,7 @@ class Square {
 
 		// If state is clear, remove all sprites (other than the main square) from view
 		if (this.state === 'clear') {
-			for (let sprite of Object.keys(this.sprites).filter(x => x !== 'square')) {
+			for (let sprite of Object.keys(this.sprites).filter(x => !['square', 'highlight'].includes(x))) {
 				sprite = this.sprites[sprite];
 				sprite.visible = false;
 			}			
