@@ -35,6 +35,10 @@ body {
   margin-right: 50px;
 }
 
+input[type=number] {
+  max-width: 40px;
+}
+
 label {
   color: black;
 }
@@ -175,8 +179,25 @@ label {
   border-radius: 0 0 10px 10px;
 }
 
-input[type=number] {
-  max-width: 40px;
+.has-list-anchors li {
+  padding: 5px;
+}
+.has-list-anchors li a {
+  display: inline-block;
+  height: 22px;
+  font-size: 18px;
+  transition: font-size 0.2s ease-out;
+}
+.has-list-anchors li a:hover {
+  font-size: 20px;
+}
+.has-list-anchors li a:visited {
+  color: black;
+}
+.has-list-anchors .arrhythmia-list {
+  margin: 20px auto;
+  width: 500px;
+  list-style: none;
 }
 
 /*# sourceMappingURL=main.css.map */

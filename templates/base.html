@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+
+	<!-- Google icons -->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Materialize - CSS -->
+		<link rel="stylesheet" type="text/css" href="static/lib/materialize-src/materialize_tailored.css">
+
+	<!-- Slick carousel -->
+	<link rel="stylesheet" type="text/css" href="static/lib/slick/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="static/lib/slick/slick-theme.css"/>
+
+	<!-- Custom stylesheet -->
+		<link rel="stylesheet" href="/static/main.css">
+		<link rel="stylesheet" href="/static/sliders.css">
+
+	<!-- Jquery -->
+		<script type="text/javascript" src='/static/lib/jquery-3.2.1.min.js'></script>
+
+	<!-- PixiJS -->
+		<script type="text/javascript" src='/static/lib/pixi.min.js'></script>
+
+	<!-- Lodash -->
+		<script type="text/javascript" src='/static/lib/lodash.js'></script>
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/static/images/favicon.ico">
+
+
+</head>
+<body>
+	<div class="content">
+		<div class="materialize-sandbox">
+
+		</div>
+						
+
+		<header class="header">
+			<h2>HeartConduction.com</h2>
+			<h4>Visualise every arrhythmia...</h4>
+		</header>
+		<div class="navbar bottom-bordered has-list-anchors">
+			
+			<ul class="navbar-proper">
+				<li>
+					<a href="/">Home page</a>
+				</li>
+			</ul>
+
+		</div>
+		
+		<main class="main">
+			{% block main %}
+				
+			{% endblock %}
+		</main>
+
+		<div class="footer"> Vignesh Dhileepan &copy; 2018 - <a href="mailto: vignesh.dhileepan@gmai">vignesh.dhileepan@gmail.com</a></div>
+	</div>
+
+
+{% block javascript %}
+
+{% endblock %}
+
+
+</body>
+</html>

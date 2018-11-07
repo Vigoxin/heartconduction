@@ -105,7 +105,7 @@ function eventListeners() {
 	// Save Load box
 	$('.save-button').on('click', function() {
 		gridInStorage = grid.saveGrid();
-		// console.log(gridInStorage);
+		console.log('"' + gridInStorage + '"');
 	})
 
 	$('.load-button').on('click', function() {

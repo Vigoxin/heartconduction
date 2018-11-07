@@ -5,13 +5,23 @@ for (let file of textureFiles) {
 PIXI.loader.load(setup);
 
 function setup() {
-	grid = new Grid('.canvas', cellSize=10, cellNum=50);
-	
+
+			atot = performance.now();
+
+			a = performance.now();
+	grid = new Grid('.canvas', cellSize=10, cellNum=5);
+			b = performance.now(); console.log(b-a);
+
 	grid.loadGrid(gridToLoad);
 	grid.resize(12);
+
+
 	DOMSetup();
 
 	eventListeners();
+			
+			btot = performance.now(); console.log(btot-atot);
+
 	drawingFunction();
 }
 

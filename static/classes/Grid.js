@@ -335,14 +335,14 @@ class Grid extends Array {
 		var row = constrain(this.pixel2grid(mouseY), 0, this.cellNum-1);
 		var square = this[col][row];
 		
-		if (shiftKey) {
 			this.tempSelecting.square2 = square;
+		if (shiftKey) {
 			this.multipleSet(this.tempSelecting);
-			this.tempSelecting = [];
-			this.multipleHighlight(this.tempSelecting);
 		} else {
 			// do nothing
 		}
+			this.tempSelecting = [];
+			this.multipleHighlight(this.tempSelecting);
 	}
 
 	normalClick(e) {
@@ -451,23 +451,42 @@ class Grid extends Array {
 
 
 	loadGrid(json) {
-
+	var a;
+	var b;
+				a = performance.now();
 		var saved2dArray = JSON.parse(json)[0];
 		var savedGridProperties = JSON.parse(json)[1];
+				b = performance.now();
+				console.log(b-a);
 
+				a = performance.now();
 		var cellNum = savedGridProperties.cellNum || savedGridProperties.cellDim;
 		// console.log(cellNum);
+				b = performance.now();
+				console.log(b-a);
+
+				a = performance.now();
 		this.renum(cellNum);
+				b = performance.now();
+				console.log(b-a);
+
+				a = performance.now();
 		var cellSize = savedGridProperties.cellSize;
 		// console.log(cellSize);
 		this.resize(cellSize);
-
+				b = performance.now();
+				console.log(b-a);
+				
+				a = performance.now();
 		for (let key in savedGridProperties) {
 			if (!$.isNumeric(key)) {
 				this[key] = savedGridProperties[key];
 			}
 		}
+				b = performance.now();
+				console.log(b-a);
 
+				a = performance.now();
 		var firstLim = Math.max(...Object.keys(saved2dArray).map(x => Number(x)))+1;
 		for (var i=0; i<firstLim; i++) {
 			for (var j=0; j<saved2dArray[0].length; j++) {
@@ -477,7 +496,8 @@ class Grid extends Array {
 				}
 			}
 		}
-
+				b = performance.now();
+				console.log(b-a);
 
 		for (let col of this) {
 			for (let square of col) {

@@ -1,227 +1,181 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
+{% extends 'base.html' %}
 
+{% block main %}
 
-	<!-- Google icons -->
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-	<!-- Materialize - CSS -->
-		<link rel="stylesheet" type="text/css" href="static/lib/materialize-src/materialize_tailored.css">
-
-	<!-- Slick carousel -->
-	<link rel="stylesheet" type="text/css" href="static/lib/slick/slick.css"/>
-	<link rel="stylesheet" type="text/css" href="static/lib/slick/slick-theme.css"/>
-
-	<!-- Custom stylesheet -->
-		<link rel="stylesheet" href="/static/main.css">
-		<link rel="stylesheet" href="/static/sliders.css">
-
-	<!-- Jquery -->
-		<script type="text/javascript" src='/static/lib/jquery-3.2.1.min.js'></script>
-
-	<!-- PixiJS -->
-		<script type="text/javascript" src='/static/lib/pixi.min.js'></script>
-
-	<!-- Lodash -->
-		<script type="text/javascript" src='/static/lib/lodash.js'></script>
-	
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="/static/images/favicon.ico">
-
-
-</head>
-<body>
-	<div class="content">
-		<div class="materialize-sandbox">
-
+	<div class="resize-box settings-section nontabbed-settings-section">
+		<div class="container">
+			<div class="row">
+				<label class="slider-number-pair">
+					<input type="range" class="resize-slider">
+					<input type="number" class="resize-number">Resize
+				</label>
+				<label class="slider-number-pair">
+					<input type="range" class="renum-slider">
+					<input type="number" class="renum-number">Repopulate
+				</label>
+			</div>
 		</div>
-						
-
-		<header class="header">
-			<h2>HeartConduction.com</h2>
-			<h4>Visualise every arrhythmia...</h4>
-		</header>
-		<div class="navbar bottom-bordered">Navbar</div>
-		<div class="main">
-			
-			<div class="resize-box settings-section nontabbed-settings-section">
-				<div class="container">
-					<div class="row">
-						<label class="slider-number-pair">
-							<input type="range" class="resize-slider">
-							<input type="number" class="resize-number">Resize
-						</label>
-						<label class="slider-number-pair">
-							<input type="range" class="renum-slider">
-							<input type="number" class="renum-number">Repopulate
-						</label>
-					</div>
-				</div>
-			</div>
-
-			<div id="play-box" class="play-box settings-section nontabbed-settings-section">
-				<div class="container">
-					<div class="row">
-						<button class="play-button btn btn-custom"><i class="material-icons">play_arrow</i>/<i class="material-icons">pause</i></button>
-						<button class="frame-button btn btn-custom">Frame</button>
-						<label class="slider-number-pair">
-							<input type="range" class="fps-slider">
-							<input type="number" class="fps-number">Framerate
-						</label>
-					</div>
-				</div>
-			</div>
-
-			<div class="grid-split-in-two bottom-bordered">
-				<div class="canvas">
-					<div class="container">
-						<div class="preloader-wrapper big active">
-							<div class="spinner-layer spinner-blue-only">
-								<div class="circle-clipper left">
-									<div class="circle"></div>
-								</div><div class="gap-patch">
-									<div class="circle"></div>
-								</div><div class="circle-clipper right">
-									<div class="circle"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="info-section">
-					<h4>{{pd['arrhythmia']}}</h4>
-					<div class="info">
-						{% for info_item in pd['info'] %}
-							<div class='info-item'>
-								{% for paragraph in info_item['paragraphs'] %}
-									<p class="info-item-paragraph">{{paragraph}}</p>
-								{% endfor %}
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-			</div>
-			
-			<div class="actions">
-
-				<div class="actions-tab-row">
-						<ul class="tabs">
-							<li class="tab"><a href="#state-box">State</a></li>
-							<li class="tab"><a href="#condVel-box">Conduction velocity</a></li>
-							<li class="tab"><a href="#refracLength-box">Refractory length</a></li>
-							<li class="tab"><a href="#pacing-box">Pacing</a></li>
-							<li class="tab"><a href="#saveload-box">Saving/loading</a></li>
-						</ul>
-				</div>
-
-
-				
-				<div id="state-box" class="state-box settings-section tabbed-settings-section">
-					<div class="container">
-						<div class="row">
-							<label>
-								<input class='with-gap state-radio depo' type="radio" data-selector-type="state" name="selector" value='depo' checked='checked'> <span>Depo</span>
-							</label>
-							<label>
-								<input class='with-gap state-radio repo' type="radio" data-selector-type="state" name="selector" value='repo'> <span>Repo</span>
-							</label>
-							<label>
-								<input class='with-gap state-radio clear' type="radio" data-selector-type="state" name="selector" value='clear'> <span>Clear</span>
-							</label>
-						</div>
-					</div>
-				</div>
-
-				<div id="condVel-box" class="condVel-box settings-section tabbed-settings-section">
-					<div class="container">
-						<div class="row">
-							<label>
-								<input class='with-gap condVel-radio fast' type="radio" data-selector-type="condVel" name="selector" value='fast'> <span>Fast</span>
-							</label>
-							<label>
-								<input class='with-gap condVel-radio normal' type="radio" data-selector-type="condVel" name="selector" value='normal'> <span>Normal</span>
-							</label>
-							<label>
-								<input class='with-gap condVel-radio slow' type="radio" data-selector-type="condVel" name="selector" value='slow'> <span>Slow</span>
-							</label>
-						</div>
-					</div>
-				</div>
-
-				<div id="refracLength-box" class="refracLength-box settings-section tabbed-settings-section">
-					<div class="container">
-						<div class="row">
-							<label>
-								<input class='with-gap refracLength-radio long' type="radio" data-selector-type="refracLength" name="selector" value='long'> <span>Long</span>
-							</label>
-							<label>
-								<input class='with-gap refracLength-radio normal' type="radio" data-selector-type="refracLength" name="selector" value='normal'> <span>Normal</span>
-							</label>
-							<label>
-								<input class='with-gap refracLength-radio short' type="radio" data-selector-type="refracLength" name="selector" value='short'> <span>Short</span>
-							</label>
-						</div>
-					</div>
-				</div>
-				
-				<div id="pacing-box" class="pacing-box settings-section tabbed-settings-section">
-					<div class="container">
-						<div class="row">
-							<label>
-								<input class='with-gap pacing-radio extPace' type="radio" data-selector-type="pacing" name="selector" value='extPace'> <span>External Pacing</span>
-							</label>
-							<label>
-								<input class='with-gap pacing-radio autoFocus' type="radio" data-selector-type="pacing" name="selector" value='autoFocus'> <span>Automatic Focus</span>
-							</label>
-							<label>
-								<input class='with-gap pacing-radio noPace' type="radio" data-selector-type="pacing" name="selector" value='noPace'> <span>No pace</span>
-							</label>
-						</div>
-						<div class="row">
-							<div class="number-label-pair">
-								<input type="number" name="pacing" class="pacingInterval pacing-number"><label>Pacing interval</label>
-							</div>
-							<div class="number-label-pair">
-								<input type="number" name="pacing" class="pacingOffset pacing-number"><label>Pacing offset</label>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div id="saveload-box" class="saveload-box settings-section tabbed-settings-section">
-					<div class="container">
-						<div class="row">
-							<button class="save-button btn btn-custom">Save grid state</button>
-							<button class="load-button btn btn-custom">Load grid state</button>
-						</div>
-					</div>
-				</div>
-				
-				<div class="apply-to-all-box settings-section tabbed-settings-section">
-					<div class="container">
-						<div class="row">
-							<button class="apply-to-all-button btn btn-custom">Apply to all non-clear squares</button>
-							<button class="unclear-all-cells-button btn btn-custom">Unclear all cells</button>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-		</div>
-		<div class="footer"> Vignesh Dhileepan &copy; 2018 - <a href="mailto: vignesh.dhileepan@gmai">vignesh.dhileepan@gmail.com</a></div>
 	</div>
 
+	<div id="play-box" class="play-box settings-section nontabbed-settings-section">
+		<div class="container">
+			<div class="row">
+				<button class="play-button btn btn-custom"><i class="material-icons">play_arrow</i>/<i class="material-icons">pause</i></button>
+				<button class="frame-button btn btn-custom">Frame</button>
+				<label class="slider-number-pair">
+					<input type="range" class="fps-slider">
+					<input type="number" class="fps-number">Framerate
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid-split-in-two bottom-bordered">
+		<div class="canvas">
+			<div class="container">
+				<div class="preloader-wrapper big active">
+					<div class="spinner-layer spinner-blue-only">
+						<div class="circle-clipper left">
+							<div class="circle"></div>
+						</div><div class="gap-patch">
+							<div class="circle"></div>
+						</div><div class="circle-clipper right">
+							<div class="circle"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="info-section">
+			<h4>{{pd['arrhythmia']}}</h4>
+			<div class="info">
+				{% for info_item in pd['info'] %}
+					<div class='info-item'>
+						{% for paragraph in info_item['paragraphs'] %}
+							<p class="info-item-paragraph">{{paragraph}}</p>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	
+	<div class="actions">
+
+		<div class="actions-tab-row">
+				<ul class="tabs">
+					<li class="tab"><a href="#state-box">State</a></li>
+					<li class="tab"><a href="#condVel-box">Conduction velocity</a></li>
+					<li class="tab"><a href="#refracLength-box">Refractory length</a></li>
+					<li class="tab"><a href="#pacing-box">Pacing</a></li>
+					<li class="tab"><a href="#saveload-box">Saving/loading</a></li>
+				</ul>
+		</div>
 
 
-<script>
-	var pd = {{pd | tojson}};
-	for (key in pd) {
-		window[key] = pd[key];
-	}
-</script>
+		
+		<div id="state-box" class="state-box settings-section tabbed-settings-section">
+			<div class="container">
+				<div class="row">
+					<label>
+						<input class='with-gap state-radio depo' type="radio" data-selector-type="state" name="selector" value='depo' checked='checked'> <span>Depo</span>
+					</label>
+					<label>
+						<input class='with-gap state-radio repo' type="radio" data-selector-type="state" name="selector" value='repo'> <span>Repo</span>
+					</label>
+					<label>
+						<input class='with-gap state-radio clear' type="radio" data-selector-type="state" name="selector" value='clear'> <span>Clear</span>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div id="condVel-box" class="condVel-box settings-section tabbed-settings-section">
+			<div class="container">
+				<div class="row">
+					<label>
+						<input class='with-gap condVel-radio fast' type="radio" data-selector-type="condVel" name="selector" value='fast'> <span>Fast</span>
+					</label>
+					<label>
+						<input class='with-gap condVel-radio normal' type="radio" data-selector-type="condVel" name="selector" value='normal'> <span>Normal</span>
+					</label>
+					<label>
+						<input class='with-gap condVel-radio slow' type="radio" data-selector-type="condVel" name="selector" value='slow'> <span>Slow</span>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div id="refracLength-box" class="refracLength-box settings-section tabbed-settings-section">
+			<div class="container">
+				<div class="row">
+					<label>
+						<input class='with-gap refracLength-radio long' type="radio" data-selector-type="refracLength" name="selector" value='long'> <span>Long</span>
+					</label>
+					<label>
+						<input class='with-gap refracLength-radio normal' type="radio" data-selector-type="refracLength" name="selector" value='normal'> <span>Normal</span>
+					</label>
+					<label>
+						<input class='with-gap refracLength-radio short' type="radio" data-selector-type="refracLength" name="selector" value='short'> <span>Short</span>
+					</label>
+				</div>
+			</div>
+		</div>
+		
+		<div id="pacing-box" class="pacing-box settings-section tabbed-settings-section">
+			<div class="container">
+				<div class="row">
+					<label>
+						<input class='with-gap pacing-radio extPace' type="radio" data-selector-type="pacing" name="selector" value='extPace'> <span>External Pacing</span>
+					</label>
+					<label>
+						<input class='with-gap pacing-radio autoFocus' type="radio" data-selector-type="pacing" name="selector" value='autoFocus'> <span>Automatic Focus</span>
+					</label>
+					<label>
+						<input class='with-gap pacing-radio noPace' type="radio" data-selector-type="pacing" name="selector" value='noPace'> <span>No pace</span>
+					</label>
+				</div>
+				<div class="row">
+					<div class="number-label-pair">
+						<input type="number" name="pacing" class="pacingInterval pacing-number"><label>Pacing interval</label>
+					</div>
+					<div class="number-label-pair">
+						<input type="number" name="pacing" class="pacingOffset pacing-number"><label>Pacing offset</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="saveload-box" class="saveload-box settings-section tabbed-settings-section">
+			<div class="container">
+				<div class="row">
+					<button class="save-button btn btn-custom">Save grid state</button>
+					<button class="load-button btn btn-custom">Load grid state</button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="apply-to-all-box settings-section tabbed-settings-section">
+			<div class="container">
+				<div class="row">
+					<button class="apply-to-all-button btn btn-custom">Apply to all non-clear squares</button>
+					<button class="unclear-all-cells-button btn btn-custom">Unclear all cells</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+{% endblock %}
+
+{% block javascript %}
+		
+	<script>
+		var pd = {{pd | tojson}};
+		for (key in pd) {
+			window[key] = pd[key];
+		}
+	</script>
 
 	<!-- Materialize JS -->
 		<script type="text/javascript" src="static/lib/materialize-src/js/bin/materialize.js"></script>
@@ -239,19 +193,19 @@
 			});
 		</script>
 
-<script type="text/javascript" src='/static/prototypeModifications.js'></script>
+	<script type="text/javascript" src='/static/prototypeModifications.js'></script>
 
-<script type="text/javascript" src='/static/DOMSetup.js'></script>
+	<script type="text/javascript" src='/static/DOMSetup.js'></script>
 
-<script type="text/javascript" src='/static/constants.js'></script>
+	<script type="text/javascript" src='/static/constants.js'></script>
 
-<script type="text/javascript" src='/static/classes/Grid.js'></script>
-<script type="text/javascript" src='/static/classes/Square.js'></script>
-<script type="text/javascript" src='/static/classes/TimeStrip.js'></script>
+	<script type="text/javascript" src='/static/classes/Grid.js'></script>
+	<script type="text/javascript" src='/static/classes/Square.js'></script>
+	<script type="text/javascript" src='/static/classes/TimeStrip.js'></script>
 
-<script type="text/javascript" src='/static/main.js'></script>
+	<script type="text/javascript" src='/static/main.js'></script>
 
-<script type="text/javascript" src='/static/eventListeners.js'></script>
-<script type="text/javascript" src='/static/utilities.js'></script>
-</body>
-</html>
+	<script type="text/javascript" src='/static/eventListeners.js'></script>
+	<script type="text/javascript" src='/static/utilities.js'></script>
+		
+{% endblock %}

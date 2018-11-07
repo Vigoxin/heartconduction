@@ -76,6 +76,10 @@ body {
 	}
 }
 
+input[type=number] {
+	max-width: 40px;
+}
+
 label {
 	color: black;
 }
@@ -265,9 +269,40 @@ $radio-color: $cool-red;
 }
 
 
+.has-list-anchors {
 
+	li {
+		padding: 5px;
+	
+		a {
+			display: inline-block;
+			height: 22px;
+			
+			font-size: 18px;
+			transition: font-size 0.2s ease-out;
+		}
 
+		a:hover {
+			font-size: 20px;
 
-input[type=number] {
-	max-width: 40px;
+		}
+
+		a:visited {
+			color: black;
+		}
+
 }
+
+// Landing page
+
+.arrhythmia-list {
+	margin: 20px auto;
+	width: 500px;
+
+	list-style: none;
+
+	}
+
+
+}
+

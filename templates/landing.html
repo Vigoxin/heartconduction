@@ -1,10 +1,18 @@
-!<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<link rel="stylesheet" href="/static/landing.css">
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block main %}
+	
+		<div class="has-list-anchors">
+			<ul class="arrhythmia-list">
+				{% for arrhythmia in arrhythmias %}
+					<li>
+						<a href="/{{arrhythmia}}">{{arrhythmia}}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

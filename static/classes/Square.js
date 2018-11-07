@@ -58,7 +58,7 @@ class Square {
 		// Setting the sprites' positions
 		for (let sprite in this.sprites) {
 			sprite = this.sprites[sprite];
-			[sprite.position.x, sprite.position.y] = [this.x, this.y];
+			[sprite.x, sprite.y] = [this.x, this.y];
 			[sprite.width, sprite.height] = [this.parentGrid.cellSize, this.parentGrid.cellSize];
 		}
 
