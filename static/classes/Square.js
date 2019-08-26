@@ -1,5 +1,9 @@
 class Square {
 	constructor(col=0, row=0, parentGrid=grid) {
+		var a;
+		var b;
+
+														// a = performance.now();
 		this.isDebugging;
 
 		this.parentGrid = parentGrid;
@@ -34,22 +38,36 @@ class Square {
 		this.randomRefracLengths = false;
 		this.randomRefracRangeConstant = 0.8;
 		this.refracPoint;
+														// b = performance.now(); console.log((b-a)/1000);
+														// a = performance.now();
 		this.setRefracPoint();
+														// b = performance.now(); console.log((b-a)/1000);
 		
+														// a = performance.now();
+		this.rainbow = new Rainbow();
+		this.rainbow.setSpectrum('red', 'orange', 'ffc966');
+		this.setRainbowRange();
+														// b = performance.now(); console.log((b-a)/1000);
 
-
-
+														// a = performance.now();
 		this.images = ['square', 'plus', 'circle', 'border', 'highlight']; // update as more features added
 		// Setting up the sprites needed to display the square
 		this.setSprites();
+														// b = performance.now(); console.log((b-a)/1000);
+														// a = performance.now();
 		this.addSpritesToApp();
-
+														// b = performance.now(); console.log((b-a)/1000);
 	}
+
+	setRainbowRange() {
+		this.rainbow.setNumberRange(0, this.refracLength);
+	}
+
 
 	setSprites() {
 		this.sprites = {};
 		for (let image of this.images) {
-			var fullImage = texturesPath+image+'.png';
+			var fullImage = '/'+texturesPath+image+'.png';
 			if (PIXI.loader.resources[fullImage]) {
 				this.sprites[image] = new PIXI.Sprite(PIXI.loader.resources[fullImage].texture);
 			}
@@ -67,19 +85,24 @@ class Square {
 	}
 
 	addSpritesToApp() {
+		var a; var b;
 		for (let sprite of this.images) {
 			sprite = this.sprites[sprite];
-
-			// Remove sprites which already exist - i.e. those with same x and y positions AND made from the same image file/texture:
-			_.remove(this.parentGrid.app.stage.children, function(a) {
-				return (
-					a.x === sprite.x &&
-					a.y === sprite.y &&
-					a.texture.baseTexture.textureCacheIds[0] === sprite.texture.baseTexture.textureCacheIds[0]
-				)
-			})
+			// this.parentGrid.app.stage.children = [];
+														// a = performance.now();
+			// // Remove sprites which already exist - i.e. those with same x and y positions AND made from the same image file/texture:
+			// _.remove(this.parentGrid.app.stage.children, function(a) {
+			// 	return (
+			// 		a.x === sprite.x &&
+			// 		a.y === sprite.y &&
+			// 		a.texture.baseTexture.textureCacheIds[0] === sprite.texture.baseTexture.textureCacheIds[0]
+			// 	)
+			// })
+														// b = performance.now(); console.log((b-a)/1000);
 				
+														// a = performance.now();
 			this.parentGrid.app.stage.addChild(sprite);
+														// b = performance.now(); console.log((b-a)/1000);
 		}
 		// console.log(this.parentGrid.app.stage.children);
 	}
@@ -98,7 +121,7 @@ class Square {
 
 		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
 			// If this square is repolarised (APcounter < 0) and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. what AP counter squares this square will receive propagation from), then depolarise this square
-			this.propDepolarise();
+			this.propagationDepolarise();
 			// Then, if this square is an automatic focus, reset its pacingTracker
 			if (this.pacingSetting === 'autoFocus') {
 				this.resetPacingTracker();
@@ -107,13 +130,13 @@ class Square {
 			// Or, if this square is a pacing square and it has reached its pacing interval time
 				if (this.pacingSetting === 'extPace') {
 					// then if it's an external paced square (i.e. there is a lead touching it), then depolarise this square
-					this.propDepolarise();
+					this.propagationDepolarise();
 					this.resetPacingTracker();
 				} else if (this.pacingSetting === 'autoFocus') {
 					// OR if it's not externally paced, but is an automatic focal pacemaker from the cell itself, then...
 					if (this.state === 'repo') {
 						// only depolarise if this square is repolarised
-						this.propDepolarise();
+						this.propagationDepolarise();
 						this.resetPacingTracker();
 					}
 							// The logic here is that if a cell has a pacing lead attached to it, then it will get a huge voltage of electricity that will depolarise it even if it's in its refractory period, but if the square is an automatic focus, then it won't fire again if it's already refractory				
@@ -138,7 +161,7 @@ class Square {
 	}
 
 
-	propDepolarise() {
+	propagationDepolarise() {
 		this.state = 'depo';
 		this.APcounter = 0;
 		if (this.randomRefracLengths) {
@@ -153,7 +176,7 @@ class Square {
 		this.refracPoint = randInt(min, max);
 	}
 
-	changeState() {
+	changeStateBasedOnAPcounter() {
 		if (this.APcounter < 0) {
 			this.state = 'repo';
 		} else if (this.APcounter === 0) {
@@ -176,7 +199,15 @@ class Square {
 
 	display() {
 		// State
-		this.sprites.square.tint = this.parentGrid.stateColorMapping[this.state];
+		if (this.state === 'refrac') {
+			if (this.parentGrid.rainbowTrails) {
+				this.sprites.square.tint = parseInt('0x' + this.rainbow.colorAt(this.APcounter));
+			} else {
+				this.sprites.square.tint = this.parentGrid.stateColorMapping[this.state];
+			}
+		} else {
+			this.sprites.square.tint = this.parentGrid.stateColorMapping[this.state];
+		}
 		
 
 		// If state is clear, remove all sprites (other than the main square) from view
@@ -304,6 +335,7 @@ class Square {
 	applyRefracLengthSetting() {
 		console.log(`(${this.col}, ${this.row}) - Setting refractory period length to ${this.refracLengthSetting}`);
 		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
+		this.rainbow.setNumberRange(0, this.refracLength);
 	}
 
 

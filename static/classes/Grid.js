@@ -103,7 +103,16 @@ class Grid extends Array {
 			var {x:mouseX, y:mouseY} = e.data.global;
 			var square = this[this.pixel2grid(mouseX)][this.pixel2grid(mouseY)];
 
-			if (shiftKey) {
+			if (altKey && buttons) {
+				if (mouseX < this.app.view.width && mouseX > 0 && mouseY < this.app.view.height && mouseY > 0) {
+					var col = this.pixel2grid(mouseX);
+					var row = this.pixel2grid(mouseY);
+					if (this[col] && this[col][row]) {
+						var clickedSquare = this[col][row];
+						console.log(clickedSquare);
+					}
+				}
+			} else if (shiftKey) {
 				this.tempSelecting.square1 = square;
 				this.tempSelecting.square2 = square;
 				this.multipleHighlight(this.tempSelecting);
@@ -118,7 +127,16 @@ class Grid extends Array {
 			var {x:mouseX, y:mouseY} = e.data.global;
 			var square = this[this.pixel2grid(mouseX)][this.pixel2grid(mouseY)];
 			
-			if (shiftKey) {
+			if (altKey && buttons) {
+				if (mouseX < this.app.view.width && mouseX > 0 && mouseY < this.app.view.height && mouseY > 0) {
+					var col = this.pixel2grid(mouseX);
+					var row = this.pixel2grid(mouseY);
+					if (this[col] && this[col][row]) {
+						var clickedSquare = this[col][row];
+						console.log(clickedSquare);
+					}
+				}
+			} else if (shiftKey) {
 				if (buttons === 1) {			
 					var col = constrain(this.pixel2grid(mouseX), 0, this.cellNum-1);
 					var row = constrain(this.pixel2grid(mouseY), 0, this.cellNum-1);
@@ -191,7 +209,7 @@ class Grid extends Array {
 		for (let col of this) {
 			for (let square of col) {
 				if (square.state !== 'clear') {
-					square.changeState();
+					square.changeStateBasedOnAPcounter();
 				}
 			}
 		}
@@ -291,43 +309,42 @@ class Grid extends Array {
 		});
 	}
 
-	mouseFunction(e) {
-		var {shiftKey, altKey, buttons} = e.data.originalEvent;
-		var {x:mouseX, y:mouseY} = e.data.global;
-		if (altKey) {
-			console.log(`x: ${mouseX}, y: ${mouseY}`);
-		}
+	// mouseFunction(e) {
+	// 	var {shiftKey, altKey, buttons} = e.data.originalEvent;
+	// 	var {x:mouseX, y:mouseY} = e.data.global;
+	// 	if (altKey) {
+	// 		console.log(`x: ${mouseX}, y: ${mouseY}`);
+	// 	}
 
 		
 
-		if (mouseX < this.app.view.width && mouseX > 0 && mouseY < this.app.view.height && mouseY > 0) {
-			var col = this.pixel2grid(mouseX);
-			var row = this.pixel2grid(mouseY);
-			if (this[col] && this[col][row]) {
-				var clickedSquare = this[col][row];
-			}
-		}
+	// 	if (mouseX < this.app.view.width && mouseX > 0 && mouseY < this.app.view.height && mouseY > 0) {
+	// 		var col = this.pixel2grid(mouseX);
+	// 		var row = this.pixel2grid(mouseY);
+	// 		if (this[col] && this[col][row]) {
+	// 			var clickedSquare = this[col][row];
+	// 		}
+	// 	}
 
-		if (clickedSquare) {
-			if (buttons === 1) {
-				if (altKey) {
-					console.log(mouseX, mouseY, e.data.originalEvent);
-				}
-				if (shiftKey) {
-					console.log(clickedSquare);
-				} else {
-					clickedSquare.clickSet();
-				}
-			}
-		}
-	}
+	// 	if (clickedSquare) {
+	// 		if (buttons === 1) {
+	// 			if (altKey) {
+	// 				console.log(mouseX, mouseY, e.data.originalEvent);
+	// 			}
+	// 			if (shiftKey) {
+	// 				console.log(clickedSquare);
+	// 			} else {
+	// 				clickedSquare.clickSet();
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	dragStart(e) {
 
 	}
 
 	dragEnd(e) {
-		console.log(this);
 		var {shiftKey, altKey, buttons} = e.data.originalEvent;
 		var {x: mouseX, y: mouseY} = e.data.global;
 
@@ -413,9 +430,9 @@ class Grid extends Array {
 
 		
 		var toSave = Object.assign({}, this);
-		// console.log('toSave: ', toSave);
+		console.log('toSave: ', toSave);
 
-		var squareKeysToExclude = ['neighbours', 'parentGrid', 'sprites'];
+		var squareKeysToExclude = ['neighbours', 'parentGrid', 'sprites', 'rainbow'];
 		var saved2dArray = {};
 		for (var i=0; i<toSave.cellNum; i++) {
 			saved2dArray[i] = [];
@@ -453,51 +470,60 @@ class Grid extends Array {
 	loadGrid(json) {
 	var a;
 	var b;
-				a = performance.now();
+
 		var saved2dArray = JSON.parse(json)[0];
 		var savedGridProperties = JSON.parse(json)[1];
-				b = performance.now();
-				console.log(b-a);
 
-				a = performance.now();
+
+
 		var cellNum = savedGridProperties.cellNum || savedGridProperties.cellDim;
 		// console.log(cellNum);
-				b = performance.now();
-				console.log(b-a);
 
-				a = performance.now();
+
+
 		this.renum(cellNum);
-				b = performance.now();
-				console.log(b-a);
 
-				a = performance.now();
+
+
 		var cellSize = savedGridProperties.cellSize;
 		// console.log(cellSize);
 		this.resize(cellSize);
-				b = performance.now();
-				console.log(b-a);
+
 				
-				a = performance.now();
+
 		for (let key in savedGridProperties) {
 			if (!$.isNumeric(key)) {
 				this[key] = savedGridProperties[key];
 			}
 		}
-				b = performance.now();
-				console.log(b-a);
 
-				a = performance.now();
+		// Clearing the stage for the Pixi app, to let new sprites in from the newly created Squares
+												a = performance.now();
+		// while (this.app.stage.children[0]) { this.app.stage.removeChild(this.app.stage.children[0]); }
+		this.app.stage.children = [];
+												b = performance.now(); console.log((b-a)/1000);
+		
+
+												a = performance.now();
 		var firstLim = Math.max(...Object.keys(saved2dArray).map(x => Number(x)))+1;
 		for (var i=0; i<firstLim; i++) {
+
 			for (var j=0; j<saved2dArray[0].length; j++) {
+												// a = performance.now();
 				this[i][j] = new Square(i, j, this);
+												// b = performance.now(); console.log((b-a)/1000);
+												// a = performance.now();
 				for (let key in saved2dArray[i][j]) {
 					this[i][j][key] = saved2dArray[i][j][key];
 				}
+												// b = performance.now(); console.log((b-a)/1000);
+					this[i][j].setRainbowRange();
 			}
+
 		}
-				b = performance.now();
-				console.log(b-a);
+												b = performance.now(); console.log((b-a)/1000);
+
+
 
 		for (let col of this) {
 			for (let square of col) {

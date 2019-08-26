@@ -121,4 +121,12 @@ function eventListeners() {
 	$('.pacingOffset').prop({
 		'value': 0
 	})
+
+	
+	// Rainbow box
+	$('.rainbow-checkbox').on('click', function() {
+		grid.rainbowTrails = $(this).is(':checked');		
+	})
+
+
 }

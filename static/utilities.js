@@ -19,3 +19,8 @@ function constrain(n, low2, high2) {
 	var high = Math.max(low2, high2);
     return Math.max(Math.min(n, high), low);
 }
+
+function mapRange(n, inputStart, inputEnd, outputStart, outputEnd) {
+  return (n - inputStart) / (inputEnd - inputStart) * (outputEnd - outputStart) + outputStart;
+
+}
