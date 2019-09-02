@@ -5,6 +5,7 @@ class Square {
 
 														// a = performance.now();
 		this.isDebugging;
+		this.isInSquareInspector = false;
 
 		this.parentGrid = parentGrid;
 
@@ -261,7 +262,10 @@ class Square {
 	}
 
 	clickSet() {
-		if (this.parentGrid.selectorType === 'state') {
+		if (this.parentGrid.selectorType === 'squareInspectorSelector') {
+			console.log('asdf');
+			this.isInSquareInspector = true;
+		} else if (this.parentGrid.selectorType === 'state') {
 			if (this.parentGrid.selector === 'clear') {
 				this.clickClear();
 			} else if (this.parentGrid.selector === 'depo') {
@@ -277,6 +281,14 @@ class Square {
 			this.refracLengthSetting = this.parentGrid.selector;
 			this.applyRefracLengthSetting();
 			this.display();
+		} else if (this.parentGrid.selectorType === 'randomRefracLengths') {
+			this.randomRefracLengths = !!parseInt(this.parentGrid.selector);
+		} else if (this.parentGrid.selectorType === 'propagationDirectionSetting') {
+			// Makes neighbourVectors an array of vectors (e.g. [-1, 1])
+			this.neighbourVectors = Array.from($('input.prop-direction:checked')).map(function(el){
+				return $(el).data('directionCode');
+			})
+			this.setNeighboursFromNeighbourVectors();
 		} else if (this.parentGrid.selectorType === 'pacing' && this.state !== 'clear') {
 			this.pacingSetting = this.parentGrid.selector;
 				
@@ -363,7 +375,7 @@ class Square {
 
 	setNeighbours() {
 		this.setNeighbourVectors();
-		this.setNeighboursFromNeighbourVectors();		
+		this.setNeighboursFromNeighbourVectors();	
 	}
 
 

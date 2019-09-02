@@ -13,6 +13,7 @@
 					<input type="range" class="renum-slider">
 					<input type="number" class="renum-number">Repopulate
 				</label>
+				<input type="checkbox" name="asdf">
 			</div>
 		</div>
 	</div>
@@ -26,6 +27,16 @@
 					<input type="range" class="fps-slider">
 					<input type="number" class="fps-number">Framerate
 				</label>
+			</div>
+		</div>
+	</div>
+
+	<div id="square-inspector-toggle-box" class="square-inspector-toggle-box settings-section nontabbed-settings-section">
+		<div class="container">
+			<div class="row">
+				<label>
+					<input class='with-gap square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <span>Square Inspector</span>
+				</label>				
 			</div>
 		</div>
 	</div>
@@ -68,6 +79,7 @@
 					<li class="tab"><a href="#condVel-box">Conduction velocity</a></li>
 					<li class="tab"><a href="#refracLength-box">Refractory length</a></li>
 					<li class="tab"><a href="#pacing-box">Pacing</a></li>
+					<li class="tab"><a href="#propagation-box">Propagation direction</a></li>
 					<li class="tab"><a href="#misc-box">Misc</a></li>
 					<li class="tab"><a href="#saveload-box">Saving/loading</a></li>
 				</ul>
@@ -120,6 +132,14 @@
 						<input class='with-gap refracLength-radio short' type="radio" data-selector-type="refracLength" name="selector" value='short'> <span>Short</span>
 					</label>
 				</div>
+				<div class="row">
+					<label>
+						<input class="with-gap randomRefracLengths-radio on" type="radio" name="selector" value=1 data-selector-type="randomRefracLengths"> <span>Random refractory periods on</span>
+					</label>
+					<label>
+						<input class="with-gap randomRefracLengths-radio off" type="radio" name="selector" value=0 data-selector-type="randomRefracLengths"> <span>Random refractory periods off</span>
+					</label>
+				</div>
 			</div>
 		</div>
 		
@@ -147,6 +167,62 @@
 			</div>
 		</div>
 
+		<div id="propagation-box" class="propagation-box settings-section tabbed-settings-section">
+			<div class="prop-box-container">
+				<div class="propagation-settings-directions-grid">
+						<div class='prop-set-dir-grid-sec'>
+							<label>
+								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,-1]" name="top-left" checked> <span></span>
+							</label>
+						</div>
+						<div class='prop-set-dir-grid-sec'>
+							<label>
+								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,-1]" name="top-center" checked> <span></span>
+							</label>
+						</div>
+						<div class='prop-set-dir-grid-sec'>
+							<label>
+								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,-1]" name="top-right" checked> <span></span>
+							</label>
+						</div>
+						<div class='prop-set-dir-grid-sec'>
+							<label>
+								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,0]" name="center-left" checked> <span></span>
+							</label>
+						</div>
+						<div class='prop-set-dir-grid-sec'>
+							<div class="row">
+								<label>
+									<input class="with-gap prop-direction-radio on" type="radio" name="selector" value=1 data-selector-type="propagationDirectionSetting"> <span></span>
+								</label>
+							</div>
+
+						</div>
+						<div class='prop-set-dir-grid-sec'>
+							<label>
+								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,0]" name="center-right" checked> <span></span>
+							</label>
+						</div>
+						<div class='prop-set-dir-grid-sec'>
+							<label>
+								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,1]" name="bottom-left" checked> <span></span>
+							</label>
+						</div>
+						<div class='prop-set-dir-grid-sec'>
+							<label>
+								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,1]" name="bottom-center" checked> <span></span>
+							</label>
+						</div>
+						<div class='prop-set-dir-grid-sec'>
+							<label>
+								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,1]" name="bottom-right" checked> <span></span>
+							</label>
+						</div>
+
+				</div>
+			</div>
+		</div>
+
 		<div id="saveload-box" class="saveload-box settings-section tabbed-settings-section">
 			<div class="container">
 				<div class="row">
@@ -160,7 +236,12 @@
 			<div class="container">
 				<div class="row">
 					<label>
-						<input class='with-gap rainbow-checkbox long' type="checkbox" data-selector-type="rainbow" name="rainbow"> <span>Rainbow trails</span>
+						<input class='with-gap rainbow-checkbox' type="checkbox" data-selector-type="rainbow" name="rainbow"> <span>Rainbow trails</span>
+					</label>
+				</div>
+				<div class="row">
+					<label>
+						<input class='with-gap diagprop-checkbox' type="checkbox" data-selector-type="diagprop" name="diagprop" checked> <span>Diagonal propagation</span>
 					</label>
 				</div>
 			</div>
