@@ -1,4 +1,4 @@
-$(`<div>
+var squareInspectorDiv = $(`<div>
 <div id="state-box" class="state-box settings-section tabbed-settings-section">
 			<div class="container">
 				<div class="row">
@@ -136,3 +136,5 @@ $(`<div>
 		</div>
 </div>
 `)
+
+$('info-section').append(squareInspectorDiv);

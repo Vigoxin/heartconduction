@@ -134,14 +134,22 @@ $radio-color: $cool-red;
 
 // Navbar
 nav {
+	
+	& * {
+		z-index: 1;
+	}
+
 	text-align: center;
 
 		a {
 			text-decoration: none;
+
+			overflow-wrap: break-word;
 		}
 
 		li {
 			list-style-type: none;
+			cursor: pointer;
 		}
 		
 		ul {
@@ -170,6 +178,8 @@ nav {
 				color: #fff;
 				padding: 1rem;
 				display: block;
+
+    			overflow-wrap: break-word;
 			}
 
 
@@ -177,7 +187,7 @@ nav {
 				display: flex;
 				visibility: hidden;
 				flex-direction: column;
-				opacity: 0;
+				opacity: 1;
 				position: absolute;
 				width: 100%;
 
@@ -189,7 +199,7 @@ nav {
 						position: absolute;
 						left: 100%;
 						top: 0;
-						width: 100%;                    
+						width: 100%;										
 					}
 
 				}
@@ -209,14 +219,9 @@ nav {
 		
 		background: $grid-color;
 
-		&>* {
-			// border: 5px double #fff;
-			padding: 10px;
-		}
-
 		.canvas {
 			overflow: auto;
-			// border-radius: 5px 0 0 5px;
+			padding-top: 50px;
 			border-right: dashed 2px white;
 
 			.container {
@@ -232,42 +237,51 @@ nav {
 		}
 
 		.info-section {
-			border-radius: 0 5px 5px 0;
-			padding: 10px 30px;
+			// border-radius: 0 5px 5px 0;
 			max-height: 600px;
-			overflow-y: auto;
 
-			.info {
-				height: 100%;
-
-				.info-item {
-					overflow: vertical;
-				}
-
-				h4 {
-					margin-bottom: 10px;
-				}
-
-				p:not(:last-child) {
-					margin-bottom: 10px;
-				}
-
-				.slick-arrow {
-					&::before {	
-						background-color: dodgerblue;
-						opacity: 1;
-						// color: royalblue;
+			.tabSystem {
+				--color-1: #f37d83;
+				--color-1: #fff;
+				--color-2: cornflowerblue;
+				--color-2: #fff;
+				// font-size: 0;
+				
+				.tab {
+					display: inline-block;
+					font-size: 16px;
+					
+					background: #ddd;
+					height: 50px;
+					width: 150px;
+					line-height: 50px;
+					text-align: center;
+					
+					transition: all 0.3s ease-out;
+					cursor: pointer;
+					
+					&:nth-child(1):hover {
+						background: var(--color-1);
 					}
-
+					
+					&:nth-child(2):hover {
+						background: var(--color-2);
+					}
 				}
-
-				button {
-					background-color: $grid-color;
-				}
-	
-				.info-item {
+				
+				.panel {
+					display: block;
+					font-size: 16px;
+					
 					padding: 10px;
+					
+					height: 600px;
+					margin: 0 auto;
+					background: var(--color-1);
+					
+					transition: all 0.5s ease-out;
 				}
+				
 			}
 
 		}

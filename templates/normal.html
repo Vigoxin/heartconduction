@@ -59,15 +59,19 @@
 		</div>
 
 		<div class="info-section">
-			<h4>{{pd['arrhythmia']}}</h4>
-			<div class="info">
-				{% for info_item in pd['info'] %}
-					<div class='info-item'>
-						{% for paragraph in info_item['paragraphs'] %}
-							<p class="info-item-paragraph">{{paragraph}}</p>
-						{% endfor %}
+			<div class="tabSystem">
+				<div class="tabContainer">
+					<div class="tab">Square Inspector</div>
+					<div class="tab">Time Strip</div>
+				</div>
+				<div class="panelContainer">
+					<div class="panel">
+						<p>Square inspector Content</p>
 					</div>
-				{% endfor %}
+					<div class="panel">
+						<p>Time strip Content </p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -276,8 +280,6 @@
 		<script type="text/javascript" src="/static/lib/materialize-src/js/buttons.js"></script>
 		<script type="text/javascript" src="/static/lib/materialize-src/js/waves.js"></script>
 
-	<!-- Slick carousel -->
-	<script type="text/javascript" src="/static/lib/slick/slick.min.js"></script>
 
 		<!-- Initialisation of components -->
 		<script type="text/javascript">
@@ -289,6 +291,7 @@
 	<script type="text/javascript" src='/static/prototypeModifications.js'></script>
 
 	<script type="text/javascript" src='/static/DOMSetup.js'></script>
+	<script type="text/javascript" src='/static/tabSystem.js'></script>
 
 	<script type="text/javascript" src='/static/constants.js'></script>
 
@@ -297,6 +300,8 @@
 	<script type="text/javascript" src='/static/classes/TimeStrip.js'></script>
 
 	<script type="text/javascript" src='/static/main.js'></script>
+	<script type="text/javascript" src='/static/squareInspector.js'></script>
+
 
 	<script type="text/javascript" src='/static/eventListeners.js'></script>
 	<script type="text/javascript" src='/static/utilities.js'></script>

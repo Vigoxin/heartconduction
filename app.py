@@ -21,10 +21,11 @@ pd = {
 	'texturesPath': textures_path
 }
 
+arrhythmias = sorted(next(os.walk('./static/arrhythmias'))[1])
+
 # Routes 
 @app.route('/')
 def index():
-	arrhythmias = sorted(next(os.walk('./static/arrhythmias'))[1])
 	return render_template('landing.html', arrhythmias=arrhythmias)
 
 # @app.route('/sandbox')
@@ -67,7 +68,7 @@ def arrhythmia(arrhythmia):
 						pd['info'][-1]['paragraphs'][-1] += ' ' + line
 
 
-	return render_template('normal.html', pd=pd)
+	return render_template('normal.html', pd=pd, arrhythmias=arrhythmias)
 
 @app.route('/testing')
 def testing():
