@@ -309,37 +309,6 @@ class Grid extends Array {
 		});
 	}
 
-	// mouseFunction(e) {
-	// 	var {shiftKey, altKey, buttons} = e.data.originalEvent;
-	// 	var {x:mouseX, y:mouseY} = e.data.global;
-	// 	if (altKey) {
-	// 		console.log(`x: ${mouseX}, y: ${mouseY}`);
-	// 	}
-
-		
-
-	// 	if (mouseX < this.app.view.width && mouseX > 0 && mouseY < this.app.view.height && mouseY > 0) {
-	// 		var col = this.pixel2grid(mouseX);
-	// 		var row = this.pixel2grid(mouseY);
-	// 		if (this[col] && this[col][row]) {
-	// 			var clickedSquare = this[col][row];
-	// 		}
-	// 	}
-
-	// 	if (clickedSquare) {
-	// 		if (buttons === 1) {
-	// 			if (altKey) {
-	// 				console.log(mouseX, mouseY, e.data.originalEvent);
-	// 			}
-	// 			if (shiftKey) {
-	// 				console.log(clickedSquare);
-	// 			} else {
-	// 				clickedSquare.clickSet();
-	// 			}
-	// 		}
-	// 	}
-	// }
-
 	dragStart(e) {
 
 	}
@@ -366,6 +335,31 @@ class Grid extends Array {
 		
 	}
 
+
+
+ // Square Inspector stuff
+
+	applySquareInspectorSquares() {
+		var squareInspectorSquares = [];
+		for (let col of this) {
+			for (let sq of col) {
+				if (sq.isInSquareInspector) {
+					squareInspectorSquares.push(sq);
+				}
+			}
+		}
+		
+		$('#squareInspectorDivs').empty();
+
+		for (let sq of squareInspectorSquares) {
+			addSquareInspectorDiv(sq.col, sq.row);
+		}
+	}
+
+	
+
+ // click shortcuts
+
 	
 	multipleSet({square1, square2}) {
 		var colStart = Math.min(square1.col, square2.col);
@@ -387,18 +381,6 @@ class Grid extends Array {
 
 			// Remove the 4 squares from this.tempHighlighted
 			this.tempHighlighted = [];
-
-			// // Decide the col and row nums of the 4 squares that should be highlighted
-			// var colStart = Math.min(square1.col, square2.col);
-			// var colEnd = Math.max(square1.col, square2.col)+1;
-			// var rowStart = Math.min(square1.row, square2.row);
-			// var rowEnd = Math.max(square1.row, square2.row)+1;
-			
-			// // Add them to this.tempHighlighted
-			// this.tempHighlighted.push(this[colStart][rowStart]);
-			// this.tempHighlighted.push(this[colStart][rowEnd]);
-			// this.tempHighlighted.push(this[colEnd][rowStart]);
-			// this.tempHighlighted.push(this[colEnd][rowEnd]);
 			
 			if (square1 && square2) {
 				this.tempHighlighted.push(square1);
@@ -415,17 +397,7 @@ class Grid extends Array {
 	}
 
 
-	// addSpritesToApp() {
-	// 	for (let col of this) {
-	// 		for (let square of col) {
-	// 			for (let sprite of square.images) {
-	// 				sprite = square.sprites[sprite];
-	// 				this.app.stage.addChild(sprite);
-	// 			}
-	// 		}
-	// 	}	
-	// }
-
+// Saving and loading grid
 	saveGrid() {
 
 		
@@ -531,41 +503,10 @@ class Grid extends Array {
 			}
 		}
 
-		// this.rescueGrid();
 	}
 
 
-	rescueGrid() {
-		// Obsolete now
-
-		for (let col of grid) {
-			for (let square of col) {
-				square.parentGrid = this;
-			}
-		}
-
-		for (let col of grid) {
-			for (let square of col) {
-				square.setNeighboursFromNeighbourVectors();				
-			}
-		}
-
-		for (let col of grid) {
-			for (let square of col) {
-				square.setSprites();				
-			}
-		}
-		this.addSpritesToApp();
-
-		for (let col of grid) {
-			for (let square of col) {
-				square.display();				
-			}
-		}
-
-		this.app = tempPixiApp;
-	}
-
+// Some utilities
 
 	copy2Darray() {
 		var a = [];

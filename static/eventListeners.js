@@ -76,7 +76,7 @@ function eventListeners() {
 		grid.renum(parseInt($(this).val()), 'repo');
 	})
 
-	// Setting state, condVel and refracLengths
+	// Setting state, condVel and refracLengths, and randomRefracLengths, and isInSquareInspector
 	$("input[name='selector']").on('click', function() {
 		grid.selector = $("input[name='selector']:checked").val();
 		grid.selectorType = $(this).data('selectorType');

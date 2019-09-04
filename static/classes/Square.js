@@ -5,6 +5,7 @@ class Square {
 
 														// a = performance.now();
 		this.isDebugging;
+		this.isInSquareInspector = false;
 
 		this.parentGrid = parentGrid;
 
@@ -249,19 +250,34 @@ class Square {
 			}		
 		}
 
-		// Debugging speed:
-			// var colors = [0xff0000, 0x00ff00, 0x0000ff];
-			// this.sprites.square.tint = randFromArray(colors);
-			// if (this.parentGrid.paceTracker % this.parentGrid.cellNum - this.row === 0) {
-			// 	this.sprites.square.tint = 0xff0000;
-			// } else {
-			// 	this.sprites.square.tint = 0xffffff;
-			// }
+
+		// Square Inspector Div
+		if (this.isInSquareInspector) {
+			this.applySquareInspectorChanges();
+		}
 
 	}
 
+
+	applySquareInspectorChanges() {
+		var col = this.col;
+		var row = this.row;
+		var node = $('.squareInspectorDiv').filter(function(i, el){
+			return $(this).data('row') === row && $(this).data('col') === col;
+		});
+
+		// state
+		node.find('.squareInspector-state-box').find(`[value=${this.state}]`).prop('checked', true)
+
+	
+	}
+
 	clickSet() {
-		if (this.parentGrid.selectorType === 'state') {
+		if (this.parentGrid.selectorType === 'squareInspectorSelector') {
+			this.isInSquareInspector = !this.isInSquareInspector;
+			this.parentGrid.applySquareInspectorSquares();
+
+		} else if (this.parentGrid.selectorType === 'state') {
 			if (this.parentGrid.selector === 'clear') {
 				this.clickClear();
 			} else if (this.parentGrid.selector === 'depo') {
@@ -277,6 +293,14 @@ class Square {
 			this.refracLengthSetting = this.parentGrid.selector;
 			this.applyRefracLengthSetting();
 			this.display();
+		} else if (this.parentGrid.selectorType === 'randomRefracLengths') {
+			this.randomRefracLengths = !!parseInt(this.parentGrid.selector);
+		} else if (this.parentGrid.selectorType === 'propagationDirectionSetting') {
+			// Makes neighbourVectors an array of vectors (e.g. [-1, 1])
+			this.neighbourVectors = Array.from($('input.prop-direction:checked')).map(function(el){
+				return $(el).data('directionCode');
+			})
+			this.setNeighboursFromNeighbourVectors();
 		} else if (this.parentGrid.selectorType === 'pacing' && this.state !== 'clear') {
 			this.pacingSetting = this.parentGrid.selector;
 				
