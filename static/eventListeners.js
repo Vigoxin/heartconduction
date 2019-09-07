@@ -123,10 +123,51 @@ function eventListeners() {
 	})
 
 	
+// Miscellaneous section
 	// Rainbow box
 	$('.rainbow-checkbox').on('click', function() {
-		grid.rainbowTrails = $(this).is(':checked');		
+		grid.rainbowTrails = $(this).is(':checked');
+		for (var i=0; i<grid.cellNum; i++) {
+			for (var j=0; j<grid.cellNum; j++) {
+				grid[i][j].display();
+			}
+		}
 	})
 
+	// Diagonal propagation whole grid (not individual)
+	$('.diagprop-checkbox').on('click', function() {
+		grid.diagonalPropagation = $(this).is(':checked');
+		console.log(`setting diag prop to ${grid.diagonalPropagation}`);
+		for (var i=0; i<grid.cellNum; i++) {
+			for (var j=0; j<grid.cellNum; j++) {
+				console.log(`setting neighbours for square ${i} ${j}`);
+				grid[i][j].setNeighbours();
+			}
+		}
+	})
+}
 
+
+
+// Square Inspector event listeners
+
+function squareInspectorEventListeners() {
+	$('.squareInspector-highlight-checkbox').on('click', function() {
+		console.log('asdf');
+		console.log($(this).data('col'));
+		console.log($(this).data('row'));
+		console.log(grid.squareInspectorSquareList);
+		var parentSquare = grid.squareInspectorSquareList.filter(function(sq){
+			return sq.col === $(this).data('col') && sq.row === $(this).data('row');
+		});
+		console.log(grid.squareInspectorSquareList.filter(function(sq){
+			return sq.col === $(this).data('col') && sq.row === $(this).data('row');
+		}));
+
+		if ($(this).is(':checked')) {
+			parentSquare.highlight();
+		} else {
+			parentSquare.dehighlight();
+		}
+	})
 }

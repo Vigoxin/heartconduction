@@ -24,6 +24,8 @@ class Grid extends Array {
 		this.tempHighlighted = [];
 
 		this.diagonalPropagation = true;
+
+		this.squareInspectorSquareList = [];
 			
 			// pixi constants
 		this.cWidth = this.cellSize*this.cellNum;
@@ -117,7 +119,8 @@ class Grid extends Array {
 				this.tempSelecting.square2 = square;
 				this.multipleHighlight(this.tempSelecting);
 			} else {
-				square.clickSet();
+				square.clickAndMoveSet();
+				square.onlyClickSet();
 			}
 
 		})
@@ -146,7 +149,7 @@ class Grid extends Array {
 				}
 			} else {
 				if (buttons === 1) {
-					square.clickSet();
+					square.clickAndMoveSet();
 				}
 			}		
 		})
@@ -339,21 +342,25 @@ class Grid extends Array {
 
  // Square Inspector stuff
 
+
+
 	applySquareInspectorSquares() {
-		var squareInspectorSquares = [];
+		$('#squareInspectorDivs').empty();
+		for (let sq of this.squareInspectorSquareList) {
+			sq.dehighlight();
+		}
+		this.squareInspectorSquareList = [];
+
 		for (let col of this) {
 			for (let sq of col) {
 				if (sq.isInSquareInspector) {
-					squareInspectorSquares.push(sq);
+					this.squareInspectorSquareList.push(sq);
+					sq.squareInspectorDivWrapper.addDivToSquareInspector();
 				}
 			}
 		}
 		
-		$('#squareInspectorDivs').empty();
 
-		for (let sq of squareInspectorSquares) {
-			addSquareInspectorDiv(sq.col, sq.row);
-		}
 	}
 
 	
@@ -368,7 +375,7 @@ class Grid extends Array {
 		var rowEnd = Math.max(square1.row, square2.row)+1;
 		for (var i=colStart; i<colEnd; i++) {
 			for (var j=rowStart; j<rowEnd; j++) {
-				grid[i][j].clickSet();
+				grid[i][j].clickAndMoveSet();
 			}
 		}
 	}

@@ -5,7 +5,6 @@ class Square {
 
 														// a = performance.now();
 		this.isDebugging;
-		this.isInSquareInspector = false;
 
 		this.parentGrid = parentGrid;
 
@@ -14,9 +13,12 @@ class Square {
 		this.x = this.parentGrid.grid2pixel(this.col);
 		this.y = this.parentGrid.grid2pixel(this.row);
 
+		this.isInSquareInspector = false;
+		this.squareInspectorDivWrapper = new SquareInspectorDivWrapper(this.col, this.row, this);
+
 		this.state = this.parentGrid.masterState;
-		// this.stateTrail = new Array(20).fill();
 		this.APcounter = -1;
+		
 
 		this.neighbourVectors = [];
 		this.neighbours = [];
@@ -253,31 +255,21 @@ class Square {
 
 		// Square Inspector Div
 		if (this.isInSquareInspector) {
-			this.applySquareInspectorChanges();
+			this.applySquareInspectorDivChanges();
 		}
 
 	}
 
 
-	applySquareInspectorChanges() {
-		var col = this.col;
-		var row = this.row;
-		var node = $('.squareInspectorDiv').filter(function(i, el){
-			return $(this).data('row') === row && $(this).data('col') === col;
-		});
+	applySquareInspectorDivChanges() {
 
 		// state
-		node.find('.squareInspector-state-box').find(`[value=${this.state}]`).prop('checked', true)
+		this.squareInspectorDivWrapper.div.find(`[value=${this.state}]`).prop('checked', true)
 
-	
 	}
 
-	clickSet() {
-		if (this.parentGrid.selectorType === 'squareInspectorSelector') {
-			this.isInSquareInspector = !this.isInSquareInspector;
-			this.parentGrid.applySquareInspectorSquares();
-
-		} else if (this.parentGrid.selectorType === 'state') {
+	clickAndMoveSet() {
+		if (this.parentGrid.selectorType === 'state') {
 			if (this.parentGrid.selector === 'clear') {
 				this.clickClear();
 			} else if (this.parentGrid.selector === 'depo') {
@@ -317,6 +309,13 @@ class Square {
 			
 			this.display();
 			// console.log(`(${this.col}, ${this.row}) - Changing pacing setting to ${this.pacingSetting}`);
+		}
+	}
+
+	onlyClickSet() {
+		if (this.parentGrid.selectorType === 'squareInspectorSelector') {
+			this.isInSquareInspector = !this.isInSquareInspector;
+			this.parentGrid.applySquareInspectorSquares();
 		}
 	}
 
