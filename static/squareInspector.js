@@ -10,7 +10,7 @@ class SquareInspectorDivWrapper {
 	}
 
 
-	createSquareInspectorDiv() {
+	assignSquareInspectorDiv() {
 		this.div = $(`<div class='squareInspectorDiv' data-col=${this.col} data-row=${this.row}>
 	
 
@@ -25,6 +25,10 @@ class SquareInspectorDivWrapper {
 
 				<label>
 					<input class='squareInspector-highlight-checkbox with-gap' type="checkbox" data-col=${this.col} data-row=${this.row} checked> <span>Highlight</span>
+				</label>
+
+				<label>
+					<button class='removeSquareInspectorDiv btn btn-custom' data-col=${this.col} data-row=${this.row}>Remove</button>
 				</label>
 
 			</div>
@@ -112,7 +116,12 @@ class SquareInspectorDivWrapper {
 			}
 		})
 
-		// state event
+		// remove button event
+		$(this.div).find('.removeSquareInspectorDiv').on('click', () => {
+			this.parentSquare.removeFromSquareInspector();
+		})
+
+		// state, conduction velocity, refracLength and randomRefracLengths event
 		$(this.div).find(`.simpleSelectorRadio`).on('click', function() {
 			grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val());
 		})

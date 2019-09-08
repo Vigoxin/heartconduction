@@ -324,9 +324,40 @@ class Square {
 
 	onlyClickSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {
 		if (selectorType === 'squareInspectorSelector') {
-			this.isInSquareInspector = !this.isInSquareInspector;
-			this.parentGrid.applySquareInspectorSquares();
+			if (!this.isInSquareInspector) {
+				this.addToSquareInspector();
+				// this.isInSquareInspector = true;
+				// this.parentGrid.squareInspectorSquareList.push(this);
+				// this.squareInspectorDivWrapper.assignSquareInspectorDiv();
+				// this.squareInspectorDivWrapper.addDivToSquareInspector();
+				// this.highlight();
+			} else if (this.isInSquareInspector) {
+				this.removeFromSquareInspector();
+				// this.isInSquareInspector = false;
+				// this.parentGrid.squareInspectorSquareList = this.parentGrid.squareInspectorSquareList.filter((el) => {
+				// 	return !(el.col === this.col && el.row === this.row);
+				// })
+				// $(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`).remove();
+				// this.dehighlight();
+			}
 		}
+	}
+
+	addToSquareInspector() {
+		this.isInSquareInspector = true;
+		this.parentGrid.squareInspectorSquareList.push(this);
+		this.squareInspectorDivWrapper.assignSquareInspectorDiv();
+		this.squareInspectorDivWrapper.addDivToSquareInspector();
+		this.highlight();		
+	}
+
+	removeFromSquareInspector() {
+		this.isInSquareInspector = false;
+		this.parentGrid.squareInspectorSquareList = this.parentGrid.squareInspectorSquareList.filter((el) => {
+			return !(el.col === this.col && el.row === this.row);
+		})
+		$(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`).remove();
+		this.dehighlight();
 	}
 
 	clickDepolarise() {
