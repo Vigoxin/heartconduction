@@ -265,7 +265,9 @@ class Square {
 	applySquareInspectorDivChanges() {
 		// state
 		this.squareInspectorDivWrapper.div.find(`.state-radio[value=${this.state}]`).prop('checked', true)
-		
+	}
+
+	applySquareInspectorDivChangesInitialOnly() {
 		// conduction velocity
 		this.squareInspectorDivWrapper.div.find(`.condVel-radio[value=${this.condVelSetting}]`).prop('checked', true)
 		
@@ -274,8 +276,6 @@ class Square {
 
 		// randomRefracLengths
 		this.squareInspectorDivWrapper.div.find(`.randomRefracLengths-radio[value=${+this.randomRefracLengths}]`).prop('checked', true)
-
-
 	}
 
 	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {

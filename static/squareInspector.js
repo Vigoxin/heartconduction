@@ -6,7 +6,7 @@ class SquareInspectorDivWrapper {
 		this.row = row;
 
 		this.div;
-		this.createSquareInspectorDiv();
+		// this.createSquareInspectorDiv();
 	}
 
 
@@ -99,6 +99,7 @@ class SquareInspectorDivWrapper {
 		
 		this.parentSquare.highlight();
 		this.parentSquare.applySquareInspectorDivChanges();
+		this.parentSquare.applySquareInspectorDivChangesInitialOnly();
 		var col = this.col;
 		var row = this.row;
 

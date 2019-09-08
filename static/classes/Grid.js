@@ -357,6 +357,7 @@ class Grid extends Array {
 			for (let sq of col) {
 				if (sq.isInSquareInspector) {
 					this.squareInspectorSquareList.push(sq);
+					sq.squareInspectorDivWrapper.createSquareInspectorDiv();
 					sq.squareInspectorDivWrapper.addDivToSquareInspector();
 				}
 			}
