@@ -346,22 +346,22 @@ class Grid extends Array {
 
 
 
-	applySquareInspectorSquares() {
-		$('#squareInspectorDivs').empty();
-		for (let sq of this.squareInspectorSquareList) {
-			sq.dehighlight();
-		}
-		this.squareInspectorSquareList = [];
+	// applySquareInspectorSquares() {
+	// 	$('#squareInspectorDivs').empty();
+	// 	for (let sq of this.squareInspectorSquareList) {
+	// 		sq.dehighlight();
+	// 	}
+	// 	this.squareInspectorSquareList = [];
 
-		for (let col of this) {
-			for (let sq of col) {
-				if (sq.isInSquareInspector) {
-					this.squareInspectorSquareList.push(sq);
-					sq.squareInspectorDivWrapper.assignSquareInspectorDiv();
-					sq.squareInspectorDivWrapper.addDivToSquareInspector();
-				}
-			}
-		}
+	// 	for (let col of this) {
+	// 		for (let sq of col) {
+	// 			if (sq.isInSquareInspector) {
+	// 				this.squareInspectorSquareList.push(sq);
+	// 				sq.squareInspectorDivWrapper.assignSquareInspectorDiv();
+	// 				sq.squareInspectorDivWrapper.addDivToSquareInspector();
+	// 			}
+	// 		}
+	// 	}
 		
 
 	}
