@@ -262,41 +262,50 @@ class Square {
 
 
 	applySquareInspectorDivChanges() {
-
 		// state
-		this.squareInspectorDivWrapper.div.find(`[value=${this.state}]`).prop('checked', true)
+		this.squareInspectorDivWrapper.div.find(`.state-radio[value=${this.state}]`).prop('checked', true)
+		
+		// conduction velocity
+		this.squareInspectorDivWrapper.div.find(`.condVel-radio[value=${this.condVelSetting}]`).prop('checked', true)
+		
+		// refracLength
+		this.squareInspectorDivWrapper.div.find(`.refracLength-radio[value=${this.refracLengthSetting}]`).prop('checked', true)
+
+		// randomRefracLengths
+		this.squareInspectorDivWrapper.div.find(`.randomRefracLengths-radio[value=${+this.randomRefracLengths}]`).prop('checked', true)
+
 
 	}
 
-	clickAndMoveSet() {
-		if (this.parentGrid.selectorType === 'state') {
-			if (this.parentGrid.selector === 'clear') {
+	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {
+		if (selectorType === 'state') {
+			if (selector === 'clear') {
 				this.clickClear();
-			} else if (this.parentGrid.selector === 'depo') {
+			} else if (selector === 'depo') {
 				this.clickDepolarise();
-			} else if (this.parentGrid.selector === 'repo') {
+			} else if (selector === 'repo') {
 				this.clickRepolarise();
 			}
-		} else if (this.parentGrid.selectorType === 'condVel' && this.state !== 'clear') {
-			this.condVelSetting = this.parentGrid.selector;
+		} else if (selectorType === 'condVel' && this.state !== 'clear') {
+			this.condVelSetting = selector;
 			this.applyCondVelSetting();
 			this.display();
-		} else if (this.parentGrid.selectorType === 'refracLength' && this.state !== 'clear') {
-			this.refracLengthSetting = this.parentGrid.selector;
+		} else if (selectorType === 'refracLength' && this.state !== 'clear') {
+			this.refracLengthSetting = selector;
 			this.applyRefracLengthSetting();
 			this.display();
-		} else if (this.parentGrid.selectorType === 'randomRefracLengths') {
-			this.randomRefracLengths = !!parseInt(this.parentGrid.selector);
-		} else if (this.parentGrid.selectorType === 'propagationDirectionSetting') {
+		} else if (selectorType === 'randomRefracLengths') {
+			this.randomRefracLengths = !!parseInt(selector);
+		} else if (selectorType === 'propagationDirectionSetting') {
 			// Makes neighbourVectors an array of vectors (e.g. [-1, 1])
 			this.neighbourVectors = Array.from($('input.prop-direction:checked')).map(function(el){
 				return $(el).data('directionCode');
 			})
 			this.setNeighboursFromNeighbourVectors();
-		} else if (this.parentGrid.selectorType === 'pacing' && this.state !== 'clear') {
-			this.pacingSetting = this.parentGrid.selector;
+		} else if (selectorType === 'pacing' && this.state !== 'clear') {
+			this.pacingSetting = selector;
 				
-			if (this.parentGrid.selector !== 'noPace')	{
+			if (selector !== 'noPace')	{
 				this.isPacing = true;
 				this.pacingInterval = parseInt($('.pacingInterval').val());
 				this.pacingTracker = this.pacingInterval-parseInt($('.pacingOffset').val());
@@ -312,8 +321,8 @@ class Square {
 		}
 	}
 
-	onlyClickSet() {
-		if (this.parentGrid.selectorType === 'squareInspectorSelector') {
+	onlyClickSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {
+		if (selectorType === 'squareInspectorSelector') {
 			this.isInSquareInspector = !this.isInSquareInspector;
 			this.parentGrid.applySquareInspectorSquares();
 		}

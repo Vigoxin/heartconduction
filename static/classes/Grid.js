@@ -19,6 +19,8 @@ class Grid extends Array {
 
 		this.selector = 'depo';
 		this.selectorType = 'state';
+		this.squareInspectorSelector;
+		this.squareInspectorSelectorType;
 
 		this.tempSelecting = {};
 		this.tempHighlighted = [];
@@ -416,15 +418,12 @@ class Grid extends Array {
 		for (var i=0; i<toSave.cellNum; i++) {
 			saved2dArray[i] = [];
 			for (var j=0; j<toSave[0].length; j++) {
-				// console.log(toSave[i][j][key]);
 				saved2dArray[i].push({});
 				for (let key in toSave[i][j] ) {
 					!(squareKeysToExclude.includes(key)) ? saved2dArray[i][j][key] = toSave[i][j][key] : null;
 				}
 			}
 		}
-
-		// console.log(saved2dArray);
 
 		var gridKeysToExclude = ['app'];
 		var savedGridProperties = {};
@@ -434,8 +433,6 @@ class Grid extends Array {
 				!(gridKeysToExclude.includes(key)) ? savedGridProperties[key] = toSave[key] : null;
 			}
 		}
-		
-		// console.log(savedGridProperties);
 
 
 		var json = JSON.stringify([saved2dArray, savedGridProperties]);
@@ -456,7 +453,6 @@ class Grid extends Array {
 
 
 		var cellNum = savedGridProperties.cellNum || savedGridProperties.cellDim;
-		// console.log(cellNum);
 
 
 
@@ -465,7 +461,6 @@ class Grid extends Array {
 
 
 		var cellSize = savedGridProperties.cellSize;
-		// console.log(cellSize);
 		this.resize(cellSize);
 
 				

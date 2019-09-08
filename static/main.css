@@ -196,6 +196,7 @@ nav ul > li > ul > li > ul {
 }
 .main .grid-split-in-two .info-section .tabSystem .panel .squareInspectorDiv .squareInspector-settings-section {
   margin-left: 10px;
+  margin-bottom: 10px;
 }
 .main .grid-split-in-two .info-section .tabSystem .panel .squareInspectorDiv hr {
   margin: 10px 0;
@@ -230,7 +231,22 @@ nav ul > li > ul > li > ul {
 .main .settings-section button {
   margin: 2px;
 }
-
+.main .settings-section .prop-box-container {
+  width: 200px;
+  margin: 0 auto;
+}
+.main .settings-section .propagation-settings-directions-grid {
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  grid-template-rows: 20% 60% 20%;
+  height: 200px;
+}
+.main .settings-section .propagation-settings-directions-grid > div {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .footer {
   background: #f94466;
   padding: 10px;

@@ -146,28 +146,3 @@ function eventListeners() {
 		}
 	})
 }
-
-
-
-// Square Inspector event listeners
-
-function squareInspectorEventListeners() {
-	$('.squareInspector-highlight-checkbox').on('click', function() {
-		console.log('asdf');
-		console.log($(this).data('col'));
-		console.log($(this).data('row'));
-		console.log(grid.squareInspectorSquareList);
-		var parentSquare = grid.squareInspectorSquareList.filter(function(sq){
-			return sq.col === $(this).data('col') && sq.row === $(this).data('row');
-		});
-		console.log(grid.squareInspectorSquareList.filter(function(sq){
-			return sq.col === $(this).data('col') && sq.row === $(this).data('row');
-		}));
-
-		if ($(this).is(':checked')) {
-			parentSquare.highlight();
-		} else {
-			parentSquare.dehighlight();
-		}
-	})
-}
