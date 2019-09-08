@@ -278,9 +278,18 @@ class Square {
 
 	}
 
+<<<<<<< HEAD
+	clickSet() {
+		if (this.parentGrid.selectorType === 'squareInspectorSelector') {
+			console.log('asdf');
+			this.isInSquareInspector = true;
+		} else if (this.parentGrid.selectorType === 'state') {
+			if (this.parentGrid.selector === 'clear') {
+=======
 	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {
 		if (selectorType === 'state') {
 			if (selector === 'clear') {
+>>>>>>> squareInspector
 				this.clickClear();
 			} else if (selector === 'depo') {
 				this.clickDepolarise();
@@ -295,16 +304,27 @@ class Square {
 			this.refracLengthSetting = selector;
 			this.applyRefracLengthSetting();
 			this.display();
+<<<<<<< HEAD
+		} else if (this.parentGrid.selectorType === 'randomRefracLengths') {
+			this.randomRefracLengths = !!parseInt(this.parentGrid.selector);
+		} else if (this.parentGrid.selectorType === 'propagationDirectionSetting') {
+=======
 		} else if (selectorType === 'randomRefracLengths') {
 			this.randomRefracLengths = !!parseInt(selector);
 		} else if (selectorType === 'propagationDirectionSetting') {
+>>>>>>> squareInspector
 			// Makes neighbourVectors an array of vectors (e.g. [-1, 1])
 			this.neighbourVectors = Array.from($('input.prop-direction:checked')).map(function(el){
 				return $(el).data('directionCode');
 			})
 			this.setNeighboursFromNeighbourVectors();
+<<<<<<< HEAD
+		} else if (this.parentGrid.selectorType === 'pacing' && this.state !== 'clear') {
+			this.pacingSetting = this.parentGrid.selector;
+=======
 		} else if (selectorType === 'pacing' && this.state !== 'clear') {
 			this.pacingSetting = selector;
+>>>>>>> squareInspector
 				
 			if (selector !== 'noPace')	{
 				this.isPacing = true;

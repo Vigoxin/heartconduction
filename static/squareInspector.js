@@ -1,138 +1,124 @@
-$(`<div>
-<div id="state-box" class="state-box settings-section tabbed-settings-section">
-			<div class="container">
-				<div class="row">
-					<label>
-						<input class='with-gap state-radio depo' type="radio" data-selector-type="state" name="selector" value='depo' checked='checked'> <span>Depo</span>
-					</label>
-					<label>
-						<input class='with-gap state-radio repo' type="radio" data-selector-type="state" name="selector" value='repo'> <span>Repo</span>
-					</label>
-					<label>
-						<input class='with-gap state-radio clear' type="radio" data-selector-type="state" name="selector" value='clear'> <span>Clear</span>
-					</label>
-				</div>
-			</div>
-		</div>
+class SquareInspectorDivWrapper {
+	constructor(col=0, row=0, parentSquare=grid[0][0]) {
+		this.parentSquare = parentSquare;
 
-		<div id="condVel-box" class="condVel-box settings-section tabbed-settings-section">
-			<div class="container">
-				<div class="row">
-					<label>
-						<input class='with-gap condVel-radio fast' type="radio" data-selector-type="condVel" name="selector" value='fast'> <span>Fast</span>
-					</label>
-					<label>
-						<input class='with-gap condVel-radio normal' type="radio" data-selector-type="condVel" name="selector" value='normal'> <span>Normal</span>
-					</label>
-					<label>
-						<input class='with-gap condVel-radio slow' type="radio" data-selector-type="condVel" name="selector" value='slow'> <span>Slow</span>
-					</label>
-				</div>
-			</div>
-		</div>
+		this.col = col;
+		this.row = row;
 
-		<div id="refracLength-box" class="refracLength-box settings-section tabbed-settings-section">
-			<div class="container">
+		this.div;
+		this.createSquareInspectorDiv();
+	}
+
+
+	createSquareInspectorDiv() {
+		this.div = $(`<div class='squareInspectorDiv' data-col=${this.col} data-row=${this.row}>
+	
+
+			<div class="squareInspector-col-and-row-box squareInspector-settings-section row">
+				<label>
+					<span">Col: ${this.col}</span>
+				</label>
+				<label class='row'>
+					<span">Row: ${this.row}</span>
+				</label>
+
+
+				<label>
+					<input class='squareInspector-highlight-checkbox with-gap' type="checkbox" data-col=${this.col} data-row=${this.row} checked> <span>Highlight</span>
+				</label>
+
+			</div>
+
+			<div class="squareInspector-state-box squareInspector-settings-section">
+				<div class="squareInspectorSectionTitle"> State </div>
 				<div class="row">
 					<label>
-						<input class='with-gap refracLength-radio long' type="radio" data-selector-type="refracLength" name="selector" value='long'> <span>Long</span>
+						<input class='state-radio simpleSelectorRadio depo with-gap' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='depo' data-col=${this.col} data-row=${this.row}> <span>Depo</span>
 					</label>
 					<label>
-						<input class='with-gap refracLength-radio normal' type="radio" data-selector-type="refracLength" name="selector" value='normal'> <span>Normal</span>
+						<input class='state-radio simpleSelectorRadio repo with-gap' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='repo' data-col=${this.col} data-row=${this.row}> <span>Repo</span>
 					</label>
 					<label>
-						<input class='with-gap refracLength-radio short' type="radio" data-selector-type="refracLength" name="selector" value='short'> <span>Short</span>
-					</label>
-				</div>
-				<div class="row">
-					<label>
-						<input class="with-gap randomRefracLengths-radio on" type="radio" name="selector" value=1 data-selector-type="randomRefracLengths"> <span>Random refractory periods on</span>
-					</label>
-					<label>
-						<input class="with-gap randomRefracLengths-radio off" type="radio" name="selector" value=0 data-selector-type="randomRefracLengths"> <span>Random refractory periods off</span>
+						<input class='state-radio simpleSelectorRadio clear with-gap' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='clear' data-col=${this.col} data-row=${this.row}> <span>Clear</span>
 					</label>
 				</div>
 			</div>
-		</div>
+
+			<div class="squareInspector-condVel-box squareInspector-settings-section">
+				<div class="squareInspectorSectionTitle"> Conduction Velocity </div>
+				<div class="row">
+					<label>
+						<input class='condVel-radio simpleSelectorRadio fast with-gap' type="radio" data-selector-type="condVel" name="squareInspectorSetting-condVel-${this.col}-${this.row}" value='fast' data-col=${this.col} data-row=${this.row}> <span>Fast</span>
+					</label>
+					<label>
+						<input class='condVel-radio simpleSelectorRadio normal with-gap' type="radio" data-selector-type="condVel" name="squareInspectorSetting-condVel-${this.col}-${this.row}" value='normal' data-col=${this.col} data-row=${this.row}> <span>Normal</span>
+					</label>
+					<label>
+						<input class='condVel-radio simpleSelectorRadio slow with-gap' type="radio" data-selector-type="condVel" name="squareInspectorSetting-condVel-${this.col}-${this.row}" value='slow' data-col=${this.col} data-row=${this.row}> <span>Slow</span>
+					</label>
+				</div>
+			</div>
+
+			<div class="squareInspector-condVel-box squareInspector-settings-section">
+				<div class="squareInspectorSectionTitle"> Refractory Period </div>
+				<div class="row">
+					<label>
+						<input class='with-gap simpleSelectorRadio refracLength-radio long' type="radio" data-selector-type="refracLength" name="squareInspectorSetting-refracLength-${this.col}-${this.row}" value='long' data-col=${this.col} data-row=${this.row}> <span>Long</span>
+					</label>
+					<label>
+						<input class='with-gap simpleSelectorRadio refracLength-radio normal' type="radio" data-selector-type="refracLength" name="squareInspectorSetting-refracLength-${this.col}-${this.row}" value='normal' data-col=${this.col} data-row=${this.row}> <span>Normal</span>
+					</label>
+					<label>
+						<input class='with-gap simpleSelectorRadio refracLength-radio short' type="radio" data-selector-type="refracLength" name="squareInspectorSetting-refracLength-${this.col}-${this.row}" value='short' data-col=${this.col} data-row=${this.row}> <span>Short</span>
+					</label>
+				</div>
+				<div class="squareInspectorSectionTitle"> Refractory Period Range? </div>
+				<div class="row">
+					<label>
+						<input class="with-gap simpleSelectorRadio randomRefracLengths-radio on" type="radio" name="squareInspectorSetting-randomRefracLengths-${this.col}-${this.row}" value=1 data-selector-type="randomRefracLengths" data-col=${this.col} data-row=${this.row}> <span>Range on</span>
+					</label>
+					<label>
+						<input class="with-gap simpleSelectorRadio randomRefracLengths-radio off" type="radio" name="squareInspectorSetting-randomRefracLengths-${this.col}-${this.row}" value=0 data-selector-type="randomRefracLengths" data-col=${this.col} data-row=${this.row}> <span>Range off</span>
+					</label>
+				</div>
+			</div>
+			
+
+
+	
+
+			<hr class='squareInspector-settings-section row' />
+
+		`)
+
+	}
+
+	addDivToSquareInspector() {
+
+		$('#squareInspectorDivs').append(this.div);
 		
-		<div id="pacing-box" class="pacing-box settings-section tabbed-settings-section">
-			<div class="container">
-				<div class="row">
-					<label>
-						<input class='with-gap pacing-radio extPace' type="radio" data-selector-type="pacing" name="selector" value='extPace'> <span>External Pacing</span>
-					</label>
-					<label>
-						<input class='with-gap pacing-radio autoFocus' type="radio" data-selector-type="pacing" name="selector" value='autoFocus'> <span>Automatic Focus</span>
-					</label>
-					<label>
-						<input class='with-gap pacing-radio noPace' type="radio" data-selector-type="pacing" name="selector" value='noPace'> <span>No pace</span>
-					</label>
-				</div>
-				<div class="row">
-					<div class="number-label-pair">
-						<input type="number" name="pacing" class="pacingInterval pacing-number"><label>Pacing interval</label>
-					</div>
-					<div class="number-label-pair">
-						<input type="number" name="pacing" class="pacingOffset pacing-number"><label>Pacing offset</label>
-					</div>
-				</div>
-			</div>
-		</div>
+		this.parentSquare.highlight();
+		this.parentSquare.applySquareInspectorDivChanges();
+		var col = this.col;
+		var row = this.row;
 
-		<div id="propagation-box" class="propagation-box settings-section tabbed-settings-section">
-			<div class="prop-box-container">
-				<div class="propagation-settings-directions-grid">
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,-1]" name="top-left" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,-1]" name="top-center" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,-1]" name="top-right" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,0]" name="center-left" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<div class="row">
-								<label>
-									<input class="with-gap prop-direction-radio on" type="radio" name="selector" value=1 data-selector-type="propagationDirectionSetting"> <span></span>
-								</label>
-							</div>
+		// highlight checkbox event
+		$(this.div).find('.squareInspector-highlight-checkbox').on('click', function() {
+			if ($(this).is(':checked')) {
+				grid[col][row].highlight();
+			} else {
+				grid[col][row].dehighlight();
+			}
+		})
 
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,0]" name="center-right" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,1]" name="bottom-left" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,1]" name="bottom-center" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,1]" name="bottom-right" checked> <span></span>
-							</label>
-						</div>
+		// state event
+		$(this.div).find(`.simpleSelectorRadio`).on('click', function() {
+			grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val());
+		})
 
-				</div>
-			</div>
-		</div>
-</div>
-`)
+	}
+
+	
+
+
+}

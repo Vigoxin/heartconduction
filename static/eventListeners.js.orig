@@ -129,7 +129,10 @@ function eventListeners() {
 		'value': 0
 	})
 
+<<<<<<< HEAD
+=======
 	
+>>>>>>> squareInspector
 // Miscellaneous section
 	// Rainbow box
 	$('.rainbow-checkbox').on('click', function() {
@@ -151,5 +154,10 @@ function eventListeners() {
 				grid[i][j].setNeighbours();
 			}
 		}
+<<<<<<< HEAD
+	})	
+
+=======
 	})
+>>>>>>> squareInspector
 }

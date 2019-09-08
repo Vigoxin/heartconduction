@@ -338,9 +338,12 @@ nav {
 			margin: 2px;
 		}
 
+<<<<<<< HEAD
 
 // Propagation box settings grid
 
+=======
+>>>>>>> squareInspector
 		.prop-box-container {
 			width: 200px;
 			margin: 0 auto;

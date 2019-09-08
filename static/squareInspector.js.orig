@@ -1,97 +1,6 @@
-{% extends 'base.html' %}
-
-{% block main %}
-
-	<div class="resize-box settings-section nontabbed-settings-section">
-		<div class="container">
-			<div class="row">
-				<label class="slider-number-pair">
-					<input type="range" class="resize-slider">
-					<input type="number" class="resize-number">Resize
-				</label>
-				<label class="slider-number-pair">
-					<input type="range" class="renum-slider">
-					<input type="number" class="renum-number">Repopulate
-				</label>
-				<input type="checkbox" name="asdf">
-			</div>
-		</div>
-	</div>
-
-	<div id="play-box" class="play-box settings-section nontabbed-settings-section">
-		<div class="container">
-			<div class="row">
-				<button class="play-button btn btn-custom"><i class="material-icons">play_arrow</i>/<i class="material-icons">pause</i></button>
-				<button class="frame-button btn btn-custom">Frame</button>
-				<label class="slider-number-pair">
-					<input type="range" class="fps-slider">
-					<input type="number" class="fps-number">Framerate
-				</label>
-			</div>
-		</div>
-	</div>
-
-	<div id="square-inspector-toggle-box" class="square-inspector-toggle-box settings-section nontabbed-settings-section">
-		<div class="container">
-			<div class="row">
-				<label>
-					<input class='with-gap square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <span>Square Inspector</span>
-				</label>				
-			</div>
-		</div>
-	</div>
-
-	<div class="grid-split-in-two bottom-bordered">
-		<div class="canvas">
-			<div class="container">
-				<div class="preloader-wrapper big active">
-					<div class="spinner-layer spinner-blue-only">
-						<div class="circle-clipper left">
-							<div class="circle"></div>
-						</div><div class="gap-patch">
-							<div class="circle"></div>
-						</div><div class="circle-clipper right">
-							<div class="circle"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="info-section">
-			<div class="tabSystem">
-				<div class="tabContainer">
-					<div class="my-tab">Square Inspector</div>
-					<div class="my-tab">Time Strip</div>
-				</div>
-				<div class="panelContainer">
-					<div id="squareInspectorDivs" class="panel">
-					</div>
-					<div id="timeStripDiv" class="panel">
-						<p>Time strip Content </p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="actions">
-
-		<div class="actions-tab-row">
-				<ul class="tabs">
-					<li class="tab"><a href="#state-box">State</a></li>
-					<li class="tab"><a href="#condVel-box">Conduction velocity</a></li>
-					<li class="tab"><a href="#refracLength-box">Refractory length</a></li>
-					<li class="tab"><a href="#pacing-box">Pacing</a></li>
-					<li class="tab"><a href="#propagation-box">Propagation direction</a></li>
-					<li class="tab"><a href="#misc-box">Misc</a></li>
-					<li class="tab"><a href="#saveload-box">Saving/loading</a></li>
-				</ul>
-		</div>
-
-
-		
-		<div id="state-box" class="state-box settings-section tabbed-settings-section">
+<<<<<<< HEAD
+$(`<div>
+<div id="state-box" class="state-box settings-section tabbed-settings-section">
 			<div class="container">
 				<div class="row">
 					<label>
@@ -226,83 +135,141 @@
 				</div>
 			</div>
 		</div>
+</div>
+`)
+=======
+class SquareInspectorDivWrapper {
+	constructor(col=0, row=0, parentSquare=grid[0][0]) {
+		this.parentSquare = parentSquare;
 
-		<div id="saveload-box" class="saveload-box settings-section tabbed-settings-section">
-			<div class="container">
-				<div class="row">
-					<button class="save-button btn btn-custom">Save grid state</button>
-					<button class="load-button btn btn-custom">Load grid state</button>
-				</div>
+		this.col = col;
+		this.row = row;
+
+		this.div;
+		this.createSquareInspectorDiv();
+	}
+
+
+	createSquareInspectorDiv() {
+		this.div = $(`<div class='squareInspectorDiv' data-col=${this.col} data-row=${this.row}>
+	
+
+			<div class="squareInspector-col-and-row-box squareInspector-settings-section row">
+				<label>
+					<span">Col: ${this.col}</span>
+				</label>
+				<label class='row'>
+					<span">Row: ${this.row}</span>
+				</label>
+
+
+				<label>
+					<input class='squareInspector-highlight-checkbox with-gap' type="checkbox" data-col=${this.col} data-row=${this.row} checked> <span>Highlight</span>
+				</label>
+
 			</div>
-		</div>
 
-		<div id="misc-box" class="misc-box settings-section tabbed-settings-section">
-			<div class="container">
+			<div class="squareInspector-state-box squareInspector-settings-section">
+				<div class="squareInspectorSectionTitle"> State </div>
 				<div class="row">
 					<label>
-						<input class='with-gap rainbow-checkbox' type="checkbox" data-selector-type="rainbow" name="rainbow"> <span>Rainbow trails</span>
+						<input class='state-radio simpleSelectorRadio depo with-gap' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='depo' data-col=${this.col} data-row=${this.row}> <span>Depo</span>
+					</label>
+					<label>
+						<input class='state-radio simpleSelectorRadio repo with-gap' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='repo' data-col=${this.col} data-row=${this.row}> <span>Repo</span>
+					</label>
+					<label>
+						<input class='state-radio simpleSelectorRadio clear with-gap' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='clear' data-col=${this.col} data-row=${this.row}> <span>Clear</span>
 					</label>
 				</div>
+			</div>
+
+			<div class="squareInspector-condVel-box squareInspector-settings-section">
+				<div class="squareInspectorSectionTitle"> Conduction Velocity </div>
 				<div class="row">
 					<label>
-						<input class='with-gap diagprop-checkbox' type="checkbox" data-selector-type="diagprop" name="diagprop" checked> <span>Diagonal propagation</span>
+						<input class='condVel-radio simpleSelectorRadio fast with-gap' type="radio" data-selector-type="condVel" name="squareInspectorSetting-condVel-${this.col}-${this.row}" value='fast' data-col=${this.col} data-row=${this.row}> <span>Fast</span>
+					</label>
+					<label>
+						<input class='condVel-radio simpleSelectorRadio normal with-gap' type="radio" data-selector-type="condVel" name="squareInspectorSetting-condVel-${this.col}-${this.row}" value='normal' data-col=${this.col} data-row=${this.row}> <span>Normal</span>
+					</label>
+					<label>
+						<input class='condVel-radio simpleSelectorRadio slow with-gap' type="radio" data-selector-type="condVel" name="squareInspectorSetting-condVel-${this.col}-${this.row}" value='slow' data-col=${this.col} data-row=${this.row}> <span>Slow</span>
 					</label>
 				</div>
 			</div>
-		</div>
-		
-		<div class="apply-to-all-box settings-section tabbed-settings-section">
-			<div class="container">
+
+			<div class="squareInspector-condVel-box squareInspector-settings-section">
+				<div class="squareInspectorSectionTitle"> Refractory Period </div>
 				<div class="row">
-					<button class="apply-to-all-button btn btn-custom">Apply to all non-clear squares</button>
-					<button class="unclear-all-cells-button btn btn-custom">Unclear all cells</button>
+					<label>
+						<input class='with-gap simpleSelectorRadio refracLength-radio long' type="radio" data-selector-type="refracLength" name="squareInspectorSetting-refracLength-${this.col}-${this.row}" value='long' data-col=${this.col} data-row=${this.row}> <span>Long</span>
+					</label>
+					<label>
+						<input class='with-gap simpleSelectorRadio refracLength-radio normal' type="radio" data-selector-type="refracLength" name="squareInspectorSetting-refracLength-${this.col}-${this.row}" value='normal' data-col=${this.col} data-row=${this.row}> <span>Normal</span>
+					</label>
+					<label>
+						<input class='with-gap simpleSelectorRadio refracLength-radio short' type="radio" data-selector-type="refracLength" name="squareInspectorSetting-refracLength-${this.col}-${this.row}" value='short' data-col=${this.col} data-row=${this.row}> <span>Short</span>
+					</label>
+				</div>
+				<div class="squareInspectorSectionTitle"> Refractory Period Range? </div>
+				<div class="row">
+					<label>
+						<input class="with-gap simpleSelectorRadio randomRefracLengths-radio on" type="radio" name="squareInspectorSetting-randomRefracLengths-${this.col}-${this.row}" value=1 data-selector-type="randomRefracLengths" data-col=${this.col} data-row=${this.row}> <span>Range on</span>
+					</label>
+					<label>
+						<input class="with-gap simpleSelectorRadio randomRefracLengths-radio off" type="radio" name="squareInspectorSetting-randomRefracLengths-${this.col}-${this.row}" value=0 data-selector-type="randomRefracLengths" data-col=${this.col} data-row=${this.row}> <span>Range off</span>
+					</label>
 				</div>
 			</div>
-		</div>
+			
 
-	</div>
 
-{% endblock %}
+	
 
-{% block javascript %}
+			<hr class='squareInspector-settings-section row' />
+
+		`)
+
+	}
+
+	addDivToSquareInspector() {
+
+		$('#squareInspectorDivs').append(this.div);
 		
-	<script>
-		var pd = {{pd | tojson}};
-		for (key in pd) {
-			window[key] = pd[key];
-		}
-	</script>
+		this.parentSquare.highlight();
+		this.parentSquare.applySquareInspectorDivChanges();
 
-	<!-- Materialize JS -->
-		<script type="text/javascript" src="/static/lib/materialize-src/js/bin/materialize.js"></script>
-		<script type="text/javascript" src="/static/lib/materialize-src/js/tabs.js"></script>
-		<script type="text/javascript" src="/static/lib/materialize-src/js/buttons.js"></script>
-		<script type="text/javascript" src="/static/lib/materialize-src/js/waves.js"></script>
+		// highlight checkbox event
+		$(this.div).find('.squareInspector-highlight-checkbox').on('click', function() {
+			a = $(this).data('col');
+			b = $(this).data('row');
+			var tempParentSquare = grid.squareInspectorSquareList.filter(function(sq){
+				return sq.col === a && sq.row === b;
+			})[0];
 
+			if ($(this).is(':checked')) {
+				tempParentSquare.highlight();
+			} else {
+				tempParentSquare.dehighlight();
+			}
+		})
 
-		<!-- Initialisation of components -->
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$('.tabs').tabs();
-			});
-		</script>
+		// state event
+		$(this.div).find(`.simpleSelectorRadio`).on('click', function() {
+			a = $(this).data('col');
+			b = $(this).data('row');
+			var tempParentSquare = grid.squareInspectorSquareList.filter(function(sq){
+				return sq.col === a && sq.row === b;
+			})[0];
 
-	<script type="text/javascript" src='/static/prototypeModifications.js'></script>
+			tempParentSquare.clickAndMoveSet($(this).data('selectorType'), $(this).val());
+		})
 
-	<script type="text/javascript" src='/static/DOMSetup.js'></script>
-	<script type="text/javascript" src='/static/tabSystem.js'></script>
+	}
 
-	<script type="text/javascript" src='/static/constants.js'></script>
-
-	<script type="text/javascript" src='/static/classes/Grid.js'></script>
-	<script type="text/javascript" src='/static/classes/Square.js'></script>
-	<script type="text/javascript" src='/static/classes/TimeStrip.js'></script>
-
-	<script type="text/javascript" src='/static/main.js'></script>
-	<script type="text/javascript" src='/static/squareInspector.js'></script>
+	
 
 
-	<script type="text/javascript" src='/static/eventListeners.js'></script>
-	<script type="text/javascript" src='/static/utilities.js'></script>
-		
-{% endblock %}
+}
+>>>>>>> squareInspector
