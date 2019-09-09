@@ -364,7 +364,7 @@ class Grid extends Array {
 	// 	}
 		
 
-	}
+	// }
 
 	
 

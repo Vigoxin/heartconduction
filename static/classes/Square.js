@@ -124,7 +124,7 @@ class Square {
 		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
 
 		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
-			// If this square is repolarised (APcounter < 0) and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. what AP counter squares this square will receive propagation from), then depolarise this square
+			// If this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. what AP counter squares this square will receive propagation from), then depolarise this square
 			this.propagationDepolarise();
 			// Then, if this square is an automatic focus, reset its pacingTracker
 			if (this.pacingSetting === 'autoFocus') {
@@ -265,6 +265,9 @@ class Square {
 	applySquareInspectorDivChanges() {
 		// state
 		this.squareInspectorDivWrapper.div.find(`.state-radio[value=${this.state}]`).prop('checked', true)
+
+		// pacingTracker
+		this.squareInspectorDivWrapper.div.find(`.pacingTracker`).val(this.pacingTracker);
 	}
 
 	applySquareInspectorDivChangesInitialOnly() {
@@ -276,6 +279,12 @@ class Square {
 
 		// randomRefracLengths
 		this.squareInspectorDivWrapper.div.find(`.randomRefracLengths-radio[value=${+this.randomRefracLengths}]`).prop('checked', true)
+
+		// pacingSetting
+		this.squareInspectorDivWrapper.div.find(`.pacing-radio[value=${this.pacingSetting}]`).prop('checked', true);
+
+		// pacingInterval
+		this.squareInspectorDivWrapper.div.find(`.pacingInterval`).val(this.pacingInterval);
 	}
 
 	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {
@@ -326,19 +335,8 @@ class Square {
 		if (selectorType === 'squareInspectorSelector') {
 			if (!this.isInSquareInspector) {
 				this.addToSquareInspector();
-				// this.isInSquareInspector = true;
-				// this.parentGrid.squareInspectorSquareList.push(this);
-				// this.squareInspectorDivWrapper.assignSquareInspectorDiv();
-				// this.squareInspectorDivWrapper.addDivToSquareInspector();
-				// this.highlight();
 			} else if (this.isInSquareInspector) {
 				this.removeFromSquareInspector();
-				// this.isInSquareInspector = false;
-				// this.parentGrid.squareInspectorSquareList = this.parentGrid.squareInspectorSquareList.filter((el) => {
-				// 	return !(el.col === this.col && el.row === this.row);
-				// })
-				// $(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`).remove();
-				// this.dehighlight();
 			}
 		}
 	}

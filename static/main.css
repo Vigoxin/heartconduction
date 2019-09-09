@@ -188,15 +188,19 @@ nav ul > li > ul > li > ul {
   display: block;
   font-size: 16px;
   padding: 10px 0;
-  height: 605px;
+  height: 555px;
   margin: 0 auto;
   overflow-y: auto;
   background-color: #C8B8DB;
   transition: all 0.5s ease-out;
 }
 .main .grid-split-in-two .info-section .tabSystem .panel .squareInspectorDiv .squareInspector-settings-section {
-  margin-left: 10px;
+  margin: 0 auto;
   margin-bottom: 10px;
+  width: 80%;
+}
+.main .grid-split-in-two .info-section .tabSystem .panel .squareInspectorDiv .squareInspector-settings-section .squareInspectorSectionTitle {
+  margin: 10px 0 5px 0;
 }
 .main .grid-split-in-two .info-section .tabSystem .panel .squareInspectorDiv hr {
   margin: 10px 0;

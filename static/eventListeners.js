@@ -88,10 +88,6 @@ function eventListeners() {
 
 
 
-
-
-
-
 	// Apply to all box
 	$('.apply-to-all-button').on('click', function() {
 		for (let col of grid) {

@@ -271,7 +271,7 @@ nav {
 					
 					padding: 10px 0;
 					
-					height: 605px;
+					height: 555px;
 					margin: 0 auto;
 					overflow-y: auto;
 					background-color: $primary-light;
@@ -281,8 +281,13 @@ nav {
 					.squareInspectorDiv {
 
 						.squareInspector-settings-section {
-							margin-left: 10px;
+							margin: 0 auto;
 							margin-bottom: 10px;
+							width: 80%;
+
+							.squareInspectorSectionTitle {
+								margin: 10px 0 5px 0;
+							}
 						}
 						
 						hr {

@@ -87,7 +87,28 @@ class SquareInspectorDivWrapper {
 				</div>
 			</div>
 			
-
+			<div class="squareInspector-pacing-box squareInspector-settings-section">
+				<div class="squareInspectorSectionTitle"> Pacing </div>
+				<div class="row">
+					<label>
+						<input class='with-gap simpleSelectorRadio pacing-radio extPace' type="radio" data-selector-type="pacing" name="squareInspectorSetting-pacing-${this.col}-${this.row}" value='extPace' data-col=${this.col} data-row=${this.row}> <span>External Pacing</span>
+					</label>
+					<label>
+						<input class='with-gap simpleSelectorRadio pacing-radio autoFocus' type="radio" data-selector-type="pacing" name="squareInspectorSetting-pacing-${this.col}-${this.row}" value='autoFocus' data-col=${this.col} data-row=${this.row}> <span>Automatic Focus</span>
+					</label>
+					<label>
+						<input class='with-gap simpleSelectorRadio pacing-radio noPace' type="radio" data-selector-type="pacing" name="squareInspectorSetting-pacing-${this.col}-${this.row}" value='noPace' data-col=${this.col} data-row=${this.row}> <span>No pace</span>
+					</label>
+				</div>
+				<div class="row">
+					<div class="number-label-pair">
+						<input type="number" name="squareInspector-pacingInterval-${this.col}-${this.row}" value=${this.parentSquare.pacingInterval} class="squareInspector-pacingInterval pacing-number" data-col=${this.col} data-row=${this.row}><label>Pacing interval</label>
+					</div>
+					<div class="number-label-pair">
+						<input type="number" name="squareInspector-pacingTracker-${this.col}-${this.row}" value=${this.parentSquare.pacingTracker} class="squareInspector-pacingTracker pacing-number" data-col=${this.col} data-row=${this.row}><label>Pacing timer</label>
+					</div>
+				</div>
+			</div>
 
 	
 
@@ -121,10 +142,16 @@ class SquareInspectorDivWrapper {
 			this.parentSquare.removeFromSquareInspector();
 		})
 
-		// state, conduction velocity, refracLength and randomRefracLengths event
+		// state, conduction velocity, refracLength and randomRefracLengths, and pacingSetting event
 		$(this.div).find(`.simpleSelectorRadio`).on('click', function() {
 			grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val());
 		})
+
+		// pacingSetting event
+		$(this.div).find(`.pacing-radio`).on('click', function() {
+			grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val());
+		})
+
 
 	}
 
