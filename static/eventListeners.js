@@ -121,8 +121,8 @@ function eventListeners() {
 		'min': 1
 	})
 
-	$('.pacingOffset').prop({
-		'value': 0
+	$('.pacingTracker').prop({
+		'value': 50
 	})
 
 	

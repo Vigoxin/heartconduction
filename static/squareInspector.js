@@ -102,10 +102,10 @@ class SquareInspectorDivWrapper {
 				</div>
 				<div class="row">
 					<div class="number-label-pair">
-						<input type="number" name="squareInspector-pacingInterval-${this.col}-${this.row}" value=${this.parentSquare.pacingInterval} class="squareInspector-pacingInterval pacing-number" data-col=${this.col} data-row=${this.row}><label>Pacing interval</label>
+						<input type="number" name="squareInspector-pacingInterval-${this.col}-${this.row}" value=${this.parentSquare.pacingInterval} class="squareInspector-pacingInterval squareInspector-pacingNumber" data-col=${this.col} data-row=${this.row}><label>Pacing interval</label>
 					</div>
 					<div class="number-label-pair">
-						<input type="number" name="squareInspector-pacingTracker-${this.col}-${this.row}" value=${this.parentSquare.pacingTracker} class="squareInspector-pacingTracker pacing-number" data-col=${this.col} data-row=${this.row}><label>Pacing timer</label>
+						<input type="number" name="squareInspector-pacingTracker-${this.col}-${this.row}" value=${this.parentSquare.pacingTracker} class="squareInspector-pacingTracker squareInspector-pacingNumber" data-col=${this.col} data-row=${this.row}><label>Pacing timer</label>
 					</div>
 				</div>
 			</div>
@@ -144,12 +144,13 @@ class SquareInspectorDivWrapper {
 
 		// state, conduction velocity, refracLength and randomRefracLengths, and pacingSetting event
 		$(this.div).find(`.simpleSelectorRadio`).on('click', function() {
-			grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val());
+			grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val(), '.squareInspectorDiv');
 		})
 
-		// pacingSetting event
-		$(this.div).find(`.pacing-radio`).on('click', function() {
-			grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val());
+		// pacingTracker and pacingInterval events
+		$(this.div).find('.squareInspector-pacingNumber').on('change', function() {
+			grid[col][row].clickAndMoveSet('pacing', grid[col][row].squareInspectorDivWrapper.div.find('.pacing-radio:checked').val(), '.squareInspectorDiv');
+			console.log('asdf');
 		})
 
 

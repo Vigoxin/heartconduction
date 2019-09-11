@@ -25,7 +25,7 @@ class Square {
 		this.neighbours = [];
 		this.setNeighbours();
 
-		this.pacingTracker = 0;
+		this.pacingTracker = 50;
 		this.isPacing = false;
 		this.isExtPace = false;
 		this.isAutoFocus = false;
@@ -130,7 +130,7 @@ class Square {
 			if (this.pacingSetting === 'autoFocus') {
 				this.resetPacingTracker();
 			}
-		} else if (this.isPacing && this.pacingTracker === this.pacingInterval) {
+		} else if (this.isPacing && this.pacingTracker === 0) {
 			// Or, if this square is a pacing square and it has reached its pacing interval time
 				if (this.pacingSetting === 'extPace') {
 					// then if it's an external paced square (i.e. there is a lead touching it), then depolarise this square
@@ -192,13 +192,13 @@ class Square {
 
 	changePacingTracker() {
 		if (this.isPacing) {
-			this.pacingTracker++;
+			this.pacingTracker--;
 			// this.isDebugging ? console.log(this.pacingTracker) : 0;
 		}
 	}
 
 	resetPacingTracker() {
-		this.pacingTracker = 0;
+		this.pacingTracker = this.pacingInterval;
 	}
 
 	display() {
@@ -257,6 +257,7 @@ class Square {
 		// Square Inspector Div
 		if (this.isInSquareInspector) {
 			this.applySquareInspectorDivChanges();
+			this.applySquareInspectorDivChangesInitialOnly();
 		}
 
 	}
@@ -267,7 +268,7 @@ class Square {
 		this.squareInspectorDivWrapper.div.find(`.state-radio[value=${this.state}]`).prop('checked', true)
 
 		// pacingTracker
-		this.squareInspectorDivWrapper.div.find(`.pacingTracker`).val(this.pacingTracker);
+		this.squareInspectorDivWrapper.div.find(`.squareInspector-pacingTracker`).val(this.pacingTracker);
 	}
 
 	applySquareInspectorDivChangesInitialOnly() {
@@ -284,10 +285,10 @@ class Square {
 		this.squareInspectorDivWrapper.div.find(`.pacing-radio[value=${this.pacingSetting}]`).prop('checked', true);
 
 		// pacingInterval
-		this.squareInspectorDivWrapper.div.find(`.pacingInterval`).val(this.pacingInterval);
+		this.squareInspectorDivWrapper.div.find(`.squareInspector-pacingInterval`).val(this.pacingInterval);
 	}
 
-	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {
+	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector, via='.settings-section') {
 		if (selectorType === 'state') {
 			if (selector === 'clear') {
 				this.clickClear();
@@ -317,8 +318,12 @@ class Square {
 				
 			if (selector !== 'noPace')	{
 				this.isPacing = true;
-				this.pacingInterval = parseInt($('.pacingInterval').val());
-				this.pacingTracker = this.pacingInterval-parseInt($('.pacingOffset').val());
+				var pacingIntervalInput = via === '.settings-section' ? $('#pacing-box').find('.pacingInterval') : this.squareInspectorDivWrapper.div.find('.squareInspector-pacingInterval');
+				var pacingTrackerInput = via === '.settings-section' ? $('#pacing-box').find('.pacingTracker') : this.squareInspectorDivWrapper.div.find('.squareInspector-pacingTracker');
+				console.log(pacingIntervalInput);
+				console.log(pacingTrackerInput);
+				this.pacingInterval = parseInt(pacingIntervalInput.val());
+				this.pacingTracker = parseInt(pacingTrackerInput.val());
 				// if (this.pacingTracker === 0) {
 
 				// }

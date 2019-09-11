@@ -15,7 +15,7 @@ class Grid extends Array {
 		this.masterPacingTracker = 0;
 		
 		this.masterPacingIntervalSelector = 100;
-		this.masterPacingOffsetSelector = 0;
+		this.masterPacingTrackerSelector = 0;
 
 		this.selector = 'depo';
 		this.selectorType = 'state';
@@ -73,6 +73,8 @@ class Grid extends Array {
 			'autoFocus': 0x00aa00,
 			'extPace': 0x0000ff
 		}
+
+		this.pacing
 
 
 
