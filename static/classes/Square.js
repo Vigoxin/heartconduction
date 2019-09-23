@@ -257,7 +257,6 @@ class Square {
 		// Square Inspector Div
 		if (this.isInSquareInspector) {
 			this.applySquareInspectorDivChanges();
-			this.applySquareInspectorDivChangesInitialOnly();
 		}
 
 	}
@@ -286,6 +285,21 @@ class Square {
 
 		// pacingInterval
 		this.squareInspectorDivWrapper.div.find(`.squareInspector-pacingInterval`).val(this.pacingInterval);
+
+		// propdir
+		var neighbourVectorStrings = this.neighbourVectors.map(v => `[${v.toString()}]` );
+		console.log(this.neighbourVectorStrings);
+		for (let inp of this.squareInspectorDivWrapper.div.find('input.prop-direction')) {
+			var dirCode = `[${$(inp).data('directionCode').toString()}]`;
+			if (neighbourVectorStrings.includes(dirCode)) {
+				$(inp).prop('checked', true);
+			} else {
+				$(inp).prop('checked', false);
+			}
+		}
+
+
+
 	}
 
 	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector, via='.settings-section') {
@@ -309,7 +323,8 @@ class Square {
 			this.randomRefracLengths = !!parseInt(selector);
 		} else if (selectorType === 'propagationDirectionSetting') {
 			// Makes neighbourVectors an array of vectors (e.g. [-1, 1])
-			this.neighbourVectors = Array.from($('input.prop-direction:checked')).map(function(el){
+			var propDirBox = via === '.settings-section' ? $('#propagation-box') : $('.squareInspector-propagation-box') ;
+			this.neighbourVectors = Array.from(propDirBox.find('input.prop-direction:checked')).map(function(el){
 				return $(el).data('directionCode');
 			})
 			this.setNeighboursFromNeighbourVectors();
@@ -320,8 +335,6 @@ class Square {
 				this.isPacing = true;
 				var pacingIntervalInput = via === '.settings-section' ? $('#pacing-box').find('.pacingInterval') : this.squareInspectorDivWrapper.div.find('.squareInspector-pacingInterval');
 				var pacingTrackerInput = via === '.settings-section' ? $('#pacing-box').find('.pacingTracker') : this.squareInspectorDivWrapper.div.find('.squareInspector-pacingTracker');
-				console.log(pacingIntervalInput);
-				console.log(pacingTrackerInput);
 				this.pacingInterval = parseInt(pacingIntervalInput.val());
 				this.pacingTracker = parseInt(pacingTrackerInput.val());
 				// if (this.pacingTracker === 0) {
@@ -334,6 +347,11 @@ class Square {
 			this.display();
 			// console.log(`(${this.col}, ${this.row}) - Changing pacing setting to ${this.pacingSetting}`);
 		}
+
+		if (this.isInSquareInspector) {
+			this.applySquareInspectorDivChangesInitialOnly();
+		}
+
 	}
 
 	onlyClickSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {

@@ -74,8 +74,6 @@ class Grid extends Array {
 			'extPace': 0x0000ff
 		}
 
-		this.pacing
-
 
 
 
