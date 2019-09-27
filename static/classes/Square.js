@@ -116,10 +116,6 @@ class Square {
 			// this.stateTrail.shift();
 			// this.stateTrail.push(this.state);
 
-		this.isDebugging ? console.log(this.pacingInterval) : null;
-		this.isDebugging ? console.log(this.pacingTracker) : null;
-	
-
 		// Updating of cell itself
 		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
 
@@ -130,27 +126,26 @@ class Square {
 			if (this.pacingSetting === 'autoFocus') {
 				this.resetPacingTracker();
 			}
-		} else if (this.isPacing && this.pacingTracker === 0) {
+		} else if (this.isPacing && this.pacingTracker <= 0) {
 			// Or, if this square is a pacing square and it has reached its pacing interval time
 				if (this.pacingSetting === 'extPace') {
 					// then if it's an external paced square (i.e. there is a lead touching it), then depolarise this square
 					this.propagationDepolarise();
-					this.resetPacingTracker();
 				} else if (this.pacingSetting === 'autoFocus') {
 					// OR if it's not externally paced, but is an automatic focal pacemaker from the cell itself, then...
 					if (this.state === 'repo') {
 						// only depolarise if this square is repolarised
 						this.propagationDepolarise();
-						this.resetPacingTracker();
 					}
 							// The logic here is that if a cell has a pacing lead attached to it, then it will get a huge voltage of electricity that will depolarise it even if it's in its refractory period, but if the square is an automatic focus, then it won't fire again if it's already refractory				
 				}
+
+				this.resetPacingTracker();
+
 		} else {
 			// AP cycle
 			// this.isDebugging ? console.log('path 3') : null;
 			// this.isDebugging ? console.log('this.randomRefracLengths: ', this.randomRefracLengths) : null;
-			// this.isDebugging ? console.log('this.APcounter: ', this.APcounter) : null;
-			// this.isDebugging ? console.log('this.refracLength: ', this.refracLength) : null;
 			// this.isDebugging ? console.log('this.refracPoint: ', this.refracPoint) : null;
 			if (this.APcounter < 0) {
 				this.APcounter = -1;
@@ -288,7 +283,6 @@ class Square {
 
 		// propdir
 		var neighbourVectorStrings = this.neighbourVectors.map(v => `[${v.toString()}]` );
-		console.log(this.neighbourVectorStrings);
 		for (let inp of this.squareInspectorDivWrapper.div.find('input.prop-direction')) {
 			var dirCode = `[${$(inp).data('directionCode').toString()}]`;
 			if (neighbourVectorStrings.includes(dirCode)) {

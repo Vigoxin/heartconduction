@@ -92,7 +92,7 @@ function eventListeners() {
 	$('.apply-to-all-button').on('click', function() {
 		for (let col of grid) {
 			for (let square of col) {
-				if (square.state !== 'clear') {square.clickSet()};
+				if (square.state !== 'clear') {square.clickAndMoveSet()};
 			}
 		}
 	})
