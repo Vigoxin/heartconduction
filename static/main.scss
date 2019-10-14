@@ -298,7 +298,7 @@ nav {
 					display: block;
 					font-size: 16px;
 					
-					padding: 10px 0;
+					padding: 10px;
 					
 					height: 555px;
 					margin: 0 auto;
@@ -312,7 +312,7 @@ nav {
 						.squareInspector-settings-section {
 							margin: 0 auto;
 							margin-bottom: 10px;
-							width: 80%;
+							width: 90%;
 
 							.squareInspectorSectionTitle {
 								margin: 10px 0 5px 0;
@@ -325,6 +325,11 @@ nav {
 						}
 					}
 
+					#timeStripsDiv {
+						canvas {
+							margin: 0 auto;
+						}
+					}
 
 				}
 				

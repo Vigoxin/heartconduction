@@ -7,6 +7,8 @@ PIXI.loader.load(setup);
 function setup() {
 
 								atot = performance.now();
+	
+	timeStripPanel = new TimeStripPanel();
 
 			a = performance.now();
 	grid = new Grid('.canvas', cellSize=15, cellNum=60);

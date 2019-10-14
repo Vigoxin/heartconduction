@@ -36,6 +36,9 @@
 			<div class="row">
 				<label>
 					<input class='with-gap square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <span>Square Inspector</span>
+				</label>
+				<label>
+					<input class='with-gap time-strip-toggle-radio' type="radio" data-selector-type="timeStripPanelSelector" name="selector" value='timeStripPanelSelector'> <span>Time Strip</span>
 				</label>				
 			</div>
 		</div>
@@ -67,7 +70,7 @@
 				<div class="panelContainer">
 					<div id="squareInspectorDivs" class="panel">
 					</div>
-					<div id="timeStripDiv" class="panel">
+					<div id="timeStripsDiv" class="panel">
 						<p>Time strip Content </p>
 					</div>
 				</div>
@@ -296,7 +299,9 @@
 
 	<script type="text/javascript" src='/static/classes/Grid.js'></script>
 	<script type="text/javascript" src='/static/classes/Square.js'></script>
+	<script type="text/javascript" src='/static/classes/SquareForTimeStrip.js'></script>
 	<script type="text/javascript" src='/static/classes/TimeStrip.js'></script>
+	<script type="text/javascript" src='/static/classes/TimeStripPanel.js'></script>
 
 	<script type="text/javascript" src='/static/main.js'></script>
 	<script type="text/javascript" src='/static/squareInspector.js'></script>

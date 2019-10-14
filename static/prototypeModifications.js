@@ -20,3 +20,7 @@ Array.prototype.removeArrayFromArray = function(target) {
 	    return true;
 	}
 }
+
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}

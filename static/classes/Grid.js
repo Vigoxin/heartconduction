@@ -12,13 +12,14 @@ class Grid extends Array {
 		this.masterCondVel = 'normal';
 		this.clickSelector;
 
-		this.masterPacingTracker = 0;
+		this.masterPacingTracker = 10;
 		
 		this.masterPacingIntervalSelector = 100;
 		this.masterPacingTrackerSelector = 0;
 
 		this.selector = 'depo';
 		this.selectorType = 'state';
+		
 		this.squareInspectorSelector;
 		this.squareInspectorSelectorType;
 
@@ -233,6 +234,7 @@ class Grid extends Array {
 			}
 		}
 
+		timeStripPanel.update();
 
 	}
 
@@ -339,32 +341,6 @@ class Grid extends Array {
 	normalClick(e) {
 		
 	}
-
-
-
- // Square Inspector stuff
-
-
-
-	// applySquareInspectorSquares() {
-	// 	$('#squareInspectorDivs').empty();
-	// 	for (let sq of this.squareInspectorSquareList) {
-	// 		sq.dehighlight();
-	// 	}
-	// 	this.squareInspectorSquareList = [];
-
-	// 	for (let col of this) {
-	// 		for (let sq of col) {
-	// 			if (sq.isInSquareInspector) {
-	// 				this.squareInspectorSquareList.push(sq);
-	// 				sq.squareInspectorDivWrapper.assignSquareInspectorDiv();
-	// 				sq.squareInspectorDivWrapper.addDivToSquareInspector();
-	// 			}
-	// 		}
-	// 	}
-		
-
-	// }
 
 	
 

@@ -227,8 +227,6 @@ class SquareInspectorDivWrapper {
 
 		for (let el of squareInspectorSections) {
 			var collapsible = this.div.find(el[0]);
-			console.log(el[0]);
-			console.log(el[1]);
 			collapsible.on('click', function() {
 				this.classList.toggle('active');
 			    var content = this.nextElementSibling;

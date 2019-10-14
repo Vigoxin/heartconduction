@@ -6,6 +6,7 @@ class Square {
 														// a = performance.now();
 		this.isDebugging;
 		this.isInSquareInspector = false;
+		this.isInTimeStripPanel = false;
 
 		this.parentGrid = parentGrid;
 
@@ -25,7 +26,7 @@ class Square {
 		this.neighbours = [];
 		this.setNeighbours();
 
-		this.pacingTracker = 50;
+		this.pacingTracker = 10;
 		this.isPacing = false;
 		this.isExtPace = false;
 		this.isAutoFocus = false;
@@ -89,26 +90,10 @@ class Square {
 	}
 
 	addSpritesToApp() {
-		var a; var b;
 		for (let sprite of this.images) {
 			sprite = this.sprites[sprite];
-			// this.parentGrid.app.stage.children = [];
-														// a = performance.now();
-			// // Remove sprites which already exist - i.e. those with same x and y positions AND made from the same image file/texture:
-			// _.remove(this.parentGrid.app.stage.children, function(a) {
-			// 	return (
-			// 		a.x === sprite.x &&
-			// 		a.y === sprite.y &&
-			// 		a.texture.baseTexture.textureCacheIds[0] === sprite.texture.baseTexture.textureCacheIds[0]
-			// 	)
-			// })
-														// b = performance.now(); console.log((b-a)/1000);
-				
-														// a = performance.now();
 			this.parentGrid.app.stage.addChild(sprite);
-														// b = performance.now(); console.log((b-a)/1000);
 		}
-		// console.log(this.parentGrid.app.stage.children);
 	}
 
 	actionPotential() {
@@ -355,6 +340,12 @@ class Square {
 			} else if (this.isInSquareInspector) {
 				this.removeFromSquareInspector();
 			}
+		} else if (selectorType === 'timeStripPanelSelector') {
+			if (!this.isInTimeStripPanel) {
+				this.addToTimeStripPanel();
+			} else if (this.isInTimeStripPanel) {
+				this.removeFromTimeStripPanel();
+			}
 		}
 	}
 
@@ -373,6 +364,16 @@ class Square {
 		})
 		$(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`).remove();
 		this.dehighlight();
+	}
+
+	addToTimeStripPanel() {
+		this.isInTimeStripPanel = true;
+		timeStripPanel.addTimeStrip(this);
+	}
+
+	removeFromTimeStripPanel() {
+		this.isInTimeStripPanel = false;
+
 	}
 
 	clickDepolarise() {
