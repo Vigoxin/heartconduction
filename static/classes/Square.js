@@ -21,19 +21,17 @@ class Square {
 		this.state = this.parentGrid.masterState;
 		this.APcounter = -1;
 		
-
 		this.neighbourVectors = [];
 		this.neighbours = [];
 		this.setNeighbours();
 
-		this.pacingTracker = 10;
 		this.isPacing = false;
 		this.isExtPace = false;
 		this.isAutoFocus = false;
 		this.pacingSetting = 'noPace';
+		this.pacingTracker = 10;
 		this.pacingInterval = 100;
 		
-
 		this.condVelSetting = this.parentGrid.masterCondVel;
 		this.condVel = this.parentGrid.condVelDict[this.condVelSetting];
 
@@ -57,7 +55,7 @@ class Square {
 														// a = performance.now();
 		this.images = ['square', 'plus', 'circle', 'border', 'highlight']; // update as more features added
 		// Setting up the sprites needed to display the square
-		this.setSprites();
+		this.setSpritesPosAndSize();
 														// b = performance.now(); console.log((b-a)/1000);
 														// a = performance.now();
 		this.addSpritesToApp();
@@ -69,7 +67,7 @@ class Square {
 	}
 
 
-	setSprites() {
+	setSpritesPosAndSize() {
 		this.sprites = {};
 		for (let image of this.images) {
 			var fullImage = '/'+texturesPath+image+'.png';
@@ -114,7 +112,7 @@ class Square {
 		} else if (this.isPacing && this.pacingTracker <= 0) {
 			// Or, if this square is a pacing square and it has reached its pacing interval time
 				if (this.pacingSetting === 'extPace') {
-					// then if it's an external paced square (i.e. there is a lead touching it), then depolarise this square
+					// then if it's an externally paced square (i.e. there is a lead touching it), then depolarise this square
 					this.propagationDepolarise();
 				} else if (this.pacingSetting === 'autoFocus') {
 					// OR if it's not externally paced, but is an automatic focal pacemaker from the cell itself, then...
@@ -242,7 +240,7 @@ class Square {
 	}
 
 
-	applySquareInspectorDivChanges() {
+	applySquareInspectorDivChanges() { //properties that can change with every frame
 		// state
 		this.squareInspectorDivWrapper.div.find(`.state-radio[value=${this.state}]`).prop('checked', true)
 
@@ -250,7 +248,7 @@ class Square {
 		this.squareInspectorDivWrapper.div.find(`.squareInspector-pacingTracker`).val(this.pacingTracker);
 	}
 
-	applySquareInspectorDivChangesInitialOnly() {
+	applySquareInspectorDivChangesInitialOnly() { //properties that only the user changes - they don't change on their own with the action potential
 		// conduction velocity
 		this.squareInspectorDivWrapper.div.find(`.condVel-radio[value=${this.condVelSetting}]`).prop('checked', true)
 		
@@ -369,11 +367,12 @@ class Square {
 	addToTimeStripPanel() {
 		this.isInTimeStripPanel = true;
 		timeStripPanel.addTimeStrip(this);
+		this.highlight();
 	}
 
 	removeFromTimeStripPanel() {
 		this.isInTimeStripPanel = false;
-
+		this.dehighlight();
 	}
 
 	clickDepolarise() {
@@ -420,10 +419,10 @@ class Square {
 
 
 	setNeighbourVectors() {
-		
-		this.neighbourVectors = [[-1, 0], [0, -1], [0, 1], [1, 0]];
 		if (this.parentGrid.diagonalPropagation) {
 			this.neighbourVectors = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+		} else {
+			this.neighbourVectors = [[-1, 0], [0, -1], [0, 1], [1, 0]];
 		}
 
 	}

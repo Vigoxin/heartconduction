@@ -12,24 +12,23 @@ class Grid extends Array {
 		this.masterCondVel = 'normal';
 		this.clickSelector;
 
-		this.masterPacingTracker = 10;
+		// this.masterPacingTracker = 10;
 		
-		this.masterPacingIntervalSelector = 100;
-		this.masterPacingTrackerSelector = 0;
+		// this.masterPacingIntervalSelector = 100;
+		// this.masterPacingTrackerSelector = 0;
 
 		this.selector = 'depo';
 		this.selectorType = 'state';
 		
 		this.squareInspectorSelector;
 		this.squareInspectorSelectorType;
+		this.squareInspectorSquareList = [];
 
 		this.tempSelecting = {};
 		this.tempHighlighted = [];
 
 		this.diagonalPropagation = true;
 
-		this.squareInspectorSquareList = [];
-			
 			// pixi constants
 		this.cWidth = this.cellSize*this.cellNum;
 		this.cHeight = this.cellSize*this.cellNum;
@@ -180,8 +179,6 @@ class Grid extends Array {
 		this.app = new PIXI.Application({
 			width: this.cWidth+1,
 			height: this.cHeight+1,
-			// width: 1200,
-			// height: 1200,
 			antialias: true,			// default: false
 			transparent: false, 		// default: false
 			resolution: 1,			 	// default: 1
@@ -338,15 +335,7 @@ class Grid extends Array {
 			this.multipleHighlight(this.tempSelecting);
 	}
 
-	normalClick(e) {
-		
-	}
-
-	
-
  // click shortcuts
-
-	
 	multipleSet({square1, square2}) {
 		var colStart = Math.min(square1.col, square2.col);
 		var colEnd = Math.max(square1.col, square2.col)+1;
@@ -390,19 +379,21 @@ class Grid extends Array {
 		var toSave = Object.assign({}, this);
 		console.log('toSave: ', toSave);
 
-		var squareKeysToExclude = ['neighbours', 'parentGrid', 'sprites', 'rainbow'];
+		var squareKeysToExclude = ['neighbours', 'parentGrid', 'sprites', 'rainbow', 'squareInspectorDivWrapper', 'isInSquareInspector', 'isInTimeStripPanel'];
 		var saved2dArray = {};
 		for (var i=0; i<toSave.cellNum; i++) {
 			saved2dArray[i] = [];
 			for (var j=0; j<toSave[0].length; j++) {
 				saved2dArray[i].push({});
 				for (let key in toSave[i][j] ) {
+					if (i == 0 && j == 0) {console.log(key, !squareKeysToExclude.includes(key) ? 'yes' : 'no')} // debugging 
+
 					!(squareKeysToExclude.includes(key)) ? saved2dArray[i][j][key] = toSave[i][j][key] : null;
 				}
 			}
 		}
 
-		var gridKeysToExclude = ['app'];
+		var gridKeysToExclude = ['app', 'squareInspectorSquareList'];
 		var savedGridProperties = {};
 
 		for (let key in toSave) {
@@ -410,6 +401,9 @@ class Grid extends Array {
 				!(gridKeysToExclude.includes(key)) ? savedGridProperties[key] = toSave[key] : null;
 			}
 		}
+
+		console.log(saved2dArray);
+		console.log(savedGridProperties);
 
 
 		var json = JSON.stringify([saved2dArray, savedGridProperties]);
@@ -424,19 +418,17 @@ class Grid extends Array {
 	var a;
 	var b;
 
+		// Load data
 		var saved2dArray = JSON.parse(json)[0];
 		var savedGridProperties = JSON.parse(json)[1];
 
 
-
+		// Repopulate cells
 		var cellNum = savedGridProperties.cellNum || savedGridProperties.cellDim;
-
-
-
 		this.renum(cellNum);
 
 
-
+		// Resize cells
 		var cellSize = savedGridProperties.cellSize;
 		this.resize(cellSize);
 

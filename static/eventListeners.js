@@ -1,4 +1,4 @@
-function eventListeners() {
+function setEventListeners() {
 	console.log(grid);
 
 	// Play settings
@@ -76,7 +76,7 @@ function eventListeners() {
 		grid.renum(parseInt($(this).val()), 'repo');
 	})
 
-	// Setting state, condVel and refracLengths, and randomRefracLengths, propDirectionSetting and isInSquareInspector
+	// Setting state, condVel and refracLengths, and randomRefracLengths, propDirectionSetting, isInSquareInspector, and isInTimeStripPanel
 	$("input[name='selector']").on('click', function() {
 		grid.selector = $("input[name='selector']:checked").val();
 		grid.selectorType = $(this).data('selectorType');

@@ -6,26 +6,26 @@ PIXI.loader.load(setup);
 
 function setup() {
 
-								atot = performance.now();
+								// atot = performance.now();
 	
 	timeStripPanel = new TimeStripPanel();
 
-			a = performance.now();
+			// a = performance.now();
 	grid = new Grid('.canvas', cellSize=15, cellNum=60);
-			b = performance.now(); console.log((b-a)/1000);
+			// b = performance.now(); console.log((b-a)/1000);
 			
-			a = performance.now();
+			// a = performance.now();
 	if (typeof gridToLoad !== 'undefined') {
 		grid.loadGrid(gridToLoad);
 	}
-			b = performance.now(); console.log((b-a)/1000);
+			// b = performance.now(); console.log((b-a)/1000);
 
 
 	DOMSetup();
 
-	eventListeners();
+	setEventListeners();
 			
-								btot = performance.now(); console.log((btot-atot)/1000);
+								// btot = performance.now(); console.log((btot-atot)/1000);
 
 	drawingFunction();
 }

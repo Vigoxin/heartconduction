@@ -7,12 +7,12 @@ class TimeStripPanel extends Array {
 
 		// Sets constants
 		this.numberOfStrips = 0;
-		this.cellHeight = 10;
-		this.gapSize = 20;
+		this.cellHeight = 20;
+		this.verticalGapSize = 50;
 
-		this.cellWidth = 1;
+		this.cellWidth = 2;
 
-		// this.cHeight = (this.cellHeight + this.gapSize) * this.numberOfStrips;
+		// this.cHeight = (this.cellHeight + this.verticalGapSize) * this.numberOfStrips;
 		this.cHeight = 500;
 		this.cWidth = 420;
 		this.numOfFramesLength = this.cWidth / this.cellWidth;
@@ -87,7 +87,6 @@ class TimeStripPanel extends Array {
 	moveOverWipePosition() {
 		this.wipeOverPositionCounter++;
 		this.wipeOverPositionCounter = this.wipeOverPositionCounter % this.numOfFramesLength;
-		console.log(this.wipeOverPositionCounter);
 	}
 
 
@@ -113,7 +112,7 @@ class TimeStripPanel extends Array {
 
 	grid2pixel(x, y) {
 		var xresult = x * this.cellWidth;
-		var yresult = y * (this.cellHeight + this.gapSize);
+		var yresult = y * (this.cellHeight + this.verticalGapSize);
 		return {
 			'x': xresult,
 			'y': yresult
