@@ -87,6 +87,17 @@ function setEventListeners() {
 	grid.selectorType = $("input[name='selector']:checked").data('selectorType');
 
 
+	// Bridge box
+	$('.bridge-checkbox').on('click', function() {
+		grid.rainbowTrails = $(this).is(':checked');
+		for (var i=0; i<grid.cellNum; i++) {
+			for (var j=0; j<grid.cellNum; j++) {
+				grid[i][j].display();
+			}
+		}
+	})
+
+
 
 	// Apply to all box
 	$('.apply-to-all-button').on('click', function() {
@@ -124,7 +135,6 @@ function setEventListeners() {
 	$('.pacingTracker').prop({
 		'value': 50
 	})
-
 	
 // Miscellaneous section
 	// Rainbow box
@@ -137,13 +147,12 @@ function setEventListeners() {
 		}
 	})
 
+
 	// Diagonal propagation whole grid (not individual)
 	$('.diagprop-checkbox').on('click', function() {
 		grid.diagonalPropagation = $(this).is(':checked');
-		console.log(`setting diag prop to ${grid.diagonalPropagation}`);
 		for (var i=0; i<grid.cellNum; i++) {
 			for (var j=0; j<grid.cellNum; j++) {
-				console.log(`setting neighbours for square ${i} ${j}`);
 				grid[i][j].setNeighbours();
 			}
 		}

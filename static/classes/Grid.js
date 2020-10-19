@@ -74,6 +74,8 @@ class Grid extends Array {
 			'extPace': 0x0000ff
 		}
 
+		this.eightNeighbourVectors = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+		this.fourNeighbourVectors = [[-1, 0], [0, -1], [0, 1], [1, 0]];
 
 
 
@@ -196,7 +198,8 @@ class Grid extends Array {
 	play() {
 		// console.log(this.masterPacingTracker);
 		// this.masterPacingTracker++;
-		// this[0][0].isDebugging = true;
+		// this[25][29].isDebugging = true;
+		// this[26][49].isDebugging = true;
 
 		this.APcounterGrid = this.map2Darray('APcounter');
 
@@ -433,7 +436,7 @@ class Grid extends Array {
 		this.resize(cellSize);
 
 				
-
+		// Change all properties of the grid itself
 		for (let key in savedGridProperties) {
 			if (!$.isNumeric(key)) {
 				this[key] = savedGridProperties[key];
@@ -445,8 +448,9 @@ class Grid extends Array {
 		// while (this.app.stage.children[0]) { this.app.stage.removeChild(this.app.stage.children[0]); }
 		this.app.stage.children = [];
 												b = performance.now(); console.log((b-a)/1000);
-		
 
+		
+		// Change all the properties of all the squares in the grid
 												a = performance.now();
 		var firstLim = Math.max(...Object.keys(saved2dArray).map(x => Number(x)))+1;
 		for (var i=0; i<firstLim; i++) {
@@ -460,13 +464,18 @@ class Grid extends Array {
 					this[i][j][key] = saved2dArray[i][j][key];
 				}
 												// b = performance.now(); console.log((b-a)/1000);
-					this[i][j].setRainbowRange();
+				this[i][j].setRainbowRange();
 			}
 
 		}
-												b = performance.now(); console.log((b-a)/1000);
 
 
+		for (let col of this) {
+			for (let square of col) {
+				square.setNeighbours();
+			}
+		}
+										b = performance.now(); console.log((b-a)/1000);
 
 		for (let col of this) {
 			for (let square of col) {

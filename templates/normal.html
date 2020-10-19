@@ -175,57 +175,70 @@
 		</div>
 
 		<div id="propagation-box" class="propagation-box settings-section tabbed-settings-section">
-			<div class="prop-box-container">
-				<div class="propagation-settings-directions-grid">
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,-1]" name="top-left" checked> <span></span>
-							</label>
+			<div class="container">
+				<div class="row">
+					<div class="prop-box-container">
+						<div class="propagation-settings-directions-grid">
+								<div class='prop-set-dir-grid-sec'>
+									<label>
+										<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,-1]" name="top-left" checked> <span></span>
+									</label>
+								</div>
+								<div class='prop-set-dir-grid-sec'>
+									<label>
+										<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,-1]" name="top-center" checked> <span></span>
+									</label>
+								</div>
+								<div class='prop-set-dir-grid-sec'>
+									<label>
+										<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,-1]" name="top-right" checked> <span></span>
+									</label>
+								</div>
+								<div class='prop-set-dir-grid-sec'>
+									<label>
+										<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,0]" name="center-left" checked> <span></span>
+									</label>
+								</div>
+								<div class='prop-set-dir-grid-sec'>
+									<div class="row">
+										<label>
+											<input class="with-gap prop-direction-radio on" type="radio" name="selector" value=1 data-selector-type="propagationDirectionSetting"> <span></span>
+										</label>
+									</div>
+					
+								</div>
+								<div class='prop-set-dir-grid-sec'>
+									<label>
+										<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,0]" name="center-right" checked> <span></span>
+									</label>
+								</div>
+								<div class='prop-set-dir-grid-sec'>
+									<label>
+										<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,1]" name="bottom-left" checked> <span></span>
+									</label>
+								</div>
+								<div class='prop-set-dir-grid-sec'>
+									<label>
+										<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,1]" name="bottom-center" checked> <span></span>
+									</label>
+								</div>
+								<div class='prop-set-dir-grid-sec'>
+									<label>
+										<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,1]" name="bottom-right" checked> <span></span>
+									</label>
+								</div>
+					
 						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,-1]" name="top-center" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,-1]" name="top-right" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,0]" name="center-left" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<div class="row">
-								<label>
-									<input class="with-gap prop-direction-radio on" type="radio" name="selector" value=1 data-selector-type="propagationDirectionSetting"> <span></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,0]" name="center-right" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,1]" name="bottom-left" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,1]" name="bottom-center" checked> <span></span>
-							</label>
-						</div>
-						<div class='prop-set-dir-grid-sec'>
-							<label>
-								<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,1]" name="bottom-right" checked> <span></span>
-							</label>
-						</div>
-
+					</div>
+				</div>
+				
+				<div class="row">
+					<label>
+						<input class="with-gap bridge-radio on" type="radio" name="selector" value=1 data-selector-type="bridge"> <span>Bridge on</span>
+					</label>
+					<label>
+						<input class="with-gap bridge-radio off" type="radio" name="selector" value=0 data-selector-type="bridge"> <span>Bridge off</span>
+					</label>
 				</div>
 			</div>
 		</div>

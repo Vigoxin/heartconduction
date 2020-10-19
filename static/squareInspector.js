@@ -162,8 +162,16 @@ class SquareInspectorDivWrapper {
 									<input class='prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[1,1]" name="bottom-right"> <span></span>
 								</label>
 							</div>
-
 					</div>
+				</div>
+				
+				<div class="row">
+					<label>
+						<input class="with-gap simpleSelectorRadio bridge-radio on" type="radio" name="squareInspectorSetting-bridge-${this.col}-${this.row}" value=1 data-selector-type="bridge" data-col=${this.col} data-row=${this.row}> <span>Bridge on</span>
+					</label>
+					<label>
+						<input class="with-gap simpleSelectorRadio bridge-radio off" type="radio" name="squareInspectorSetting-bridge-${this.col}-${this.row}" value=0 data-selector-type="bridge" data-col=${this.col} data-row=${this.row}> <span>Bridge off</span>
+					</label>
 				</div>
 			</div>
 
@@ -199,9 +207,14 @@ class SquareInspectorDivWrapper {
 			this.parentSquare.removeFromSquareInspector();
 		})
 
-		// state, conduction velocity, refracLength and randomRefracLengths, and pacingSetting event
+		// state, conduction velocity, refracLength and randomRefracLengths, pacingSetting, and bridge event
 		$(this.div).find(`.simpleSelectorRadio`).on('click', function() {
 			grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val(), '.squareInspectorDiv');
+		})
+
+		// propagation direction box
+		$(this.div).find('input.prop-direction').on('change', function() {
+			grid[col][row].clickAndMoveSet($(this).data('selectorType'), 'propagation direction', '.squareInspectorDiv')
 		})
 
 		// propagation direction box

@@ -25,6 +25,8 @@ class Square {
 		this.neighbours = [];
 		this.setNeighbours();
 
+		this.isBridge = false;
+
 		this.isPacing = false;
 		this.isExtPace = false;
 		this.isAutoFocus = false;
@@ -103,7 +105,14 @@ class Square {
 		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
 
 		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
-			// If this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. what AP counter squares this square will receive propagation from), then depolarise this square
+			
+			// If this is a bridge square, then at this stage will direct propagation to only the opposite side to where it came from by setting neighbours
+			if (this.isBridge) {
+				this.implementBridgeFunctionality();
+				this.bridgeNeedToReAddSquares = true;
+			};
+			
+			// If (as above) this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. what AP counter squares this square will receive propagation from), then depolarise this square
 			this.propagationDepolarise();
 			// Then, if this square is an automatic focus, reset its pacingTracker
 			if (this.pacingSetting === 'autoFocus') {
@@ -136,6 +145,12 @@ class Square {
 				this.APcounter ++;
 			} else if ( this.APcounter >= 1 && this.APcounter < (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
 				this.APcounter ++;
+				if (this.isBridge && this.bridgeNeedToReAddSquares) {
+					for (let sq of this.neighboursPerpToDepo) {
+						sq.neighbours.push(this);
+					}
+					this.bridgeNeedToReAddSquares = false;
+				}
 			} else if ( this.APcounter >= (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
 				this.APcounter = -1;
 			}
@@ -250,13 +265,13 @@ class Square {
 
 	applySquareInspectorDivChangesInitialOnly() { //properties that only the user changes - they don't change on their own with the action potential
 		// conduction velocity
-		this.squareInspectorDivWrapper.div.find(`.condVel-radio[value=${this.condVelSetting}]`).prop('checked', true)
+		this.squareInspectorDivWrapper.div.find(`.condVel-radio[value=${this.condVelSetting}]`).prop('checked', true);
 		
 		// refracLength
-		this.squareInspectorDivWrapper.div.find(`.refracLength-radio[value=${this.refracLengthSetting}]`).prop('checked', true)
+		this.squareInspectorDivWrapper.div.find(`.refracLength-radio[value=${this.refracLengthSetting}]`).prop('checked', true);
 
 		// randomRefracLengths
-		this.squareInspectorDivWrapper.div.find(`.randomRefracLengths-radio[value=${+this.randomRefracLengths}]`).prop('checked', true)
+		this.squareInspectorDivWrapper.div.find(`.randomRefracLengths-radio[value=${+this.randomRefracLengths}]`).prop('checked', true);
 
 		// pacingSetting
 		this.squareInspectorDivWrapper.div.find(`.pacing-radio[value=${this.pacingSetting}]`).prop('checked', true);
@@ -275,7 +290,8 @@ class Square {
 			}
 		}
 
-
+		// bridge
+		this.squareInspectorDivWrapper.div.find(`.bridge-radio[value=${+this.isBridge}]`).prop('checked', true);
 
 	}
 
@@ -323,6 +339,13 @@ class Square {
 			
 			this.display();
 			// console.log(`(${this.col}, ${this.row}) - Changing pacing setting to ${this.pacingSetting}`);
+		} else if (selectorType === 'bridge') {
+			this.isBridge = !!parseInt(selector);
+			if (this.isBridge) {
+				this.setAsBridge();
+			} else {
+				this.removeAsBridge();
+			}
 		}
 
 		if (this.isInSquareInspector) {
@@ -352,7 +375,7 @@ class Square {
 		this.parentGrid.squareInspectorSquareList.push(this);
 		this.squareInspectorDivWrapper.assignSquareInspectorDiv();
 		this.squareInspectorDivWrapper.addDivToSquareInspector();
-		this.highlight();		
+		this.highlight();
 	}
 
 	removeFromSquareInspector() {
@@ -405,7 +428,6 @@ class Square {
 		this.sprites.highlight.visible = false;
 	}
 
-
 	applyCondVelSetting() {
 		console.log(`(${this.col}, ${this.row}) - Setting conduction velocity to ${this.condVelSetting}`);
 		this.condVel = this.parentGrid.condVelDict[this.condVelSetting];
@@ -417,12 +439,11 @@ class Square {
 		this.rainbow.setNumberRange(0, this.refracLength);
 	}
 
-
 	setNeighbourVectors() {
 		if (this.parentGrid.diagonalPropagation) {
-			this.neighbourVectors = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+			this.neighbourVectors = this.parentGrid.eightNeighbourVectors;
 		} else {
-			this.neighbourVectors = [[-1, 0], [0, -1], [0, 1], [1, 0]];
+			this.neighbourVectors = this.parentGrid.fourNeighbourVectors;
 		}
 
 	}
@@ -430,12 +451,7 @@ class Square {
 	setNeighboursFromNeighbourVectors() {
 		this.neighbours = [];
 		for (let vector of this.neighbourVectors) {
-			if (this.parentGrid[this.col+vector[0]] && this.parentGrid[this.col+vector[0]][this.row+vector[1]]) {
-				this.neighbours.push(this.parentGrid[this.col+vector[0]][this.row+vector[1]]);
-			} else {
-				// console.log(`col: ${this.col}, row: ${this.row}.`, 'neighbour col and/or neighbour row not present');
-			}
-
+			this.neighbours.push(this.getNeighbourFromVector(vector));
 			this.neighbours = this.neighbours.filter(x => x !== undefined);
 		}		
 	}
@@ -445,7 +461,55 @@ class Square {
 		this.setNeighboursFromNeighbourVectors();	
 	}
 
+	getNeighbourFromVector(vec) {
+		if (this.parentGrid[this.col+vec[0]]){
+			return this.parentGrid[this.col+vec[0]][this.row+vec[1]];
+		} else {
+			return undefined;
+		}
+	}
 
+	setAsBridge() {
+		for (let vec of this.parentGrid.fourNeighbourVectors) {
+			var square = this.getNeighbourFromVector(vec);
+			square.clickRepolarise();
+			var squaresToBlock = this.calculateNeighboursPerpToSquare(square);
+			square.neighbours.removeFromArray(squaresToBlock[0]);
+			square.neighbours.removeFromArray(squaresToBlock[1]);
+		}
+		this.isBridge = true;
+	}
+
+	removeAsBridge() {
+		this.isBridge = false;
+		for (let vec of this.parentGrid.fourNeighbourVectors) {
+			var square = this.getNeighbourFromVector(vec);
+			// square.clickRepolarise();
+			var squaresToUnBlock = this.calculateNeighboursPerpToSquare(square);
+			square.neighbours.push(squaresToUnBlock[0]);
+			square.neighbours.push(squaresToUnBlock[1]);
+		}
+	}
+
+	implementBridgeFunctionality() {
+		this.depoNeighbours = this.neighbours.filter(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel);
+		this.depoNeighbour = this.depoNeighbours[0];
+		this.neighboursPerpToDepo = this.calculateNeighboursPerpToSquare(this.depoNeighbour);
+		for (let sq of this.neighboursPerpToDepo) {
+			sq.neighbours.removeFromArray(this);
+		}
+	}
+
+	calculateNeighboursPerpToSquare(square) {
+		var neighbourVecOppositeSquare = [this.col-square.col, this.row-square.row];
+		var indexOfOne = neighbourVecOppositeSquare.map(x => Math.abs(x)).indexOf(1);
+		var neighbourVecsPerpToSquare = [[0, 0], [0, 0]];
+		neighbourVecsPerpToSquare[0][1-indexOfOne] = -1;
+		neighbourVecsPerpToSquare[1][1-indexOfOne] = 1;
+		return neighbourVecsPerpToSquare.map(vec => 
+			this.parentGrid[this.col+vec[0]][this.row+vec[1]]
+		).filter(x => x !== undefined);
+	}
 	
 
 	resize() {
