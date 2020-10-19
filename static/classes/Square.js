@@ -106,11 +106,11 @@ class Square {
 
 		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
 			
-			// If this is a bridge square, then at this stage will direct propagation to only the opposite side to where it came from by setting neighbours
-			if (this.isBridge) {
-				this.implementBridgeFunctionality();
-				this.bridgeNeedToReAddSquares = true;
-			};
+// // If this is a bridge square, then at this stage will direct propagation to only the opposite side to where it came from by setting neighbours
+// if (this.isBridge) {
+// 	this.implementBridgeFunctionality();
+// 	this.bridgeNeedToReAddSquares = true;
+// };
 			
 			// If (as above) this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. what AP counter squares this square will receive propagation from), then depolarise this square
 			this.propagationDepolarise();
@@ -145,12 +145,12 @@ class Square {
 				this.APcounter ++;
 			} else if ( this.APcounter >= 1 && this.APcounter < (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
 				this.APcounter ++;
-				if (this.isBridge && this.bridgeNeedToReAddSquares) {
-					for (let sq of this.neighboursPerpToDepo) {
-						sq.neighbours.push(this);
-					}
-					this.bridgeNeedToReAddSquares = false;
-				}
+// if (this.isBridge && this.bridgeNeedToReAddSquares) {
+// 	for (let sq of this.neighboursPerpToDepo) {
+// 		sq.neighbours.push(this);
+// 	}
+// 	this.bridgeNeedToReAddSquares = false;
+// }
 			} else if ( this.APcounter >= (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
 				this.APcounter = -1;
 			}
@@ -461,6 +461,18 @@ class Square {
 		this.setNeighboursFromNeighbourVectors();	
 	}
 
+	highlightNeighbours() {
+		for (let sq of this.neighbours) {
+			sq.highlight();
+		}
+	}
+
+	dehighlightNeighbours() {
+		for (let sq of this.neighbours) {
+			sq.dehighlight();
+		}
+	}
+
 	getNeighbourFromVector(vec) {
 		if (this.parentGrid[this.col+vec[0]]){
 			return this.parentGrid[this.col+vec[0]][this.row+vec[1]];
@@ -470,24 +482,56 @@ class Square {
 	}
 
 	setAsBridge() {
+		this.neighbours = [];
 		for (let vec of this.parentGrid.fourNeighbourVectors) {
 			var square = this.getNeighbourFromVector(vec);
 			square.clickRepolarise();
-			var squaresToBlock = this.calculateNeighboursPerpToSquare(square);
-			square.neighbours.removeFromArray(squaresToBlock[0]);
-			square.neighbours.removeFromArray(squaresToBlock[1]);
+			var vecsToBlock = [[0, 0], [0, 0], [0, 0]];
+			var indexOfOne = vec.map(x=>Math.abs(x)).indexOf(1);
+			for (let v of vecsToBlock) {
+				v[indexOfOne] = 0-vec[indexOfOne];
+			}
+			vecsToBlock[0][1-indexOfOne] = -1;
+			vecsToBlock[2][1-indexOfOne] = 1;
+			var vecsToAdd = vecsToBlock.map(x => x.map(y => y));
+			for (let v of vecsToAdd) {
+				v[indexOfOne] = 2*v[indexOfOne];
+			}
+
+			for (let v of vecsToBlock) {
+				square.neighbours.removeFromArray(square.getNeighbourFromVector(v));
+			}
+			for (let v of vecsToAdd) {
+				square.neighbours.push(square.getNeighbourFromVector(v));
+			}
 		}
 		this.isBridge = true;
 	}
 
 	removeAsBridge() {
 		this.isBridge = false;
+		this.setNeighbours();
 		for (let vec of this.parentGrid.fourNeighbourVectors) {
 			var square = this.getNeighbourFromVector(vec);
-			// square.clickRepolarise();
-			var squaresToUnBlock = this.calculateNeighboursPerpToSquare(square);
-			square.neighbours.push(squaresToUnBlock[0]);
-			square.neighbours.push(squaresToUnBlock[1]);
+			var vecsToBlock = [[0, 0], [0, 0], [0, 0]];
+			var indexOfOne = vec.map(x=>Math.abs(x)).indexOf(1);
+			for (let v of vecsToBlock) {
+				v[indexOfOne] = 0-vec[indexOfOne];
+			}
+			vecsToBlock[0][1-indexOfOne] = -1;
+			vecsToBlock[2][1-indexOfOne] = 1;
+			var vecsToAdd = vecsToBlock.map(x => x.map(y => y));
+			for (let v of vecsToAdd) {
+				v[indexOfOne] = 2*v[indexOfOne];
+			}
+
+			// function is similar to setAsBridge until now - where vecsToAdd and vecsToBlock have been swapped
+			for (let v of vecsToAdd) {
+				square.neighbours.removeFromArray(square.getNeighbourFromVector(v));
+			}
+			for (let v of vecsToBlock) {
+				square.neighbours.push(square.getNeighbourFromVector(v));
+			}
 		}
 	}
 
