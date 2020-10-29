@@ -12,9 +12,9 @@ function setup() {
 
 			// a = performance.now();
 	grid = new Grid('.canvas', cellSize=15, cellNum=60);
+	console.log(grid.rainbowTrails);
 
 			// b = performance.now(); console.log((b-a)/1000);
-			
 
 			// a = performance.now();
 	if (typeof gridToLoad !== 'undefined') {

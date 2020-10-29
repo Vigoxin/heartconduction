@@ -21,6 +21,15 @@ Array.prototype.removeArrayFromArray = function(target) {
 	}
 }
 
+Array.prototype.indexesOf = function(target) {
+    let index = [];
+    // For each element, index pushed in index[]
+    this.forEach((el, i) => {
+        if (el === target) index.push(i)
+    });
+    return index;
+}
+
 function mod(n, m) {
   return ((n % m) + m) % m;
 }

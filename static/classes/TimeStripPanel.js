@@ -10,7 +10,7 @@ class TimeStripPanel extends Array {
 		this.cellHeight = 20;
 		this.verticalGapSize = 50;
 
-		this.cellWidth = 2;
+		this.cellWidth = 1;
 
 		// this.cHeight = (this.cellHeight + this.verticalGapSize) * this.numberOfStrips;
 		this.cHeight = 500;

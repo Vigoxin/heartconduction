@@ -161,7 +161,7 @@ nav ul > li > ul > li > ul {
 .main .grid-split-in-two {
   display: grid;
   grid-template-columns: 60% 40%;
-  background: #F9F4F5;
+  background: lavenderblush;
 }
 .main .grid-split-in-two .canvas {
   overflow: auto;

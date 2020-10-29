@@ -376,6 +376,7 @@ class Square {
 		this.squareInspectorDivWrapper.assignSquareInspectorDiv();
 		this.squareInspectorDivWrapper.addDivToSquareInspector();
 		this.highlight();
+		this.highlightNeighbours();
 	}
 
 	removeFromSquareInspector() {
@@ -385,6 +386,7 @@ class Square {
 		})
 		$(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`).remove();
 		this.dehighlight();
+		this.dehighlightNeighbours();
 	}
 
 	addToTimeStripPanel() {
@@ -482,7 +484,7 @@ class Square {
 	}
 
 	setAsBridge() {
-		this.neighbours = [];
+		// this.neighbours = [];
 		for (let vec of this.parentGrid.fourNeighbourVectors) {
 			var square = this.getNeighbourFromVector(vec);
 			square.clickRepolarise();
@@ -504,6 +506,35 @@ class Square {
 			for (let v of vecsToAdd) {
 				square.neighbours.push(square.getNeighbourFromVector(v));
 			}
+		}
+		for (let vec of this.parentGrid.fourDiagonalNeighbourVectors) {
+			var square = this.getNeighbourFromVector(vec);
+			square.clickRepolarise();
+			square.neighbours = [];
+			// var vecsToBlock1 = [[0, 0], [0, 0], [0, 0]];
+			// if (vec.map(x=>Math.abs(x))[0] === 1) {
+			// 	var indexOfOne = 0;
+			// 	for (let v of vecsToBlock1) {
+			// 		v[indexOfOne] = 0-vec[indexOfOne];
+			// 	}
+			// 	vecsToBlock1[0][1-indexOfOne] = -1;
+			// 	vecsToBlock1[2][1-indexOfOne] = 1;
+			// }
+			// var vecsToBlock2 = [[0, 0], [0, 0], [0, 0]];
+			// if (vec.map(x=>Math.abs(x))[1] === 1) {
+			// 	var indexOfOne = 1;
+			// 	for (let v of vecsToBlock2) {
+			// 		v[indexOfOne] = 0-vec[indexOfOne];
+			// 	}
+			// 	vecsToBlock2[0][1-indexOfOne] = -1;
+			// 	vecsToBlock2[2][1-indexOfOne] = 1;
+			// }
+			// var vecsToBlock = vecsToBlock1.concat(vecsToBlock2);
+			// console.log(vecsToBlock);
+			// for (let v of vecsToBlock) {
+			// 	square.neighbours.removeFromArray(square.getNeighbourFromVector(v));
+			// }
+
 		}
 		this.isBridge = true;
 	}

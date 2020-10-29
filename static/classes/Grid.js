@@ -27,7 +27,8 @@ class Grid extends Array {
 		this.tempSelecting = {};
 		this.tempHighlighted = [];
 
-		this.diagonalPropagation = true;
+		this.diagonalPropagation = false;
+		this.rainbowTrails = true;
 
 			// pixi constants
 		this.cWidth = this.cellSize*this.cellNum;
@@ -49,7 +50,7 @@ class Grid extends Array {
 
 		this.refracLengthDict = {
 			'short': 10,
-			'normal': 20,
+			'normal': 87,
 			'long': 100
 		}
 
@@ -61,7 +62,7 @@ class Grid extends Array {
 		this.condVelDict = {
 			'fast': 0,
 			'normal': 0,
-			'slow': 8
+			'slow': 10
 		}
 
 		this.condVelColorMapping = {
@@ -76,6 +77,7 @@ class Grid extends Array {
 
 		this.eightNeighbourVectors = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
 		this.fourNeighbourVectors = [[-1, 0], [0, -1], [0, 1], [1, 0]];
+		this.fourDiagonalNeighbourVectors = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
 
 
 
