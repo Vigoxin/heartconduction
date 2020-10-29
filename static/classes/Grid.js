@@ -75,9 +75,6 @@ class Grid extends Array {
 			'extPace': 0x0000ff
 		}
 
-		this.eightNeighbourVectors = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
-		this.fourNeighbourVectors = [[-1, 0], [0, -1], [0, 1], [1, 0]];
-		this.fourDiagonalNeighbourVectors = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
 
 
 

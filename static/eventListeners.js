@@ -87,17 +87,6 @@ function setEventListeners() {
 	grid.selectorType = $("input[name='selector']:checked").data('selectorType');
 
 
-	// Bridge box
-	$('.bridge-checkbox').on('click', function() {
-		grid.rainbowTrails = $(this).is(':checked');
-		for (var i=0; i<grid.cellNum; i++) {
-			for (var j=0; j<grid.cellNum; j++) {
-				grid[i][j].display();
-			}
-		}
-	})
-
-
 
 	// Apply to all box
 	$('.apply-to-all-button').on('click', function() {
@@ -135,6 +124,7 @@ function setEventListeners() {
 	$('.pacingTracker').prop({
 		'value': 50
 	})
+
 	
 // Miscellaneous section
 	// Rainbow box

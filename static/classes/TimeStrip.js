@@ -38,7 +38,6 @@ class TimeStrip extends Array {
 	}
 
 	updateTintList() {
-		// var nextFrameColour = this.mirrorSquare.state === "depo" ? this.mirrorSquare.sprites.square.tint : "white";
 		var nextFrameColour = this.mirrorSquare.sprites.square.tint;
 
 
