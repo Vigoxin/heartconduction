@@ -116,7 +116,7 @@ nav ul {
   background: #70587C;
   display: flex;
   justify-content: space-between;
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
 }
 nav ul > li {
   flex: 1 0 auto;
@@ -124,7 +124,7 @@ nav ul > li {
 }
 nav ul > li:hover {
   background: #906fa1;
-  transition: background 0.5s;
+  transition: background 0.3s;
 }
 nav ul > li:hover > ul {
   display: flex;
@@ -141,7 +141,7 @@ nav ul > li > ul {
   display: flex;
   visibility: hidden;
   flex-direction: column;
-  opacity: 1;
+  opacity: 0;
   position: absolute;
   width: 100%;
 }

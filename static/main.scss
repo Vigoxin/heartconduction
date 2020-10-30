@@ -171,28 +171,28 @@ nav {
 
 	text-align: center;
 
-		a {
-			text-decoration: none;
+	a {
+		text-decoration: none;
 
-			overflow-wrap: break-word;
-		}
+		overflow-wrap: break-word;
+	}
 
-		li {
-			list-style-type: none;
-			cursor: pointer;
-		}
-		
-		ul {
-			background: $navbar-color;
-			display: flex;
-			justify-content: space-between;
-		
-			transition: opacity 0.5s;
+	li {
+		list-style-type: none;
+		cursor: pointer;
+	}
+	
+	ul {
+		background: $navbar-color;
+		display: flex;
+		justify-content: space-between;
+		transition: opacity 0.3s;
 
 		&>li {
+			
 			&:hover {
 				background: $navbar-color-hover;
-				transition: background 0.5s;
+				transition: background 0.3s;
 
 				&>ul {
 					display: flex;
@@ -217,7 +217,7 @@ nav {
 				display: flex;
 				visibility: hidden;
 				flex-direction: column;
-				opacity: 1;
+				opacity: 0;
 				position: absolute;
 				width: 100%;
 
