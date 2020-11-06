@@ -33,7 +33,7 @@ class SquareInspectorDivWrapper {
 			</div>
 
 			<div class="squareInspector-state-box squareInspector-settings-section">
-				<div class="squareInspectorSectionTitle collapsible-state active"> State </div>
+				<div class="squareInspectorSectionTitle collapsible-state active"> Activation state </div>
 				<div class="row collapsible-content">
 					<label>
 						<input class='state-radio simpleSelectorRadio depo with-gap' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='depo' data-col=${this.col} data-row=${this.row}> <span>Depo</span>

@@ -307,11 +307,13 @@ class Square {
 			this.setNeighboursFromNeighbourVectors();
 		} else if (selectorType === 'pacing' && this.state !== 'clear') {
 			this.pacingSetting = selector;
-				
 			if (selector !== 'noPace')	{
 				this.isPacing = true;
+				console.log(via);
 				var pacingIntervalInput = via === '.settings-section' ? $('#pacing-box').find('.pacingInterval') : this.squareInspectorDivWrapper.div.find('.squareInspector-pacingInterval');
+				console.log(pacingIntervalInput);
 				var pacingTrackerInput = via === '.settings-section' ? $('#pacing-box').find('.pacingTracker') : this.squareInspectorDivWrapper.div.find('.squareInspector-pacingTracker');
+				console.log(pacingTrackerInput);
 				this.pacingInterval = parseInt(pacingIntervalInput.val());
 				this.pacingTracker = parseInt(pacingTrackerInput.val());
 				// if (this.pacingTracker === 0) {

@@ -17,20 +17,18 @@ tabResponse(0);
 
 // Sidebar system
 $(".expand-or-collapse-arrow").on("click", function() {
-	var sidebar = $(this).next();
+	var sidebar = $(this).parent().find(".sidebar");
 	var arrowIcon = $(this).find("i");
 	if (sidebar.css("width") === "0px") {
-		console.log("first path");
 		sidebar.css("width", "100%");
-		sidebar.css("padding", "60px 10px 10px 10px");
-		$(this).css("transform", "translateX(250px)");
-		arrowIcon.css("transform", "rotate(-180deg)");
+		sidebar.css("visibility", "visible");
+		$(this).css("transform", "translateX(300px)");
+		arrowIcon.css("transform", "rotate(-180deg) translateY(2px)");
 	} else {
-		console.log("second path");
 		sidebar.css("width", "0");
-		sidebar.css("padding", "0");
+		sidebar.css("visibility", "hidden");
 		$(this).css("transform", "translateX(0px)")
-		arrowIcon.css("transform", "rotate(0deg)");
+		arrowIcon.css("transform", "rotate(0deg) translateY(-4px)");
 	}
 
 })
