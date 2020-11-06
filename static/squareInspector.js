@@ -88,35 +88,51 @@ class SquareInspectorDivWrapper {
 				<div class="prop-box-container">
 					<div class="propagation-settings-directions-grid">
 							<div class='prop-set-dir-grid-sec'>
-									<input class='toggle-button-radio prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[-1,-1]" name="top-left"> <span></span>
+								<label>
+									<input class='prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[-1,-1]" name="top-left"> <span></span>
+								</label>
 							</div>
 							<div class='prop-set-dir-grid-sec'>
-									<input class='toggle-button-radio prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[0,-1]" name="top-center"> <span></span>
+								<label>
+									<input class='prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[0,-1]" name="top-center"> <span></span>
+								</label>
 							</div>
 							<div class='prop-set-dir-grid-sec'>
-									<input class='toggle-button-radio prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[1,-1]" name="top-right"> <span></span>
+								<label>
+									<input class='prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[1,-1]" name="top-right"> <span></span>
+								</label>
 							</div>
 							<div class='prop-set-dir-grid-sec'>
-									<input class='toggle-button-radio prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[-1,0]" name="center-left"> <span></span>
+								<label>
+									<input class='prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[-1,0]" name="center-left"> <span></span>
+								</label>
 							</div>
 
 							<div class='prop-set-dir-grid-sec'>
-								<div class="radio-row">
+								<div class="row">
 									<img src="/static/textures/square.png" alt="" />
 								</div>
 							</div>
 
 							<div class='prop-set-dir-grid-sec'>
-									<input class='toggle-button-radio prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[1,0]" name="center-right"> <span></span>
+								<label>
+									<input class='prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[1,0]" name="center-right"> <span></span>
+								</label>
 							</div>
 							<div class='prop-set-dir-grid-sec'>
-									<input class='toggle-button-radio prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[-1,1]" name="bottom-left"> <span></span>
+								<label>
+									<input class='prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[-1,1]" name="bottom-left"> <span></span>
+								</label>
 							</div>
 							<div class='prop-set-dir-grid-sec'>
-									<input class='toggle-button-radio prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[0,1]" name="bottom-center"> <span></span>
+								<label>
+									<input class='prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[0,1]" name="bottom-center"> <span></span>
+								</label>
 							</div>
 							<div class='prop-set-dir-grid-sec'>
-									<input class='toggle-button-radio prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[1,1]" name="bottom-right"> <span></span>
+								<label>
+									<input class='prop-direction' type="checkbox" data-selector-type="propagationDirectionSetting" data-direction-code="[1,1]" name="bottom-right"> <span></span>
+								</label>
 							</div>
 
 					</div>
@@ -163,6 +179,7 @@ class SquareInspectorDivWrapper {
 
 		// propagation direction box
 		$(this.div).find('input.prop-direction').on('change', function() {
+			console.log("running event for prop dir box");
 			grid[col][row].clickAndMoveSet($(this).data('selectorType'), 'propagation direction', '.squareInspectorDiv')
 		})
 
@@ -179,8 +196,6 @@ class SquareInspectorDivWrapper {
 			['.collapsible-pacing', 'block'],
 			['.collapsible-propagation', 'grid']
 		]
-
-		console.log(squareInspectorSections);
 
 		for (let el of squareInspectorSections) {
 			var collapsible = this.div.find(el[0]);
