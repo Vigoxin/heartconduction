@@ -79,6 +79,35 @@ body {
 	}
 }
 
+.radio-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	text-align: center;
+
+	.toggle-button-radio {
+		display: none;
+
+		&:checked + label {
+			background-color: $cool-red;
+			color: white;
+			border: 3px inset white;
+		}
+	}				
+
+	label {
+		background-color: #e4e4e4;
+		text-align: center;
+		padding: 4px 10px;
+		margin-right: 10px;
+		font-size: 14px;
+		border: 3px outset white;
+		transition: all 0.2s;
+		cursor: pointer;
+		border-radius: 6px;
+	}
+}
+
 .number-label-pair {
 	display: flex;
 	flex-direction: row;
@@ -99,8 +128,11 @@ body {
 
 }
 
-
-
+hr {
+	border-top: solid black 1px;
+	border-bottom: none;
+	margin: 5px 0;
+}
 
 label {
 	color: black;
@@ -122,8 +154,8 @@ label {
 }
 
 // Modifying materialize css radio buttons
-// $radio-color: $cool-red;
-$radio-color: crimson;
+$radio-color: $cool-red;
+// $radio-color: crimson;
 [type=radio]:checked + span:after, [type=radio].with-gap:checked + span:after {
 	 background-color: $radio-color !important;
 }
@@ -338,11 +370,6 @@ nav {
 					padding-top: 0;
 					height: $grid-section-height;
 
-					hr {
-						border-top: solid black 1px;
-						border-bottom: none;
-						margin: 5px 0;
-					}
 
 					.settings-section {
 						font-size: 1rem;
@@ -357,35 +384,6 @@ nav {
 
 					.row p {
 						margin-top: 5px;
-					}
-
-					.radio-row {
-						display: flex;
-						flex-direction: row;
-						justify-content: space-around;
-						text-align: center;
-
-						.toggle-button-radio {
-							display: none;
-
-							&:checked + label {
-								background-color: crimson;
-								color: white;
-								border: 3px inset white;
-							}
-						}				
-
-						label {
-							background-color: #e4e4e4;
-							text-align: center;
-							padding: 4px 10px;
-							margin-right: 10px;
-							font-size: 14px;
-							border: 3px outset white;
-							transition: all 0.2s;
-							cursor: pointer;
-							border-radius: 6px;
-						}
 					}
 				}
 			}

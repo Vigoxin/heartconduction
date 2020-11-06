@@ -34,6 +34,32 @@ body {
   margin-right: 20px;
 }
 
+.radio-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+}
+.radio-row .toggle-button-radio {
+  display: none;
+}
+.radio-row .toggle-button-radio:checked + label {
+  background-color: #f94466;
+  color: white;
+  border: 3px inset white;
+}
+.radio-row label {
+  background-color: #e4e4e4;
+  text-align: center;
+  padding: 4px 10px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: 3px outset white;
+  transition: all 0.2s;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
 .number-label-pair {
   display: flex;
   flex-direction: row;
@@ -49,6 +75,12 @@ body {
 }
 .number-label-pair label {
   display: inline-block;
+}
+
+hr {
+  border-top: solid black 1px;
+  border-bottom: none;
+  margin: 5px 0;
 }
 
 label {
@@ -69,11 +101,11 @@ label {
 }
 
 [type=radio]:checked + span:after, [type=radio].with-gap:checked + span:after {
-  background-color: crimson !important;
+  background-color: #f94466 !important;
 }
 
 [type=radio]:checked + span:after, [type=radio].with-gap:checked + span:before, [type=radio].with-gap:checked + span:after {
-  border: 2px solid crimson;
+  border: 2px solid #f94466;
 }
 
 .prop-box-container {
@@ -228,11 +260,6 @@ nav ul > li > ul > li > ul {
   padding-top: 0;
   height: 600px;
 }
-.main .grid-split-in-three .tools-section .sidebar > .sidebar-contents hr {
-  border-top: solid black 1px;
-  border-bottom: none;
-  margin: 5px 0;
-}
 .main .grid-split-in-three .tools-section .sidebar > .sidebar-contents .settings-section {
   font-size: 1rem;
   margin-bottom: 5px;
@@ -243,31 +270,6 @@ nav ul > li > ul > li > ul {
 }
 .main .grid-split-in-three .tools-section .sidebar > .sidebar-contents .row p {
   margin-top: 5px;
-}
-.main .grid-split-in-three .tools-section .sidebar > .sidebar-contents .radio-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  text-align: center;
-}
-.main .grid-split-in-three .tools-section .sidebar > .sidebar-contents .radio-row .toggle-button-radio {
-  display: none;
-}
-.main .grid-split-in-three .tools-section .sidebar > .sidebar-contents .radio-row .toggle-button-radio:checked + label {
-  background-color: crimson;
-  color: white;
-  border: 3px inset white;
-}
-.main .grid-split-in-three .tools-section .sidebar > .sidebar-contents .radio-row label {
-  background-color: #e4e4e4;
-  text-align: center;
-  padding: 4px 10px;
-  margin-right: 10px;
-  font-size: 14px;
-  border: 3px outset white;
-  transition: all 0.2s;
-  cursor: pointer;
-  border-radius: 6px;
 }
 .main .grid-split-in-three .canvas {
   height: 600px;

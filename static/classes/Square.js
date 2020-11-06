@@ -280,6 +280,7 @@ class Square {
 	}
 
 	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector, via='.settings-section') {
+		console.log("clickAndMoveSet");
 		if (selectorType === 'state') {
 			if (selector === 'clear') {
 				this.clickClear();
@@ -301,6 +302,7 @@ class Square {
 		} else if (selectorType === 'propagationDirectionSetting') {
 			// Makes neighbourVectors an array of vectors (e.g. [-1, 1])
 			var propDirBox = via === '.settings-section' ? $('#propagation-box') : $('.squareInspector-propagation-box') ;
+			console.log(propDirBox);
 			this.neighbourVectors = Array.from(propDirBox.find('input.prop-direction:checked')).map(function(el){
 				return $(el).data('directionCode');
 			})
