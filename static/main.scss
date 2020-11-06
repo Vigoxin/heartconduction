@@ -310,22 +310,23 @@ nav {
 		grid-template-columns: 330px 540px 330px;
 		
 		background: $grid-color;
+		$arrow-height: 30px;
 
 		.tools-section {
 			height: $grid-section-height;
 			position: relative;
-			$arrow-height: 30px;
 			overflow: hidden;
 
 			&>.expand-or-collapse-arrow {
+				transform: translateX(0px);
+				
+				z-index: 1;
 				position: absolute;
-				left: 0;
 				width: $arrow-height;
 				height: $arrow-height;
 				line-height: $arrow-height;
-	
 				text-align: center;
-	
+				
 				color: white;
 				font-size: 36px;
 
@@ -346,11 +347,12 @@ nav {
 			
 
 			.sidebar {
+				width: 100%;
 				overflow: hidden;
 				transition: 0.3s;
 				background: $primary-light;
 				display: inline-block;
-				width: 0;
+				transform: translateX(-330px);
 
 				&>.sidebar-title {
 					height: $arrow-height;
@@ -407,9 +409,83 @@ nav {
 			}
 		}
 
-		.info-section {
-			// border-radius: 0 5px 5px 0;
+		.squareInspector-section {	
 			height: $grid-section-height;
+			position: relative;
+			overflow: hidden;
+
+			&>.expand-or-collapse-arrow {
+				transform: translateX(300px);
+				
+				z-index: 1;
+				position: absolute;
+				width: $arrow-height;
+				height: $arrow-height;
+				line-height: $arrow-height;
+				text-align: center;
+				
+				color: white;
+				font-size: 36px;
+
+				background: $primary-medium-light;
+
+				cursor: pointer;
+				transition: 0.3s;
+
+				i {
+					transform: translate(0px, -4px);
+					transition: 0.3s;
+				}
+
+				&:hover {
+					background: $primary-medium;
+				}
+			}
+			
+
+			.sidebar {
+				width: 100%;
+				overflow: hidden;
+				transition: 0.3s;
+				background: $primary-light;
+				display: inline-block;
+				transform: translateX(330px);
+
+				&>.sidebar-title {
+					height: $arrow-height;
+					margin-bottom: 10px;
+					text-align: center;
+					line-height: $arrow-height;
+					font-size: 20px;
+					background: $primary-medium-light;
+					color: white;
+					font-weight: bold;
+				}
+
+				&>.sidebar-contents {
+					// height: 600-$arrow-height;
+					overflow-y: scroll;
+					padding: 10px;
+					padding-top: 0;
+					height: $grid-section-height;
+
+
+					.settings-section {
+						font-size: 1rem;
+						margin-bottom: 5px;
+					}
+
+					.container {
+						width: 90%;
+						padding: 5px;
+
+					}
+
+					.row p {
+						margin-top: 5px;
+					}
+				}
+			}
 
 			.tabSystem {
 				--color-1: #f37d83;
@@ -468,6 +544,7 @@ nav {
 					}
 
 					#timeStripsDiv {
+						visibility: hidden;
 						canvas {
 							margin: 0 auto;
 						}

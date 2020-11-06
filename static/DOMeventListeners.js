@@ -19,16 +19,27 @@ tabResponse(0);
 $(".expand-or-collapse-arrow").on("click", function() {
 	var sidebar = $(this).parent().find(".sidebar");
 	var arrowIcon = $(this).find("i");
-	if (sidebar.css("width") === "0px") {
-		sidebar.css("width", "100%");
-		sidebar.css("visibility", "visible");
-		$(this).css("transform", "translateX(300px)");
-		arrowIcon.css("transform", "rotate(-180deg) translateY(2px)");
-	} else {
-		sidebar.css("width", "0");
-		sidebar.css("visibility", "hidden");
-		$(this).css("transform", "translateX(0px)")
-		arrowIcon.css("transform", "rotate(0deg) translateY(-4px)");
+
+	if (sidebar.css("transform").split(", ")[4].includes("330")) {
+		sidebar.css("transform", "translateX(0px)");
+	} else if (sidebar.css("transform").split(", ")[4] === "0") {
+		console.log($(this).parent());
+		if ($(this).parent().hasClass("tools-section")) {
+			sidebar.css("transform", "translateX(-330px)");
+		} else if ($(this).parent().hasClass("squareInspector-section")) {
+			sidebar.css("transform", "translateX(330px)");
+		}
 	}
 
-})
+	if ($(this).css("transform").split(", ")[4] === "0") {
+		$(this).css("transform", "translate(300px)");
+	} else if ($(this).css("transform").split(", ")[4] === "300") {
+		$(this).css("transform", "translate(0px)");
+	}
+
+	if (arrowIcon.hasClass("fa-angle-double-right")) {
+		arrowIcon.removeClass("fa-angle-double-right").addClass("fa-angle-double-left");
+	} else if (arrowIcon.hasClass("fa-angle-double-left")) {
+		arrowIcon.removeClass("fa-angle-double-left").addClass("fa-angle-double-right");
+	}
+});
