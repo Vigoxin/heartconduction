@@ -13,8 +13,8 @@ class TimeStripPanel extends Array {
 		this.cellWidth = 2;
 
 		// this.cHeight = (this.cellHeight + this.verticalGapSize) * this.numberOfStrips;
-		this.cHeight = 500;
-		this.cWidth = 420;
+		this.cHeight = 250;
+		this.cWidth = 1100;
 		this.numOfFramesLength = this.cWidth / this.cellWidth;
 
 		this.wipeOverPositionCounter = 0;

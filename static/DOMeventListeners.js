@@ -32,9 +32,9 @@ $(".expand-or-collapse-arrow").on("click", function() {
 	}
 
 	if ($(this).css("transform").split(", ")[4] === "0") {
-		$(this).css("transform", "translate(300px)");
+		$(this).css("transform", "translate(300px, 30px)");
 	} else if ($(this).css("transform").split(", ")[4] === "300") {
-		$(this).css("transform", "translate(0px)");
+		$(this).css("transform", "translate(0px, 30px)");
 	}
 
 	if (arrowIcon.hasClass("fa-angle-double-right")) {
@@ -43,3 +43,6 @@ $(".expand-or-collapse-arrow").on("click", function() {
 		arrowIcon.removeClass("fa-angle-double-left").addClass("fa-angle-double-right");
 	}
 });
+
+$(".expand-or-collapse-arrow").first().click();
+$(".expand-or-collapse-arrow").last().click();

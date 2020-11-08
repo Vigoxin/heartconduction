@@ -2,7 +2,7 @@
 /* HSL */
 /* RGB */
 body {
-  background-color: lavenderblush;
+  background-color: papayawhip;
   padding: 0;
 }
 
@@ -18,14 +18,41 @@ body {
   margin: 0 auto;
 }
 
+nav, arrhythmia-walkthrough, main {
+  border-left: solid 3px #70587C;
+  border-right: solid 3px #70587C;
+}
+
+.footer {
+  border-bottom: solid 3px #70587C;
+  border-left: solid 3px #70587C;
+  border-right: solid 3px #70587C;
+}
+
 .container {
   width: 70%;
   margin: 0 auto;
 }
 
+.smaller-container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.title-bar {
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  background: #906fa1;
+  color: white;
+  font-weight: bold;
+}
+
 .row {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .row:not(:last-child) {
   margin-bottom: 10px;
@@ -75,6 +102,19 @@ body {
 }
 .number-label-pair label {
   display: inline-block;
+}
+
+.slider-number-pair {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.slider-number-pair .slider-container {
+  display: flex;
+  flex-direction: column;
+}
+.slider-number-pair .slider-container label {
+  text-align: center;
 }
 
 hr {
@@ -133,7 +173,7 @@ label {
   text-align: center;
   background: #f94466;
   font-size: 30px;
-  border-radius: 10px 10px 0 0;
+  border-radius: 20px 20px 0 0;
 }
 .header h2, .header h4 {
   padding: 10px 0;
@@ -150,7 +190,7 @@ nav {
   text-align: center;
 }
 nav * {
-  z-index: 1;
+  z-index: 2;
 }
 nav a {
   text-decoration: none;
@@ -203,13 +243,20 @@ nav ul > li > ul > li > ul {
   width: 100%;
 }
 
+.arrhythmia-walkthrough {
+  height: 200px;
+  background: lavenderblush;
+  padding: 20px;
+}
+
 .main {
   color: black;
+  background-color: #C8B8DB;
 }
 .main .grid-split-in-three {
-  height: 600px;
+  height: 650px;
   display: grid;
-  grid-template-columns: 330px 540px 330px;
+  grid-template-columns: 327px 540px 327px;
   background: lavenderblush;
 }
 .main .grid-split-in-three .expand-or-collapse-arrow {
@@ -219,6 +266,7 @@ nav ul > li > ul > li > ul {
   height: 30px;
   line-height: 30px;
   text-align: center;
+  transform: translateY(30px);
   color: white;
   font-size: 36px;
   background: #906fa1;
@@ -239,21 +287,10 @@ nav ul > li > ul > li > ul {
   background: #C8B8DB;
   display: inline-block;
 }
-.main .grid-split-in-three .sidebar > .sidebar-title {
-  height: 30px;
-  margin-bottom: 10px;
-  text-align: center;
-  line-height: 30px;
-  font-size: 20px;
-  background: #906fa1;
-  color: white;
-  font-weight: bold;
-}
 .main .grid-split-in-three .sidebar > .sidebar-contents {
   overflow-y: scroll;
   padding: 10px;
-  padding-top: 0;
-  height: 600px;
+  height: 650px;
 }
 .main .grid-split-in-three .sidebar > .sidebar-contents .settings-section {
   font-size: 1rem;
@@ -267,7 +304,7 @@ nav ul > li > ul > li > ul {
   margin-top: 5px;
 }
 .main .grid-split-in-three .tools-section {
-  height: 600px;
+  height: 650px;
   position: relative;
   overflow: hidden;
 }
@@ -277,22 +314,34 @@ nav ul > li > ul > li > ul {
 .main .grid-split-in-three .tools-section .sidebar {
   transform: translateX(-330px);
 }
-.main .grid-split-in-three .canvas {
-  height: 600px;
+.main .grid-split-in-three .canvas-wrapper {
+  height: 650px;
   overflow: auto;
-  padding-top: 50px;
 }
-.main .grid-split-in-three .canvas .container {
+.main .grid-split-in-three .canvas-wrapper .canvas-title {
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  background: #906fa1;
+  color: white;
+  font-weight: bold;
+}
+.main .grid-split-in-three .canvas-wrapper .canvas {
+  overflow: auto;
+  padding-top: 35px;
+}
+.main .grid-split-in-three .canvas-wrapper .canvas .container {
   width: 50px;
   margin: 0 auto;
 }
-.main .grid-split-in-three .canvas canvas {
+.main .grid-split-in-three .canvas-wrapper .canvas canvas {
   padding: 0;
   margin: auto;
   display: block;
 }
 .main .grid-split-in-three .squareInspector-section {
-  height: 600px;
+  height: 650px;
   position: relative;
   overflow: hidden;
 }
@@ -301,6 +350,9 @@ nav ul > li > ul > li > ul {
 }
 .main .grid-split-in-three .squareInspector-section .sidebar {
   transform: translateX(330px);
+}
+.main .grid-split-in-three .squareInspector-section .sidebar .sidebar-contents {
+  padding-top: 30px;
 }
 .main .grid-split-in-three .tabSystem {
   --color-1: #f37d83;
@@ -345,12 +397,6 @@ nav ul > li > ul > li > ul {
 .main .grid-split-in-three .tabSystem .panel .squareInspectorDiv hr {
   margin: 10px 0;
 }
-.main .grid-split-in-three .tabSystem .panel #timeStripsDiv {
-  visibility: hidden;
-}
-.main .grid-split-in-three .tabSystem .panel #timeStripsDiv canvas {
-  margin: 0 auto;
-}
 .main .actions .tabs {
   display: flex;
   justify-content: center;
@@ -368,17 +414,30 @@ nav ul > li > ul > li > ul {
   background-color: #f94466;
   color: #fff;
 }
+.main .timeStrip-section {
+  background: #C8B8DB;
+}
+.main .timeStrip-section #timeStripsDiv {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  width: 100%;
+}
+.main .timeStrip-section #timeStripsDiv canvas {
+  display: block;
+  margin: 0 auto;
+}
 .main .settings-section {
   background-color: #C8B8DB;
 }
 .main .settings-section.tabbed-settings-section {
-  padding: 20px;
+  padding: 0px;
 }
 .main .settings-section.nontabbed-settings-section {
   padding: 5px;
 }
 .main .settings-section button {
-  margin: 2px;
+  margin: 4px;
 }
 
 .footer {
@@ -386,7 +445,7 @@ nav ul > li > ul > li > ul {
   padding: 10px;
   color: white;
   text-align: center;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 20px 20px;
 }
 
 .has-list-anchors li {

@@ -2,7 +2,7 @@
 
 {% block main %}
 
-	<div class="resize-box settings-section nontabbed-settings-section">
+<!-- 	<div class="resize-box settings-section nontabbed-settings-section">
 		<div class="container">
 			<div class="row">
 				<label class="slider-number-pair">
@@ -16,32 +16,9 @@
 				<input type="checkbox" name="asdf">
 			</div>
 		</div>
-	</div>
-
-	<div id="play-box" class="play-box settings-section nontabbed-settings-section">
-		<div class="container">
-			<div class="row">
-				<button class="play-button btn btn-custom"><i class="material-icons">play_arrow</i>/<i class="material-icons">pause</i></button>
-				<button class="frame-button btn btn-custom">Frame</button>
-				<label class="slider-number-pair">
-					<input type="range" class="fps-slider">
-					<input type="number" class="fps-number">Framerate
-				</label>
-			</div>
-		</div>
-	</div>
-
-	<div id="square-inspector-toggle-box" class="square-inspector-toggle-box settings-section nontabbed-settings-section">
-		<div class="container">
-			<div class="row">
-				<label>
-					<input class='with-gap square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <span>Square Inspector</span>
-				</label>
-				<label>
-					<input class='with-gap time-strip-toggle-radio' type="radio" data-selector-type="timeStripPanelSelector" name="selector" value='timeStripPanelSelector'> <span>Time Strip</span>
-				</label>				
-			</div>
-		</div>
+	</div> -->
+	<div class="arrhythmia-walkthrough">
+		Arrhythmia
 	</div>
 
 	<div class="grid-split-in-three bottom-bordered">
@@ -50,10 +27,10 @@
 			<div class="expand-or-collapse-arrow">
 				<i class="fa fa-angle-double-right"></i>
 			</div>
-			<div class="sidebar">
-				<div class="sidebar-title">
+				<div class="title-bar">
 					Tools
 				</div>
+			<div class="sidebar">
 
 				<div class="sidebar-contents">
 					<div id="state-box">
@@ -169,21 +146,31 @@
 							</div>
 						</div>
 					</div>
-<!-- 					<div>
-						<p class="settings-section">Miscellaneous</p>
-						<hr>
-					</div>
-					<div>
-						<p class="settings-section">Save/Load</p>
-					</div> -->
 				</div>
 			</div>
 		</div>
 
-
 		<div class="canvas-wrapper">
-			<div class="grid-essential-tools">
+			<div class="canvas-title-bar title-bar">
 				Play/Pause
+			</div>
+			<div class="grid-essential-tools">
+				<div id="play-box" class="play-box settings-section nontabbed-settings-section">
+					<div class="row">
+						<!-- <button class="play-button btn btn-custom">&#9658; / <strong style="font-size: 14px">||</strong></button> -->
+						<button class="play-button btn btn-custom">
+							<i class="material-icons">play_arrow</i><i>/</i> <i class="material-icons">pause</i>
+						</button>
+						<button class="frame-button btn btn-custom">Frame</button>
+						<div class="slider-number-pair">
+							<div class="slider-container">
+								<input type="range" class="fps-slider">
+								<label for="">Framerate</label>
+							</div>
+							<input type="number" class="fps-number">
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="canvas">
 				<div class="container">
@@ -206,31 +193,50 @@
 			<div class="expand-or-collapse-arrow">
 				<i class="fa fa-angle-double-left"></i>
 			</div>
-			<div class="sidebar">
-				<div class="sidebar-title">
+				<div class="title-bar">
 					Square Inspector
 				</div>
-				<div class="sidebar-contents">
-					Sidebar contents
+			<div class="sidebar">
+				<div class="tabSystem">
+					
+				</div>
+				<div id="squareInspectorDivs" class="sidebar-contents">
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="actions">
-		<div id="timeStripsDiv" class="panel">
-			<p>Time strip Content </p>
+		<div id="square-inspector-toggle-box" class="square-inspector-toggle-box settings-section nontabbed-settings-section">
+			<div class="container">
+				<div class="smaller-container">
+					<div class="radio-row">
+						<input id="squareInspector-toggle-radio" class='toggle-button-radio square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <label for="squareInspector-toggle-radio">Square Inspector</label>
+						<input id="timeStrip-toggle-radio" class='toggle-button-radio time-strip-toggle-radio' type="radio" data-selector-type="timeStripPanelSelector" name="selector" value='timeStripPanelSelector'> <label for="timeStrip-toggle-radio">Time Strip</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="saveload-box" class="saveload-box settings-section tabbed-settings-section">
+			<div class="container">
+				<div class="row">
+					<button class="save-button btn btn-custom">Save grid state</button>
+					<button class="load-button btn btn-custom">Load grid state</button>
+				</div>
+			</div>
 		</div>
 
+<!-- 
 
 		<div class="actions-tab-row">
 				<ul class="tabs">
-					<li class="tab"><!-- <a href="#state-box">State</a> --></li>
-					<li class="tab"><!-- <a href="#condVel-box">Conduction velocity</a> --></li>
-					<li class="tab"><!-- <a href="#refracLength-box">Refractory length</a> --></li>
-					<li class="tab"><!-- <a href="#pacing-box">Pacing</a> --></li>
-					<li class="tab"><!-- <a href="#propagation-box">Propagation direction</a> --></li>
-					<li class="tab"><!-- <a href="#misc-box">Misc</a> --></li>
-					<li class="tab"><!-- <a href="#saveload-box">Saving/loading</a> --></li>
+					<li class="tab"> <a href="#state-box">State</a> </li>
+					<li class="tab"> <a href="#condVel-box">Conduction velocity</a> </li>
+					<li class="tab"> <a href="#refracLength-box">Refractory length</a> </li>
+					<li class="tab"> <a href="#pacing-box">Pacing</a> </li>
+					<li class="tab"> <a href="#propagation-box">Propagation direction</a> </li>
+					<li class="tab"> <a href="#misc-box">Misc</a> </li>
+					<li class="tab"> <a href="#saveload-box">Saving/loading</a> </li>
 				</ul>
 		</div>
 
@@ -265,8 +271,15 @@
 					<button class="unclear-all-cells-button btn btn-custom">Unclear all cells</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
+	</div>
+
+	<div class="timeStrip-section" class="panel">
+		<div class="title-bar">Time Strip</div>
+		<div id="timeStripsDiv">
+			asdf
+		</div>
 	</div>
 
 {% endblock %}

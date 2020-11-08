@@ -33,10 +33,10 @@ $settings-section-color: $primary-light;
 $tabs-color: $primary-light;
 $footer-color: $cool-red;
 
-$grid-section-height: 600px;
+$grid-section-height: 650px;
 
 body {
-	background-color: lavenderblush;
+	background-color: papayawhip;
 	// background-color: $cool-red;
 
 	padding: 0;
@@ -55,8 +55,34 @@ body {
 	margin: 0 auto;
 }
 
+	// content borders
+$main-content-border-size: 3px;
+$main-content-border-radius: 20px;
+$main-content-border-color: $primary-medium;
+// header {
+// 	border-top: solid $main-content-border-size $main-content-border-color;
+// 	border-left: solid $main-content-border-size $main-content-border-color;
+// 	border-right: solid $main-content-border-size $main-content-border-color;
+// }
+
+nav, arrhythmia-walkthrough, main {
+	border-left: solid $main-content-border-size $main-content-border-color;
+	border-right: solid $main-content-border-size $main-content-border-color;
+}
+
+.footer {
+	border-bottom: solid $main-content-border-size $main-content-border-color;
+	border-left: solid $main-content-border-size $main-content-border-color;
+	border-right: solid $main-content-border-size $main-content-border-color;
+}
+
 .container {
 	width: 70%;
+	margin: 0 auto;
+}
+
+.smaller-container {
+	width: 400px;
 	margin: 0 auto;
 }
 
@@ -64,9 +90,21 @@ body {
 	// border-bottom: 2px white double;
 }
 
+$arrow-height: 30px;	
+.title-bar {
+	height: $arrow-height;
+	text-align: center;
+	line-height: $arrow-height;
+	font-size: 20px;
+	background: $primary-medium-light;
+	color: white;
+	font-weight: bold;
+}
+
 .row {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 
 	// Makes each row have some spacing between them vertically
 	&:not(:last-child) {
@@ -125,7 +163,21 @@ body {
 	label {
 		display: inline-block;
 	}
+}
 
+.slider-number-pair {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	.slider-container {
+		display: flex;
+		flex-direction: column;
+
+		label {
+			text-align: center;
+		}
+	}
 }
 
 hr {
@@ -208,7 +260,7 @@ $prop-box-container-dimension: 110px;
 	font-size: 30px;
 
 
-	border-radius: 10px 10px 0 0;
+	border-radius: $main-content-border-radius $main-content-border-radius 0 0;
 	
 	h2, h4 {
 		padding: 10px 0;
@@ -227,7 +279,7 @@ $prop-box-container-dimension: 110px;
 nav {
 	
 	& * {
-		z-index: 1;
+		z-index: 2;
 	}
 
 	text-align: center;
@@ -300,17 +352,26 @@ nav {
 	}
 }
 
+.arrhythmia-walkthrough {
+	height: 200px;
+	background: lavenderblush;
+	padding: 20px;
+	// border-left: 3px $main-content-border-color solid;
+}
+
 // Main
 .main {
 	color: black;
+	background-color: $primary-light;
 
 	.grid-split-in-three {
 		height: $grid-section-height;
 		display: grid;
-		grid-template-columns: 330px 540px 330px;
+		$size-minus-border: 330 - $main-content-border-size;
+		grid-template-columns: $size-minus-border 540px $size-minus-border;
+
 		
 		background: $grid-color;
-		$arrow-height: 30px;
 
 		.expand-or-collapse-arrow {
 			z-index: 1;
@@ -319,6 +380,7 @@ nav {
 			height: $arrow-height;
 			line-height: $arrow-height;
 			text-align: center;
+			transform: translateY($arrow-height);
 			
 			color: white;
 			font-size: 36px;
@@ -337,7 +399,7 @@ nav {
 				background: $primary-medium;
 			}
 		}
-		
+
 		.sidebar {
 			width: 100%;
 			overflow: hidden;
@@ -345,21 +407,10 @@ nav {
 			background: $primary-light;
 			display: inline-block;
 
-			&>.sidebar-title {
-				height: $arrow-height;
-				margin-bottom: 10px;
-				text-align: center;
-				line-height: $arrow-height;
-				font-size: 20px;
-				background: $primary-medium-light;
-				color: white;
-				font-weight: bold;
-			}
 
 			&>.sidebar-contents {
 				overflow-y: scroll;
 				padding: 10px;
-				padding-top: 0;
 				height: $grid-section-height;
 
 
@@ -394,20 +445,34 @@ nav {
 			}
 		}
 
-		.canvas {
+		.canvas-wrapper {
 			height: $grid-section-height;
 			overflow: auto;
-			padding-top: 50px;
 
-			.container {
-				width: 50px;
-				margin: 0 auto;
+			.canvas-title {
+				height: $arrow-height;
+				text-align: center;
+				line-height: $arrow-height;
+				font-size: 20px;
+				background: $primary-medium-light;
+				color: white;
+				font-weight: bold;
 			}
 
-			canvas {
-					padding: 0;
-					margin: auto;
-					display: block;
+			.canvas {
+				overflow: auto;
+				padding-top: 35px;
+
+				.container {
+					width: 50px;
+					margin: 0 auto;
+				}
+
+				canvas {
+						padding: 0;
+						margin: auto;
+						display: block;
+				}
 			}
 		}
 
@@ -422,6 +487,10 @@ nav {
 
 			.sidebar {
 				transform: translateX(330px);
+
+				.sidebar-contents {
+					padding-top: $arrow-height;
+				}
 			}
 		}
 
@@ -481,13 +550,6 @@ nav {
 					}
 				}
 
-				#timeStripsDiv {
-					visibility: hidden;
-					canvas {
-						margin: 0 auto;
-					}
-				}
-
 			}
 			
 		}
@@ -517,12 +579,30 @@ nav {
 		}
 	}
 
+
+	.timeStrip-section {
+		background: $primary-light;
+		// visibility: hidden;
+
+		#timeStripsDiv {
+			display: flex;
+			flex-direction: column;
+			padding: 15px;
+			width: 100%;
+			
+			canvas {
+				display: block;
+				margin: 0 auto;
+			}
+		}
+	}
+
 	.settings-section {
 		background-color: $settings-section-color;
 		// color: white;
 
 		&.tabbed-settings-section {
-			padding: 20px;
+			padding: 0px;
 		}
 
 		&.nontabbed-settings-section {
@@ -530,7 +610,7 @@ nav {
 		}
 	
 		button {
-			margin: 2px;
+			margin: 4px;
 		}
 
 	}
@@ -544,7 +624,7 @@ nav {
 	padding: 10px;
 	color: white;
 	text-align: center;
-	border-radius: 0 0 10px 10px;
+	border-radius: 0 0 $main-content-border-radius $main-content-border-radius;
 }
 
 
