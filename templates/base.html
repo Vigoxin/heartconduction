@@ -45,20 +45,13 @@
 			<h2>HeartConduction.com</h2>
 			<h4>Visualise every arrhythmia...</h4>
 		</header>
-<!-- 		<div class="navbar bottom-bordered has-list-anchors">
-			
-			<ul class="navbar-proper">
-				<li>
-					<a href="/">Home page</a>
-				</li>
-			</ul>
-
-		</div> -->
 		<nav>
 			<ul>
+				<li><a href="/">Home</a></li>
 				<li class="has-children"><a>Arrhythmias</a>
-					 <ul>
-						<li><a class="has-children" href="#">Basic</a>
+					<ul>
+						<li>
+							<a class="has-children" href="#">Basic</a>
 							<ul>
 								{% for arrhythmia in arrhythmias %}
 									<li>
@@ -70,9 +63,7 @@
 						<li><a href="#">Intermediate</a></li>
 						<li><a href="#">Advanced</a></li>
 					</ul>
-				
 				</li>		
-				<li><a href="/">Home</a></li>
 				<li><a href="#">Services</a></li>
 				<li><a href="#">Blog</a></li>
 				<li><a href="#">Contact</a></li>

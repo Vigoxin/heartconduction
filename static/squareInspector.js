@@ -177,11 +177,15 @@ class SquareInspectorDivWrapper {
 		})
 
 		// Set tab events for tabSystem
-		tab.on('click', function(){
+		tab.on('click', () => {
 			$('.squareInspectorDiv').css('display', 'none');
 			div.css('display', 'block');
 			$('.squareInspector-section .tabSystem .tab').removeClass('tabActive');
 			tab.addClass('tabActive');
+			for (let square of grid.squareInspectorSquareList) {
+				square.dehighlight();
+			}
+			this.parentSquare.highlight();
 		})
 		tab.click();
 

@@ -256,6 +256,7 @@ nav ul > li > ul > li > ul {
 
 .main {
   color: black;
+  background-color: #C8B8DB;
 }
 .main .grid-split-in-three {
   height: 650px;
@@ -443,8 +444,9 @@ nav ul > li > ul > li > ul {
   color: black;
 }
 .has-list-anchors .arrhythmia-list {
-  margin: 20px auto;
+  margin: 0 auto;
   width: 500px;
+  padding: 20px;
   list-style: none;
 }
 

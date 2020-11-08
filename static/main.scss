@@ -372,7 +372,7 @@ nav {
 // Main
 .main {
 	color: black;
-	// background-color: $primary-light;
+	background-color: $primary-light;
 
 	.grid-split-in-three {
 		height: $grid-section-height;
@@ -628,8 +628,9 @@ nav {
 // Landing page
 
 .arrhythmia-list {
-	margin: 20px auto;
+	margin: 0 auto;
 	width: 500px;
+	padding: 20px;
 
 	list-style: none;
 
