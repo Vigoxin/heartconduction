@@ -3117,8 +3117,8 @@ textarea.materialize-textarea {
   height: 22px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
-  border-right: 2px solid #26a69a;
-  border-bottom: 2px solid #26a69a;
+  border-right: 2px solid crimson;
+  border-bottom: 2px solid crimson;
   transform: rotate(40deg);
   backface-visibility: hidden;
   transform-origin: 100% 100%;
