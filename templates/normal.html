@@ -2,7 +2,7 @@
 
 {% block main %}
 
-<!-- 	<div class="resize-box settings-section nontabbed-settings-section">
+<!-- 	<div class="resize-box settings-section">
 		<div class="container">
 			<div class="row">
 				<label class="slider-number-pair">
@@ -34,7 +34,7 @@
 
 				<div class="sidebar-contents">
 					<div id="state-box">
-						<p class="settings-section">Activation state</p>
+						<p class="tools-section-title">Activation state</p>
 						<div class="container">
 							<div class="radio-row">
 								<input id="state-radio-depo" class='toggle-button-radio state-radio depo' type="radio" data-selector-type="state" name="selector" value='depo' checked='checked'><label for="state-radio-depo">Depo</label>
@@ -45,7 +45,7 @@
 						<hr>
 					</div>
 					<div id="condVel-box">
-						<p class="settings-section">Conduction velocity</p>
+						<p class="tools-section-title">Conduction velocity</p>
 						<div class="container">
 							<div class="radio-row">
 								<input id="condVel-radio-fast" class='toggle-button-radio condVel-radio fast' type="radio" data-selector-type="condVel" name="selector" value='fast'><label for="condVel-radio-fast">Fast</label>
@@ -56,7 +56,7 @@
 						<hr>
 					</div>
 					<div id="refracLength-box">
-						<p class="settings-section">Refractory period length</p>
+						<p class="tools-section-title">Refractory period length</p>
 						<div class="container">
 							<div class="radio-row">
 									<input id="refracLength-radio-long" class='toggle-button-radio refracLength-radio long' type="radio" data-selector-type="refracLength" name="selector" value='long'> <label for="refracLength-radio-long">Long</label>
@@ -74,7 +74,7 @@
 						<hr>
 					</div>
 					<div id="pacing-box">
-						<p class="settings-section">Pacing</p>
+						<p class="tools-section-title">Pacing</p>
 						<div class="container">
 							<div class="radio-row">
 								<input id="pacing-radio-extPace" class='toggle-button-radio pacing-radio extPace' type="radio" data-selector-type="pacing" name="selector" value='extPace'> <label for="pacing-radio-extPace">External Pacing</label>
@@ -93,7 +93,7 @@
 						<hr>
 					</div>
 					<div id="propagation-box">
-						<p class="settings-section">Propagation direction</p>
+						<p class="tools-section-title">Propagation direction</p>
 						<div class="prop-box-container">
 							<div class="propagation-settings-directions-grid">
 									<div class='prop-set-dir-grid-sec'>
@@ -145,6 +145,16 @@
 					
 							</div>
 						</div>
+					<hr>
+					</div>
+					
+					<div id="square-inspector-toggle-box" class="square-inspector-toggle-box">
+						<div class="container">
+							<div class="radio-row">
+								<input id="squareInspector-toggle-radio" class='toggle-button-radio square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <label for="squareInspector-toggle-radio">Square Inspector</label>
+								<input id="timeStrip-toggle-radio" class='toggle-button-radio time-strip-toggle-radio' type="radio" data-selector-type="timeStripPanelSelector" name="selector" value='timeStripPanelSelector'> <label for="timeStrip-toggle-radio">Time Strip</label>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -155,7 +165,7 @@
 				Play/Pause
 			</div>
 			<div class="grid-essential-tools">
-				<div id="play-box" class="play-box settings-section nontabbed-settings-section">
+				<div id="play-box" class="play-box settings-section">
 					<div class="row">
 						<!-- <button class="play-button btn btn-custom">&#9658; / <strong style="font-size: 14px">||</strong></button> -->
 						<button class="play-button btn btn-custom">
@@ -205,74 +215,39 @@
 		</div>
 	</div>
 
-	<div class="actions">
-		<div id="square-inspector-toggle-box" class="square-inspector-toggle-box settings-section nontabbed-settings-section">
-			<div class="container">
-				<div class="smaller-container">
-					<div class="radio-row">
-						<input id="squareInspector-toggle-radio" class='toggle-button-radio square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <label for="squareInspector-toggle-radio">Square Inspector</label>
-						<input id="timeStrip-toggle-radio" class='toggle-button-radio time-strip-toggle-radio' type="radio" data-selector-type="timeStripPanelSelector" name="selector" value='timeStripPanelSelector'> <label for="timeStrip-toggle-radio">Time Strip</label>
-					</div>
-				</div>
+	<div id="saveload-box" class="saveload-box settings-section">
+		<div class="container">
+			<div class="row">
+				<button class="save-button btn btn-custom">Save grid state</button>
+				<button class="load-button btn btn-custom">Load grid state</button>
 			</div>
 		</div>
-		<div id="saveload-box" class="saveload-box settings-section tabbed-settings-section">
-			<div class="container">
-				<div class="row">
-					<button class="save-button btn btn-custom">Save grid state</button>
-					<button class="load-button btn btn-custom">Load grid state</button>
-				</div>
-			</div>
-		</div>
-
-<!-- 
-
-		<div class="actions-tab-row">
-				<ul class="tabs">
-					<li class="tab"> <a href="#state-box">State</a> </li>
-					<li class="tab"> <a href="#condVel-box">Conduction velocity</a> </li>
-					<li class="tab"> <a href="#refracLength-box">Refractory length</a> </li>
-					<li class="tab"> <a href="#pacing-box">Pacing</a> </li>
-					<li class="tab"> <a href="#propagation-box">Propagation direction</a> </li>
-					<li class="tab"> <a href="#misc-box">Misc</a> </li>
-					<li class="tab"> <a href="#saveload-box">Saving/loading</a> </li>
-				</ul>
-		</div>
-
-		<div id="saveload-box" class="saveload-box settings-section tabbed-settings-section">
-			<div class="container">
-				<div class="row">
-					<button class="save-button btn btn-custom">Save grid state</button>
-					<button class="load-button btn btn-custom">Load grid state</button>
-				</div>
-			</div>
-		</div>
-
-		<div id="misc-box" class="misc-box settings-section tabbed-settings-section">
-			<div class="container">
-				<div class="row">
-					<label>
-						<input class='with-gap rainbow-checkbox' type="checkbox" data-selector-type="rainbow" name="rainbow" checked> <span>Rainbow trails</span>
-					</label>
-				</div>
-				<div class="row">
-					<label>
-						<input class='with-gap diagprop-checkbox' type="checkbox" data-selector-type="diagprop" name="diagprop"> <span>Diagonal propagation</span>
-					</label>
-				</div>
-			</div>
-		</div>
-		
-		<div class="apply-to-all-box settings-section tabbed-settings-section">
-			<div class="container">
-				<div class="row">
-					<button class="apply-to-all-button btn btn-custom">Apply to all non-clear squares</button>
-					<button class="unclear-all-cells-button btn btn-custom">Unclear all cells</button>
-				</div>
-			</div>
-		</div> -->
-
 	</div>
+
+	<!-- <div id="misc-box" class="misc-box settings-section">
+		<div class="container">
+			<div class="row">
+				<label>
+					<input class='with-gap rainbow-checkbox' type="checkbox" data-selector-type="rainbow" name="rainbow" checked> <span>Rainbow trails</span>
+				</label>
+			</div>
+			<div class="row">
+				<label>
+					<input class='with-gap diagprop-checkbox' type="checkbox" data-selector-type="diagprop" name="diagprop"> <span>Diagonal propagation</span>
+				</label>
+			</div>
+		</div>
+	</div>
+	
+	<div class="apply-to-all-box settings-section">
+		<div class="container">
+			<div class="row">
+				<button class="apply-to-all-button btn btn-custom">Apply to all non-clear squares</button>
+				<button class="unclear-all-cells-button btn btn-custom">Unclear all cells</button>
+			</div>
+		</div>
+	</div> -->
+
 
 	<div class="timeStrip-section" class="panel">
 		<div class="title-bar">Time Strip</div>
