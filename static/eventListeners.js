@@ -86,8 +86,6 @@ function setEventListeners() {
 	grid.selector = $("input[name='selector']:checked").val();
 	grid.selectorType = $("input[name='selector']:checked").data('selectorType');
 
-
-
 	// Apply to all box
 	$('.apply-to-all-button').on('click', function() {
 		for (let col of grid) {
@@ -124,7 +122,6 @@ function setEventListeners() {
 	$('.pacingTracker').prop({
 		'value': 50
 	})
-
 	
 // Miscellaneous section
 	// Rainbow box

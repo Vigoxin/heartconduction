@@ -1,6 +1,7 @@
 $primary-dark: crimson;
 $primary-medium: #70587C;
 $primary-medium-light: #906fa1;
+$primary-medium-light-lighter: #a47fbb;
 $primary-light: #C8B8DB;
 $primary-lightest: lavenderblush;
 $cool-red: #f94466;
@@ -106,21 +107,21 @@ $arrow-height: 30px;
 	justify-content: center;
 	align-items: center;
 
-	// Makes each row have some spacing between them vertically
-	&:not(:last-child) {
-		margin-bottom: 10px;
-	}
+	// // Makes each row have some spacing between them vertically
+	// &:not(:last-child) {
+	// 	margin-bottom: 10px;
+	// }
 
 	// Makes each column (in each row) have some spacing between them horizontally
 	&>*:not(:last-child) {
-		margin-right: 20px;
+		margin-right: 10px;
 	}
 }
 
 .radio-row {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: center;
 	text-align: center;
 
 	.toggle-button-radio {
@@ -146,22 +147,31 @@ $arrow-height: 30px;
 	}
 }
 
-.number-label-pair {
+.label-input-pair {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
+	width: 120px;
 	padding: 5px;
 	margin-top: 5px;
 
-	input[type=number] {
+	input.input {
 		display: inline-block;
-		max-width: 50px;
+		width: 50px;
 		max-height: 20px;
-		margin-right: 10px;
+		background-color: #e4e4e4;
+		padding: 2px;
+		text-align: center;
+
+		&.longer {
+			width: 60px;
+		}
 	}
 
 	label {
 		display: inline-block;
+		margin-right: 10px;
 	}
 }
 
@@ -355,7 +365,7 @@ nav {
 .arrhythmia-walkthrough {
 	height: 200px;
 	background: lavenderblush;
-	padding: 20px;
+	padding: 10px;
 	// border-left: 3px $main-content-border-color solid;
 }
 
@@ -426,8 +436,48 @@ nav {
 				}
 
 				.row p {
-					margin-top: 5px;
+					margin: 5px 0;
 				}
+			}
+
+			.tabSystem {
+				display: flex;
+				align-items: center;
+				position: relative;
+				top: 0px;
+				left: $arrow-height;
+				width: 330px - $arrow-height - $main-content-border-size;
+				height: $arrow-height;
+				padding-left: 5px;
+				overflow: scroll;
+
+				.tab {
+					min-width: 80px;
+					height: $arrow-height;
+					background-color: $primary-medium-light;
+					border-radius: 0 0 5px 5px;
+					padding-top: 6px;
+					
+					text-align: center;
+					color: white;
+
+					transition: all 0.3s;
+					cursor: pointer;
+
+					&:not(:last-child) {
+						margin-right: 5px;
+					}
+
+					&:hover {
+						background-color: $primary-medium-light-lighter;
+					}
+
+					&.tabActive {
+						background-color: white;
+						color: $primary-medium-light;
+					}
+				}
+
 			}
 		}
 
@@ -489,70 +539,79 @@ nav {
 				transform: translateX(330px);
 
 				.sidebar-contents {
-					padding-top: $arrow-height;
+					// padding-top: 10;
 				}
+			}
+
+			.squareInspectorDiv {
+				transition: all 0.3s;
+
+					.squareInspectorSectionTitle {
+						margin: 10px 0 5px 0;
+						cursor: pointer;
+					}
 			}
 		}
 
-		.tabSystem {
-			--color-1: #f37d83;
-			--color-1: $primary-light;
-			--color-2: cornflowerblue;
-			--color-2: $primary-light;
-			font-size: 0;
+		// .tabSystem {
+		// 	--color-1: #f37d83;
+		// 	--color-1: $primary-light;
+		// 	--color-2: cornflowerblue;
+		// 	--color-2: $primary-light;
+		// 	font-size: 0;
 			
-			.my-tab {
-				display: inline-block;
-				font-size: 16px;
+		// 	.my-tab {
+		// 		display: inline-block;
+		// 		font-size: 16px;
 				
-				background: #eee;
-				height: 45px;
-				width: 150px;
-				line-height: 50px;
-				text-align: center;
+		// 		background: #eee;
+		// 		height: 45px;
+		// 		width: 150px;
+		// 		line-height: 50px;
+		// 		text-align: center;
 				
-				transition: all 0.3s ease-out;
-				cursor: pointer;
+		// 		transition: all 0.3s ease-out;
+		// 		cursor: pointer;
 
-				&:hover {
-					background-color: $primary-light;
-				}
-			}
+		// 		&:hover {
+		// 			background-color: $primary-light;
+		// 		}
+		// 	}
 			
-			.panel {
-				display: block;
-				font-size: 16px;
+		// 	.panel {
+		// 		display: block;
+		// 		font-size: 16px;
 				
-				padding: 10px;
+		// 		padding: 10px;
 				
-				height: 555px;
-				margin: 0 auto;
-				overflow-y: auto;
-				background-color: $primary-light;
+		// 		height: 555px;
+		// 		margin: 0 auto;
+		// 		overflow-y: auto;
+		// 		background-color: $primary-light;
 				
-				transition: all 0.5s ease-out;
+		// 		transition: all 0.5s ease-out;
 
-				.squareInspectorDiv {
+		// 		.squareInspectorDiv {
 
-					.squareInspector-settings-section {
-						margin: 0 auto;
-						margin-bottom: 10px;
-						width: 90%;
+		// 			.squareInspector-settings-section {
+		// 				margin: 0 auto;
+		// 				margin-bottom: 10px;
+		// 				width: 90%;
 
-						.squareInspectorSectionTitle {
-							margin: 10px 0 5px 0;
-							cursor: pointer;
-						}
-					}
+		// 				.squareInspectorSectionTitle {
+		// 					margin: 10px 0 5px 0;
+		// 					cursor: pointer;
+		// 				}
+		// 			}
 					
-					hr {
-						margin: 10px 0;
-					}
-				}
+		// 			hr {
+		// 				margin: 10px 0;
+		// 			}
+		// 		}
 
-			}
+		// 	}
 			
-		}
+		// }
 	}
 
 	.actions {
@@ -587,7 +646,7 @@ nav {
 		#timeStripsDiv {
 			display: flex;
 			flex-direction: column;
-			padding: 15px;
+			padding: 10px;
 			width: 100%;
 			
 			canvas {

@@ -2,7 +2,6 @@ class Square {
 	constructor(col=0, row=0, parentGrid=grid) {
 		var a;
 		var b;
-
 														// a = performance.now();
 		this.isDebugging;
 		this.isInSquareInspector = false;
@@ -41,6 +40,10 @@ class Square {
 		this.randomRefracLengths = false;
 		this.randomRefracRangeConstant = 0.8;
 		this.refracPoint;
+
+		this.nameLabel = `[${col.toString()}, ${row.toString()}]`;
+
+
 														// b = performance.now(); console.log((b-a)/1000);
 														// a = performance.now();
 		this.setRefracPoint();
@@ -366,6 +369,11 @@ class Square {
 		})
 		$(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`).remove();
 		this.dehighlight();
+		
+		// Remove tab and display the next last squareInspector tab
+		var divToRemove = $(`.squareInspector-section .tabSystem .tab[data-col="${this.col}"][data-row="${this.row}"]`);
+		divToRemove.remove();
+		$('.squareInspectorDiv').last().css('display', 'block')
 	}
 
 	addToTimeStripPanel() {

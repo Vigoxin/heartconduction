@@ -54,17 +54,14 @@ nav, arrhythmia-walkthrough, main {
   justify-content: center;
   align-items: center;
 }
-.row:not(:last-child) {
-  margin-bottom: 10px;
-}
 .row > *:not(:last-child) {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .radio-row {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   text-align: center;
 }
 .radio-row .toggle-button-radio {
@@ -87,21 +84,29 @@ nav, arrhythmia-walkthrough, main {
   border-radius: 6px;
 }
 
-.number-label-pair {
+.label-input-pair {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  width: 120px;
   padding: 5px;
   margin-top: 5px;
 }
-.number-label-pair input[type=number] {
+.label-input-pair input.input {
   display: inline-block;
-  max-width: 50px;
+  width: 50px;
   max-height: 20px;
-  margin-right: 10px;
+  background-color: #e4e4e4;
+  padding: 2px;
+  text-align: center;
 }
-.number-label-pair label {
+.label-input-pair input.input.longer {
+  width: 60px;
+}
+.label-input-pair label {
   display: inline-block;
+  margin-right: 10px;
 }
 
 .slider-number-pair {
@@ -246,7 +251,7 @@ nav ul > li > ul > li > ul {
 .arrhythmia-walkthrough {
   height: 200px;
   background: lavenderblush;
-  padding: 20px;
+  padding: 10px;
 }
 
 .main {
@@ -301,7 +306,39 @@ nav ul > li > ul > li > ul {
   padding: 5px;
 }
 .main .grid-split-in-three .sidebar > .sidebar-contents .row p {
-  margin-top: 5px;
+  margin: 5px 0;
+}
+.main .grid-split-in-three .sidebar .tabSystem {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 0px;
+  left: 30px;
+  width: 297px;
+  height: 30px;
+  padding-left: 5px;
+  overflow: scroll;
+}
+.main .grid-split-in-three .sidebar .tabSystem .tab {
+  min-width: 80px;
+  height: 30px;
+  background-color: #906fa1;
+  border-radius: 0 0 5px 5px;
+  padding-top: 6px;
+  text-align: center;
+  color: white;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.main .grid-split-in-three .sidebar .tabSystem .tab:not(:last-child) {
+  margin-right: 5px;
+}
+.main .grid-split-in-three .sidebar .tabSystem .tab:hover {
+  background-color: #a47fbb;
+}
+.main .grid-split-in-three .sidebar .tabSystem .tab.tabActive {
+  background-color: white;
+  color: #906fa1;
 }
 .main .grid-split-in-three .tools-section {
   height: 650px;
@@ -351,51 +388,12 @@ nav ul > li > ul > li > ul {
 .main .grid-split-in-three .squareInspector-section .sidebar {
   transform: translateX(330px);
 }
-.main .grid-split-in-three .squareInspector-section .sidebar .sidebar-contents {
-  padding-top: 30px;
+.main .grid-split-in-three .squareInspector-section .squareInspectorDiv {
+  transition: all 0.3s;
 }
-.main .grid-split-in-three .tabSystem {
-  --color-1: #f37d83;
-  --color-1: $primary-light;
-  --color-2: cornflowerblue;
-  --color-2: $primary-light;
-  font-size: 0;
-}
-.main .grid-split-in-three .tabSystem .my-tab {
-  display: inline-block;
-  font-size: 16px;
-  background: #eee;
-  height: 45px;
-  width: 150px;
-  line-height: 50px;
-  text-align: center;
-  transition: all 0.3s ease-out;
-  cursor: pointer;
-}
-.main .grid-split-in-three .tabSystem .my-tab:hover {
-  background-color: #C8B8DB;
-}
-.main .grid-split-in-three .tabSystem .panel {
-  display: block;
-  font-size: 16px;
-  padding: 10px;
-  height: 555px;
-  margin: 0 auto;
-  overflow-y: auto;
-  background-color: #C8B8DB;
-  transition: all 0.5s ease-out;
-}
-.main .grid-split-in-three .tabSystem .panel .squareInspectorDiv .squareInspector-settings-section {
-  margin: 0 auto;
-  margin-bottom: 10px;
-  width: 90%;
-}
-.main .grid-split-in-three .tabSystem .panel .squareInspectorDiv .squareInspector-settings-section .squareInspectorSectionTitle {
+.main .grid-split-in-three .squareInspector-section .squareInspectorDiv .squareInspectorSectionTitle {
   margin: 10px 0 5px 0;
   cursor: pointer;
-}
-.main .grid-split-in-three .tabSystem .panel .squareInspectorDiv hr {
-  margin: 10px 0;
 }
 .main .actions .tabs {
   display: flex;
@@ -420,7 +418,7 @@ nav ul > li > ul > li > ul {
 .main .timeStrip-section #timeStripsDiv {
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding: 10px;
   width: 100%;
 }
 .main .timeStrip-section #timeStripsDiv canvas {
