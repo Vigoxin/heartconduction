@@ -184,8 +184,11 @@ class SquareInspectorDivWrapper {
 			tab.addClass('tabActive');
 			for (let square of grid.squareInspectorSquareList) {
 				square.dehighlight();
+				console.log(square.squareInspectorDivWrapper.div.find(".squareInspector-highlight-checkbox"));
+				square.squareInspectorDivWrapper.div.find(".squareInspector-highlight-checkbox").prop("checked", false);
 			}
 			this.parentSquare.highlight();
+			this.parentSquare.squareInspectorDivWrapper.div.find(".squareInspector-highlight-checkbox").prop("checked", true);
 		})
 		tab.click();
 
