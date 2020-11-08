@@ -392,7 +392,7 @@ nav ul > li > ul > li > ul {
   cursor: pointer;
 }
 .main .saveload-box {
-  padding: 5px;
+  padding: 10px;
 }
 .main .timeStrip-section {
   background: #C8B8DB;
@@ -410,14 +410,13 @@ nav ul > li > ul > li > ul {
 .main .settings-section {
   background-color: #C8B8DB;
 }
-.main .settings-section.tabbed-settings-section {
-  padding: 0px;
+.main .settings-section .master-frame-box {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
 }
-.main .settings-section.nontabbed-settings-section {
-  padding: 5px;
-}
-.main .settings-section button {
-  margin: 4px;
+.main .settings-section .master-frame-box p {
+  text-align: center;
 }
 
 .footer {

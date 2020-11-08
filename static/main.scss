@@ -550,7 +550,7 @@ nav {
 	}
 
 	.saveload-box {
-		padding: 5px;
+		padding: 10px;
 	}
 
 	.timeStrip-section {
@@ -572,18 +572,16 @@ nav {
 
 	.settings-section {
 		background-color: $settings-section-color;
-		// color: white;
 
-		&.tabbed-settings-section {
-			padding: 0px;
-		}
+		.master-frame-box {
+			width: 100px;
+			display: flex;
+			flex-direction: column;
 
-		&.nontabbed-settings-section {
-			padding: 5px;
-		}
-	
-		button {
-			margin: 4px;
+			p {
+				text-align: center;
+			}
+
 		}
 
 	}

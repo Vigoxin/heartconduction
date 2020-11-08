@@ -20,7 +20,6 @@ function setup() {
 	}
 			// b = performance.now(); console.log((b-a)/1000);
 
-
 	DOMSetup();
 
 	setEventListeners();
@@ -41,4 +40,6 @@ function drawingFunction() {
 
 function drawFrame() {
 	grid.play();
+	masterFrameCount++;
+	$(".master-frame").text(masterFrameCount);
 }
