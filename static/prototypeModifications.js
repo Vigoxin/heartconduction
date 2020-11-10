@@ -35,6 +35,7 @@ function mod(n, m) {
 	return ((n % m) + m) % m;
 }
 
+
 function makeTimeStripMenuTabDraggable(elmnt, timeStrip) {
 	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
@@ -70,6 +71,7 @@ function makeTimeStripMenuTabDraggable(elmnt, timeStrip) {
 	}
 }
 
+
 function makeCaliperDraggable(elmnt) {
 	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 	var toDrag = $(elmnt).find(".middle")[0];
@@ -82,7 +84,6 @@ function makeCaliperDraggable(elmnt) {
 		pos3 = e.clientX;
 		pos4 = e.clientY;
 		cursorToCaliperLeft = e.clientX-toDrag.getBoundingClientRect().x;
-		console.log("initialX: ", pos3);
 		document.onmouseup = closeDragElement;
 		// call a function whenever the cursor moves:
 		document.onmousemove = elementDrag;
@@ -91,6 +92,16 @@ function makeCaliperDraggable(elmnt) {
 	function elementDrag(e) {
 		e = e || window.event;
 		e.preventDefault();
+
+		canvasWidth = parseInt($('#timeStripsDiv canvas').css("width"));
+		canvasHeight = parseInt($('#timeStripsDiv canvas').css("height"));
+		mouseXInCanvas = e.clientX-$('#timeStripsDiv canvas')[0].getBoundingClientRect().x;
+		mouseYInCanvas = e.clientY-$('#timeStripsDiv canvas')[0].getBoundingClientRect().y;
+		if (mouseXInCanvas < 0 || mouseYInCanvas < 0 
+			|| mouseXInCanvas > canvasWidth || mouseYInCanvas > canvasHeight) {
+			return;
+		}
+
 		// calculate the new cursor position:
 		xDist = e.clientX - pos3; // the distance from previous x to current x
 		yDist = e.clientY - pos4; // the distance from previous y to current y
@@ -119,6 +130,7 @@ function makeCaliperRightHandleDraggable(elmnt) {
 	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 	var middleWidth, prevMiddleWidth;
 	var middle = $(elmnt).siblings(".middle")[0];
+	var caliper = $(elmnt).parent()[0];
 	elmnt.onmousedown = dragMouseDown;
 
 	function dragMouseDown(e) {
@@ -128,7 +140,6 @@ function makeCaliperRightHandleDraggable(elmnt) {
 		pos3 = e.clientX;
 		pos4 = e.clientY;
 		prevMiddleWidth = parseInt(middle.offsetWidth);
-		console.log(prevMiddleWidth);
 		document.onmouseup = closeDragElement;
 		// call a function whenever the cursor moves:
 		document.onmousemove = elementDrag;
@@ -137,6 +148,16 @@ function makeCaliperRightHandleDraggable(elmnt) {
 	function elementDrag(e) {
 		e = e || window.event;
 		e.preventDefault();
+
+		canvasWidth = parseInt($('#timeStripsDiv canvas').css("width"));
+		mouseXInCanvas = e.clientX-$('#timeStripsDiv canvas')[0].getBoundingClientRect().x;
+		if (mouseXInCanvas < 0 || mouseXInCanvas > canvasWidth) {
+			return;
+		}
+		if (mouseXInCanvas < caliper.offsetLeft) {
+			return;
+		}
+
 		// calculate the new cursor position:
 		xDist = e.clientX - pos3; // the distance from previous x to current x
 		widthChange = xDist;
@@ -169,63 +190,6 @@ function makeCaliperRightHandleDraggable(elmnt) {
 	}
 }
 
-// elmnt for this is caliper as the whole caliper must move
-// function makeCaliperLeftHandleDraggable(elmnt) {
-// 	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-// 	var middleWidth, prevMiddleWidth;
-// 	var middle = $(elmnt).find(".middle")[0];
-// 	var left = $(elmnt).find(".leftHandle")[0];
-// 	left.onmousedown = dragMouseDown;
-
-// 	function dragMouseDown(e) {
-// 		e = e || window.event;
-// 		e.preventDefault();
-// 		// get the mouse cursor position at startup:
-// 		pos3 = e.clientX;
-// 		pos4 = e.clientY;
-// 		prevMiddleWidth = parseInt(middle.offsetWidth);
-// 		console.log(prevMiddleWidth);
-// 		document.onmouseup = closeDragElement;
-// 		// call a function whenever the cursor moves:
-// 		document.onmousemove = elementDrag;
-// 	}
-
-// 	function elementDrag(e) {
-// 		e = e || window.event;
-// 		e.preventDefault();
-// 		// calculate the new cursor position:
-// 		pos1 = e.clientX - pos3; // the distance from previous x to current x
-// 		pos2 = e.clientY - pos4; // the distance from previous y to current y
-// 		widthChange = pos1;
-// 		pos3 = e.clientX; // current x
-// 		pos4 = e.clientY; // current y
-// 		prevMiddleWidth = parseInt(middle.offsetWidth);
-// 		// set the element's new position:
-// 		xmin = 	0;
-// 		// xmax = widthMax = parseInt($('#timeStripsDiv').css('width')) - $(elmnt).parent()[0].offsetLeft;
-// 		elmnt.style.left = constrain(elmnt.offsetLeft + pos1, xmin, xmax) + "px";
-		
-// 		// Change width of middle
-// 		currentMiddleWidth = parseInt(middle.offsetWidth);
-// 		middle.style.width = constrain(currentMiddleWidth + widthChange, 0, widthMax) + "px";
-
-
-// 		// Change interval text
-// 		$(elmnt).siblings('.text').find('.intervalNum').text(middle.offsetWidth/2);
-
-// 		// Change interval text position
-// 		$(elmnt).siblings('.text')[0].style.left = currentMiddleWidth / 2 + 'px';
-
-
-// 	}
-
-// 	function closeDragElement() {
-// 		// stop moving when mouse button is released:
-// 		document.onmouseup = null;
-// 		document.onmousemove = null;
-// 	}
-// }
-
 function makeCaliperLeftHandleDraggable(elmnt) {
 	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 	var toDrag = leftHandle = $(elmnt).find(".leftHandle")[0];
@@ -246,6 +210,16 @@ function makeCaliperLeftHandleDraggable(elmnt) {
 	function elementDrag(e) {
 		e = e || window.event;
 		e.preventDefault();
+
+		canvasWidth = parseInt($('#timeStripsDiv canvas').css("width"));
+		mouseXInCanvas = e.clientX-$('#timeStripsDiv canvas')[0].getBoundingClientRect().x;
+		if (mouseXInCanvas < 0 || mouseXInCanvas > canvasWidth) {
+			return;
+		}
+		if (mouseXInCanvas > elmnt.offsetLeft + rightHandle.offsetLeft) {
+			return;
+		}
+
 		// calculate the new cursor position:
 		xDist = e.clientX - pos3; // the distance from previous x to current x
 		pos3 = e.clientX; // current x
@@ -259,7 +233,6 @@ function makeCaliperLeftHandleDraggable(elmnt) {
 		toMoveLeft = constrain(elmnt.offsetLeft + xDist, xmin, xmax);
 		elmnt.style.left = toMoveLeft + "px";
 		finalDiff = prevLeft - toMoveLeft;
-		console.log(finalDiff);
 
 		// Change right Handle left
 		rightHandle.style.left = rightHandle.offsetLeft + finalDiff + "px";

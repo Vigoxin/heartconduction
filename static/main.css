@@ -397,6 +397,9 @@ nav ul > li > ul > li > ul {
 .main .timeStrip-section {
   background: #C8B8DB;
 }
+.main .timeStrip-section .timeStripTools {
+  padding-top: 5px;
+}
 .main .timeStrip-section .timeStripsPanel {
   display: flex;
   flex-direction: row;
@@ -433,19 +436,20 @@ nav ul > li > ul > li > ul {
   position: relative;
 }
 .main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper {
+  display: none;
   position: absolute;
-  top: 100px;
-  left: 100px;
+  top: 75px;
+  left: 0px;
 }
 .main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper > * {
   position: absolute;
   background-color: black;
 }
 .main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper .leftHandle {
-  top: -50px;
+  top: -75px;
   left: 0px;
   width: 2px;
-  height: 100px;
+  height: 150px;
   z-index: 9;
   cursor: ew-resize;
 }
@@ -457,10 +461,10 @@ nav ul > li > ul > li > ul {
   cursor: move;
 }
 .main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper .rightHandle {
-  top: -50px;
+  top: -75px;
   left: 100px;
   width: 2px;
-  height: 100px;
+  height: 150px;
   z-index: 9;
   cursor: ew-resize;
 }

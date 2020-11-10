@@ -555,12 +555,10 @@ nav {
 
 	.timeStrip-section {
 		background: $primary-light;
-		// visibility: hidden;
 
-		// .timeStripTools {
-		// 	height: 50px;
-		// 	padding: 10px;
-		// }
+		.timeStripTools {
+			padding-top: 5px;
+		}
 
 		
 
@@ -617,9 +615,10 @@ nav {
 				position: relative;
 
 				.caliper {
+					display: none;
 					position: absolute;
-					top: 100px;
-					left: 100px;
+					top: 75px;
+					left: 0px;
 					&>* {
 						position: absolute;
 
@@ -627,10 +626,10 @@ nav {
 					}
 
 					.leftHandle {
-						top: -50px;
+						top: -75px;
 						left: 0px;
 						width: 2px;
-						height: 100px;
+						height: 150px;
 						z-index: 9;
 						cursor: ew-resize;
 					}
@@ -645,10 +644,10 @@ nav {
 					}
 
 					.rightHandle {
-						top: -50px;
+						top: -75px;
 						left: 100px;
 						width: 2px;
-						height: 100px;
+						height: 150px;
 						z-index: 9;
 						cursor: ew-resize;
 					}

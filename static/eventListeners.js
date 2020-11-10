@@ -144,4 +144,21 @@ function setEventListeners() {
 			}
 		}
 	})
+
+	// timeStrip tools section
+	$(".caliper-checkbox").on("click", function() {
+		if ($(this).is(":checked")) {
+			$(".caliper").css("display", "block");
+		} else {
+			$(".caliper").css("display", "none");
+		}
+	})
+
+	// $('#timeStripsDiv canvas').on("mouseenter", function() {
+	// 	mouseOverTimeStrip = true;
+	// })
+	// $('#timeStripsDiv canvas').on("mouseleave", function() {
+	// 	mouseOverTimeStrip = false;
+	// })
+
 }
