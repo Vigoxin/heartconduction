@@ -391,6 +391,13 @@ nav ul > li > ul > li > ul {
   margin: 10px 0 5px 0;
   cursor: pointer;
 }
+.main .grid-split-in-three .squareInspector-section .squareInspectorDiv .removeSquareInspectorDiv {
+  width: 60px;
+  font-size: 10px;
+  line-height: 17px;
+  height: 20px;
+  padding: 0 5px;
+}
 .main .saveload-box {
   padding: 10px;
 }

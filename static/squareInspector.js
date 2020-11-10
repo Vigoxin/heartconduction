@@ -18,18 +18,14 @@ class SquareInspectorDivWrapper {
 						<input class='input longer nameLabel-input' type='text' value='${this.parentSquare.nameLabel}'>
 					</div>
 
-
-					<label>
-						<button class='removeSquareInspectorDiv btn btn-custom' data-col=${this.col} data-row=${this.row}>&#8209;</button>
-					</label>
-
-				</div>
-
-
-				<div class="squareInspector-highlight-box squareInspector-settings-section row">
 					<label>
 						<input class='squareInspector-highlight-checkbox' type="checkbox" data-col=${this.col} data-row=${this.row} checked> <span>Highlight</span>
 					</label>
+
+					<label>
+						<button class='removeSquareInspectorDiv btn btn-custom' data-col=${this.col} data-row=${this.row}>Remove</button>
+					</label>
+
 				</div>
 
 				<div class="squareInspector-state-box squareInspector-settings-section">
@@ -172,8 +168,11 @@ class SquareInspectorDivWrapper {
 		}).first();
 
 		// Change nameLabel input event
+		var ps = this.parentSquare;
 		$(div).find('.nameLabel-input').on('input', function() {
 			tab.text($(this).val());
+			ps.nameLabel = $(this).val();
+			$(`.timeStrips-menu-tab[data-col="${ps.col}"][data-row="${ps.row}"]`).find('.nameLabel-input').val($(this).val());
 		})
 
 		// Set tab events for tabSystem

@@ -51,11 +51,19 @@ class TimeStrip extends Array {
 		// $(this.div).find(".drag-handle").on("mousedown", dragTimeStripMenuTab);
 		makeTimeStripMenuTabDraggable($(this.div)[0], this);
 
+		// Set event for remove button
 		var removeButton = $(this.div).find(".removeTimeStripDiv");
 		removeButton.on("click", () => {
 			this.mirrorSquare.removeFromTimeStripPanel();
 		});
 
+		var ms = this.mirrorSquare;
+		// Set event for nameLabel-input
+		$(this.div).find('.nameLabel-input').on('input', function() {
+			ms.nameLabel = $(this).val();
+			$(`.squareInspectorDiv[data-col="${ms.col}"][data-row="${ms.row}"]`).find('.nameLabel-input').val($(this).val());
+			$(`.squareInspector-section .tab[data-col="${ms.col}"][data-row="${ms.row}"]`).text($(this).val());
+		})
 
 	}
 

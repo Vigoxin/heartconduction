@@ -541,10 +541,18 @@ nav {
 			.squareInspectorDiv {
 				transition: all 0.3s;
 
-					.squareInspectorSectionTitle {
-						margin: 10px 0 5px 0;
-						cursor: pointer;
-					}
+				.squareInspectorSectionTitle {
+					margin: 10px 0 5px 0;
+					cursor: pointer;
+				}
+
+				.removeSquareInspectorDiv {
+					width: 60px;
+					font-size: 10px;
+					line-height: 17px;
+					height: 20px;
+					padding: 0 5px;
+				}
 			}
 		}
 	}

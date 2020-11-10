@@ -277,9 +277,6 @@ class Square {
 				$(inp).prop('checked', false);
 			}
 		}
-
-
-
 	}
 
 	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector, via='.settings-section') {
