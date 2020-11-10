@@ -14,20 +14,71 @@ class TimeStrip extends Array {
 	// an update of the tintList, and then an update of the array itself based on the tintList
 		this.tintList = [];
 		for (let i = 0; i < this.numOfFramesLength; i++) {
-			this.tintList.push('beginning');
+			this.tintList.push('initial');
 		}
-		this.tintListCounter = mod(this.parentCanvas.wipeOverPositionCounter - 20, this.numOfFramesLength) ;
-
-		
-
 
 		for (let i = 0; i < this.numOfFramesLength; i++) {
 			this.push(new SquareForTimeStrip(i, this.rowInParentTimeStripPanel, timeStripPanel, this, this.mirrorSquare.sprites.square.tint));
 		}
-
-
-
+		
 		this.update();
+
+		this.assignDiv();
+		this.addDivToTimeStripMenu();
+	}
+
+	assignDiv() {
+		this.div =	$(`
+				<div class="timeStrips-menu-tab" data-col=${this.mirrorSquare.col} data-row=${this.mirrorSquare.row}>
+					<div class="row">
+						<label class="drag-handle"><i class="material-icons">drag_handle</i></label>
+						<label>
+							<button class='removeTimeStripDiv btn btn-custom btn-small' data-col=${this.mirrorSquare.col} data-row=${this.mirrorSquare.row}>Remove</button>
+						</label>
+						<input class='input longer nameLabel-input' type='text' value='${this.mirrorSquare.nameLabel}'>
+					</div>
+				</div>
+		`);
+	}
+
+	addDivToTimeStripMenu() {
+		$(".timeStrips-menu").append(this.div);
+		
+		// Change y position for div, to line up with timeStrip sprites
+		$(this.div).css("top", this.parentCanvas.cellHeight*this.rowInParentTimeStripPanel);
+
+		// Set draggable event for div
+		// $(this.div).find(".drag-handle").on("mousedown", dragTimeStripMenuTab);
+		makeTimeStripMenuTabDraggable($(this.div)[0], this);
+
+		var removeButton = $(this.div).find(".removeTimeStripDiv");
+		removeButton.on("click", () => {
+			this.mirrorSquare.removeFromTimeStripPanel();
+		});
+
+
+	}
+
+	removeDivFromTimeStripMenu() {
+		$(".timeStrips-menu").find(`.timeStrips-menu-tab[data-col="${this.mirrorSquare.col}"][data-row="${this.mirrorSquare.row}"]`).remove();
+	}
+
+	removeSquaresFromTimeStripPanel() {
+		for (let sq of this) {
+			sq.removeSpriteFromApp();
+		}
+	}
+
+	addSquaresToTimeStripPanel() {
+		for (let sq of this) {
+			sq.addSpriteToApp();
+		}
+	}
+
+	setY(y) {
+		for (let sq of this) {
+			sq.sprite.y = y;
+		}
 	}
 
 	update() {
@@ -40,20 +91,8 @@ class TimeStrip extends Array {
 	updateTintList() {
 		var nextFrameColour = this.mirrorSquare.sprites.square.tint;
 
-
-		this.tintList[this.tintListCounter%this.tintList.length] = nextFrameColour;
-		this.tintList[(this.tintListCounter+this.parentCanvas.wipeOverOngoingOffset)%this.tintList.length] = 'beginning';
-		
-		this.tintListCounter = mod(this.parentCanvas.wipeOverPositionCounter - this.parentCanvas.wipeOverBeginningOffset, this.numOfFramesLength) ;
-		// this.tintListCounter++;
-		// console.log(this.tintListCounter);
-		// console.log(this.tintList.length);
-		// console.log(this.tintListCounter === this.tintList.length);
-		// if (this.tintListCounter === this.tintList.length) {
-		// 	this.tintListCounter = 0;
-		// }
-
-
+		this.tintList[this.parentCanvas.counterHead] = this.mirrorSquare.state === 'depo' ? nextFrameColour : 0xffffff ;
+		this.tintList[this.parentCanvas.counterTail] = 'initial';
 	}
 
 }

@@ -2,7 +2,7 @@ function setEventListeners() {
 	console.log(grid);
 
 	// Play settings
-	isPlaying = false;
+	isPlaying = true;
 	$('.play-button').on('click', () => {isPlaying = !isPlaying});
 	$('.frame-button').on('click', drawFrame);
 

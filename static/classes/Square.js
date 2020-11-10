@@ -355,35 +355,57 @@ class Square {
 	}
 
 	addToSquareInspector() {
+		// change this.isInSquareInspector
 		this.isInSquareInspector = true;
+		// add to SquareInspectorSquareList
 		this.parentGrid.squareInspectorSquareList.push(this);
+		// Create and add squareInspectorDiv for this specific square to squareInspector
 		this.squareInspectorDivWrapper.assignSquareInspectorDiv();
 		this.squareInspectorDivWrapper.addDivToSquareInspector();
+		// Highlight square
 		this.highlight();		
 	}
 
 	removeFromSquareInspector() {
+		// change this.isInSquareInspector
 		this.isInSquareInspector = false;
+		// remove from SquareInspectorSquareList
 		this.parentGrid.squareInspectorSquareList = this.parentGrid.squareInspectorSquareList.filter((el) => {
 			return !(el.col === this.col && el.row === this.row);
-		})
+		});
+		// Remove squareInspectorDiv for this specific square from squareInspector
 		$(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`).remove();
+		// Dehighlight square
 		this.dehighlight();
 		
 		// Remove tab and display the next last squareInspector tab
 		var divToRemove = $(`.squareInspector-section .tabSystem .tab[data-col="${this.col}"][data-row="${this.row}"]`);
 		divToRemove.remove();
-		$('.squareInspectorDiv').last().css('display', 'block')
+		$('.squareInspectorDiv').last().css('display', 'block');
+
 	}
 
 	addToTimeStripPanel() {
+		// change this.isInTimeStripPanel
 		this.isInTimeStripPanel = true;
+		// add to timeStripSquareList
+		this.parentGrid.timeStripSquareList.push(this);
+		// Add timeStrip for this specific square to timeStripPanel and add div to timeStrips-menu
 		timeStripPanel.addTimeStrip(this);
+		// Highlight square
 		this.highlight();
 	}
 
 	removeFromTimeStripPanel() {
+		// change this.isInTimeStripPanel
 		this.isInTimeStripPanel = false;
+		// remove from timeStripSquareList
+		this.parentGrid.timeStripSquareList = this.parentGrid.timeStripSquareList.filter((el) => {
+			return !(el.col === this.col && el.row === this.row);
+		});		
+		// Remove timeStrip for this specific square from timeStripPanel and remove div from timeStrips-menu
+		timeStripPanel.removeTimeStrip(this);
+		// Dehighlight square
 		this.dehighlight();
 	}
 

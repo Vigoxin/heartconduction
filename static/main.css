@@ -397,15 +397,84 @@ nav ul > li > ul > li > ul {
 .main .timeStrip-section {
   background: #C8B8DB;
 }
-.main .timeStrip-section #timeStripsDiv {
+.main .timeStrip-section .timeStripsPanel {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 10px;
-  width: 100%;
 }
-.main .timeStrip-section #timeStripsDiv canvas {
+.main .timeStrip-section .timeStripsPanel .timeStrips-menu {
+  position: relative;
+  padding: 5px;
+  width: 170px;
+}
+.main .timeStrip-section .timeStripsPanel .timeStrips-menu .timeStrips-menu-tab {
+  position: absolute;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main .timeStrip-section .timeStripsPanel .timeStrips-menu .timeStrips-menu-tab label i {
+  cursor: move;
+}
+.main .timeStrip-section .timeStripsPanel .timeStrips-menu .timeStrips-menu-tab label .btn.removeTimeStripDiv {
+  width: 60px;
+  font-size: 10px;
+  line-height: 17px;
+  height: 20px;
+  padding: 0 5px;
+}
+.main .timeStrip-section .timeStripsPanel .timeStrips-menu .timeStrips-menu-tab input {
+  width: 60px;
+  margin-right: 5px;
+}
+.main .timeStrip-section .timeStripsPanel #timeStripsDiv {
+  flex: 1;
+  position: relative;
+}
+.main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
+.main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper > * {
+  position: absolute;
+  background-color: black;
+}
+.main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper .leftHandle {
+  top: -50px;
+  left: 0px;
+  width: 2px;
+  height: 100px;
+  z-index: 9;
+  cursor: ew-resize;
+}
+.main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper .middle {
+  left: 0px;
+  width: 100px;
+  height: 5px;
+  z-index: 9;
+  cursor: move;
+}
+.main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper .rightHandle {
+  top: -50px;
+  left: 100px;
+  width: 2px;
+  height: 100px;
+  z-index: 9;
+  cursor: ew-resize;
+}
+.main .timeStrip-section .timeStripsPanel #timeStripsDiv .caliper .text {
+  background-color: rgba(255, 255, 255, 0);
+  top: -45px;
+  left: 50px;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.main .timeStrip-section .timeStripsPanel #timeStripsDiv canvas {
   display: block;
   margin: 0 auto;
+  border: 1px solid black;
 }
 .main .settings-section {
   background-color: #C8B8DB;

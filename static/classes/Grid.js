@@ -20,9 +20,8 @@ class Grid extends Array {
 		this.selector = 'depo';
 		this.selectorType = 'state';
 		
-		this.squareInspectorSelector;
-		this.squareInspectorSelectorType;
 		this.squareInspectorSquareList = [];
+		this.timeStripSquareList = [];
 
 		this.tempSelecting = {};
 		this.tempHighlighted = [];

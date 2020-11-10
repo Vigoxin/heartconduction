@@ -30,6 +30,10 @@ class SquareForTimeStrip {
 		this.parentCanvas.app.stage.addChild(this.sprite);
 	}
 
+	removeSpriteFromApp() {
+		this.parentCanvas.app.stage.removeChild(this.sprite);
+	}
+
 	update() {
 		this.getTintFromParentTimeStrip();
 		this.display();
@@ -40,10 +44,10 @@ class SquareForTimeStrip {
 	}
 
 	display() {
-		if (this.tint !== 'beginning') {
+		if (this.tint !== 'initial') {
 			this.sprite.visible = true;
 			this.sprite.tint = this.tint;
-		} else if (this.tint === 'beginning') {
+		} else if (this.tint === 'initial') {
 			this.sprite.visible = false;
 		}
 	}

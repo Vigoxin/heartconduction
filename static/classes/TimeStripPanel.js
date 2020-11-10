@@ -1,29 +1,33 @@
-class TimeStripPanel extends Array {
+class TimeStripPanel {
 	constructor(canvasElementSelector='#timeStripsDiv', parentGrid=grid) {
-		super();
-
 		// Sets PIXI constants
 		this.canvasElementSelector = canvasElementSelector;
 
 		// Sets constants
-		this.numberOfStrips = 0;
-		this.cellHeight = 20;
-		this.verticalGapSize = 50;
+		this.cellHeight = 50;
+		this.timeStripHeight = 50;
+		this.verticalOneSidedMargin = (this.timeStripHeight-this.cellHeight)/2;
 
 		this.cellWidth = 2;
 
-		// this.cHeight = (this.cellHeight + this.verticalGapSize) * this.numberOfStrips;
-		this.cHeight = 250;
-		this.cWidth = 1100;
-		this.numOfFramesLength = this.cWidth / this.cellWidth;
+		this.cHeight = 200;
+		this.cWidth = parseInt($(canvasElementSelector).css('width'));
+		this.numOfFramesLength = Math.floor(this.cWidth / this.cellWidth);
+		
+		this.counterGap = 4;
 
-		this.wipeOverPositionCounter = 0;
-		this.wipeOverOngoingOffset = 2;
-		this.wipeOverBeginningOffset = 20;
+
+		// Initialises array for timeStrips
+		this.timeStripArray = [];
 
 		// Initialises PIXI Application
+		this.app;
 		this.initialisePIXIapp();
+		this.canvas = this.app.view;
 
+		// Sets up calipers
+		this.caliper;
+		this.setCaliperEvent();
 
 
 	}
@@ -42,77 +46,69 @@ class TimeStripPanel extends Array {
 
 		// Adds the PIXI Application to the css selector element specified in the constructor
 		$(this.canvasElementSelector)[0].append(this.app.view);
+	}
 
-		// var bunny = new PIXI.Sprite(PIXI.loader.resources['/static/textures/square copy.png'].texture);
-		// this.app.stage.addChild(bunny);
-		// bunny.vel = 1;
-		// var app = this.app;
-		// // Listen for animate update
-		// this.app.ticker.add(function(delta) {
-		//     // just for fun, let's rotate mr rabbit a little
-		//     // delta is 1 if running at 100% performance
-		//     // creates frame-independent transformation
-		// 	bunny.x += bunny.vel;
-		// 	if (bunny.x > app.screen.width - bunny.width || bunny.x < 0) {
-		// 		bunny.vel *= -1;
+	setCaliperEvent() {
+		// $(this.canvas).on("mousemove", function(e){
+		// 	if (e.buttons === 1) {
+		// 		console.log('asdf');
 		// 	}
-		// });
-
-		// var bunny2 = new PIXI.Sprite(PIXI.loader.resources['/static/textures/square copy.png'].texture);
-		// bunny2.y = 20;
-		// this.app.stage.addChild(bunny2);
-		// bunny2.vel = 1;
-		// var app = this.app;
-		// // Listen for animate update
-		// this.app.ticker.add(function(delta) {
-		//     // just for fun, let's rotate mr rabbit a little
-		//     // delta is 1 if running at 100% performance
-		//     // creates frame-independent transformation
-		// 	bunny2.x += bunny2.vel;
-		// 	if (bunny2.x > app.screen.width - bunny2.width || bunny2.x < 0) {
-		// 		bunny2.vel *= -1;
-		// 	}
-		// });
-
+		// })
+		makeCaliperDraggable($(".caliper")[0]);
+		makeCaliperRightHandleDraggable($(".caliper .rightHandle")[0]);
+		makeCaliperLeftHandleDraggable($(".caliper")[0]);
 	}
 
 	update() {
-		for (let timeStrip of this) {
+		for (let timeStrip of this.timeStripArray) {
 			timeStrip.update();
 		}
-		this.moveOverWipePosition();
+		this.incrementCounter();
 	}
 
 
-	moveOverWipePosition() {
-		this.wipeOverPositionCounter++;
-		this.wipeOverPositionCounter = this.wipeOverPositionCounter % this.numOfFramesLength;
+	incrementCounter() {
+		this.counterHead++;
+		this.counterHead = mod(this.counterHead, this.numOfFramesLength);
+		this.counterTail++;
+		this.counterTail = mod(this.counterTail, this.numOfFramesLength);
 	}
 
 
 	addTimeStrip(mirrorSquare) {
-
-		if (this.numberOfStrips === 0) {
-			this.wipeOverPositionCounter = 20;
-			this.wipeOverOngoingOffset = 2;
-			this.wipeOverBeginningOffset = 20;
+		if (this.timeStripArray.length === 0) {
+			this.counterHead = 1;
+			this.counterTail = (this.counterHead+this.counterGap);
+			this.counterTail = mod(this.counterTail, this.numOfFramesLength);
 		}
-		this.push(new TimeStrip(mirrorSquare, this, (this.length-1)+1));
-		this.numberOfStrips++;
+
+		this.timeStripArray.push(new TimeStrip(mirrorSquare, this, (this.timeStripArray.length-1)+1));
 	}
 
 	removeTimeStrip(mirrorSquare) {
-		
-		// ________________
+		// Identify the ts to remove
+		var timeStripToRemove = this.timeStripArray.filter((ts) => {
+			return ts.mirrorSquare === mirrorSquare;
+		})[0];
 
-		this.numberOfStrips--;
+		// Remove the specific timeStripMenuTab
+		timeStripToRemove.removeDivFromTimeStripMenu();
+		// Remove the actual timeStrip square sprites
+		timeStripToRemove.removeSquaresFromTimeStripPanel();
+
+		this.timeStripArray.splice(this.timeStripArray.indexOf(timeStripToRemove), 1);
 	}
 
+
+	activateCalipers() {
+
+	}
 
 
 	grid2pixel(x, y) {
 		var xresult = x * this.cellWidth;
-		var yresult = y * (this.cellHeight + this.verticalGapSize);
+		// var yresult = this.verticalOneSidedMargin + (y * (this.cellHeight + 2*this.verticalOneSidedMargin));
+		var yresult = (y * (this.cellHeight + 2*this.verticalOneSidedMargin));
 		return {
 			'x': xresult,
 			'y': yresult

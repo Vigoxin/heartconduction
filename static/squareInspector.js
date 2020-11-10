@@ -20,7 +20,7 @@ class SquareInspectorDivWrapper {
 
 
 					<label>
-						<button class='removeSquareInspectorDiv btn btn-custom' data-col=${this.col} data-row=${this.row}>Remove</button>
+						<button class='removeSquareInspectorDiv btn btn-custom' data-col=${this.col} data-row=${this.row}>&#8209;</button>
 					</label>
 
 				</div>
