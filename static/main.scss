@@ -623,9 +623,11 @@ nav {
 				position: relative;
 
 				.caliper {
+					$caliper-height: 300px;
+
 					display: none;
 					position: absolute;
-					top: 75px;
+					top: $caliper-height / 2;
 					left: 0px;
 					&>* {
 						position: absolute;
@@ -634,10 +636,10 @@ nav {
 					}
 
 					.leftHandle {
-						top: -75px;
+						top: - $caliper-height / 2;
 						left: 0px;
 						width: 2px;
-						height: 150px;
+						height: $caliper-height;
 						z-index: 9;
 						cursor: ew-resize;
 					}
@@ -652,10 +654,10 @@ nav {
 					}
 
 					.rightHandle {
-						top: -75px;
+						top: - $caliper-height / 2;
 						left: 100px;
 						width: 2px;
-						height: 150px;
+						height: $caliper-height;
 						z-index: 9;
 						cursor: ew-resize;
 					}
@@ -673,7 +675,7 @@ nav {
 				canvas {
 					display: block;
 					margin: 0 auto;
-					border: 1px solid black;
+					// border: 1px solid black;
 				}
 			}
 		}

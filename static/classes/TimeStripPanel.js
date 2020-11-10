@@ -10,7 +10,7 @@ class TimeStripPanel {
 
 		this.cellWidth = 2;
 
-		this.cHeight = 200;
+		this.cHeight = 400;
 		this.cWidth = parseInt($(canvasElementSelector).css('width'));
 		this.numOfFramesLength = Math.floor(this.cWidth / this.cellWidth);
 		
