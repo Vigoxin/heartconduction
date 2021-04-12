@@ -39,6 +39,59 @@ nav, arrhythmia-walkthrough, main {
   margin: 0 auto;
 }
 
+.help-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.help-bar .tooltips-toggle {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.help-bar .tooltips-toggle .circle-border {
+  border: 2px solid #02ac9d;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: #02ac9d;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.tooltip-wrapper {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+}
+.tooltip-wrapper .tooltip {
+  position: relative;
+  width: max-content;
+  min-width: 100px;
+  padding: 5px;
+  background-color: #02ac9d;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+}
+.tooltip-wrapper .tooltip .tooltip-triangle {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid #02ac9d;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+
 .title-bar {
   height: 30px;
   text-align: center;

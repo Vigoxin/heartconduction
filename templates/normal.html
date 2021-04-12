@@ -21,6 +21,10 @@
 		Arrhythmia
 	</div>
 
+	<div class="help-bar">
+		<div class="tooltips-toggle"><span class="circle-border">?</span></div>
+	</div>
+
 	<div class="grid-split-in-three bottom-bordered">
 
 		<div class="tools-section">
@@ -37,7 +41,12 @@
 						<p class="tools-section-title">Activation state</p>
 						<div class="container">
 							<div class="radio-row">
-								<input id="state-radio-depo" class='toggle-button-radio state-radio depo' type="radio" data-selector-type="state" name="selector" value='depo' checked='checked'><label for="state-radio-depo">Depo</label>
+								
+								<input id="state-radio-depo" class='toggle-button-radio state-radio depo' type="radio" data-selector-type="state" name="selector" value='depo' checked='checked'>
+								<label for="state-radio-depo" data-tooltip="For depolarising a cell immediately" class="tooltippable">Depo</label>
+								
+
+								
 								<input id="state-radio-repo" class='toggle-button-radio state-radio repo' type="radio" data-selector-type="state" name="selector" value='repo'> <label for="state-radio-repo">Repo</label>
 								<input id="state-radio-clear" class='toggle-button-radio state-radio clear' type="radio" data-selector-type="state" name="selector" value='clear'> <label for="state-radio-clear">Clear</label>
 							</div>
@@ -286,6 +295,7 @@
 		</div>
 	</div>
 
+
 {% endblock %}
 
 {% block javascript %}
@@ -302,7 +312,6 @@
 		<script type="text/javascript" src="/static/lib/materialize-src/js/tabs.js"></script>
 		<script type="text/javascript" src="/static/lib/materialize-src/js/buttons.js"></script>
 		<script type="text/javascript" src="/static/lib/materialize-src/js/waves.js"></script>
-
 
 		<!-- Initialisation of components -->
 		<script type="text/javascript">

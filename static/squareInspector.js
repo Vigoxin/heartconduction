@@ -146,7 +146,7 @@ class SquareInspectorDivWrapper {
 	}
 
 	addDivToSquareInspector() {
-
+		
 	// Add div to #squareInspectorDivs
 		$('#squareInspectorDivs').append(this.div);
 		var div = this.div;
