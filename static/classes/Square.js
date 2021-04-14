@@ -106,7 +106,7 @@ class Square {
 		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
 
 		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
-			// If this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. what AP counter squares this square will receive propagation from), then depolarise this square
+			// If this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. whatever AP counter squares this square will receive propagation from), then depolarise this square
 			this.propagationDepolarise();
 			// Then, if this square is an automatic focus, reset its pacingTracker
 			if (this.pacingSetting === 'autoFocus') {
@@ -136,9 +136,9 @@ class Square {
 			if (this.APcounter < 0) {
 				this.APcounter = -1;
 			} else if (this.APcounter === 0) {
-				this.APcounter ++;
+				this.APcounter++;
 			} else if ( this.APcounter >= 1 && this.APcounter < (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
-				this.APcounter ++;
+				this.APcounter++;
 			} else if ( this.APcounter >= (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
 				this.APcounter = -1;
 			}
@@ -245,6 +245,7 @@ class Square {
 
 	applySquareInspectorDivChanges() { //properties that can change with every frame
 		// state
+		console.log(this.squareInspectorDivWrapper.div.find(`.state-radio[value=${this.state}]`));
 		this.squareInspectorDivWrapper.div.find(`.state-radio[value=${this.state}]`).prop('checked', true)
 
 		// pacingTracker
@@ -339,8 +340,10 @@ class Square {
 		if (selectorType === 'squareInspectorSelector') {
 			if (!this.isInSquareInspector) {
 				this.addToSquareInspector();
+				this.addToTimeStripPanel();
 			} else if (this.isInSquareInspector) {
 				this.removeFromSquareInspector();
+				this.removeFromTimeStripPanel();
 			}
 		} else if (selectorType === 'timeStripPanelSelector') {
 			if (!this.isInTimeStripPanel) {
@@ -360,7 +363,7 @@ class Square {
 		this.squareInspectorDivWrapper.assignSquareInspectorDiv();
 		this.squareInspectorDivWrapper.addDivToSquareInspector();
 		// Highlight square
-		this.highlight();		
+		this.highlight(0x00ff00);	
 	}
 
 	removeFromSquareInspector() {
@@ -370,15 +373,29 @@ class Square {
 		this.parentGrid.squareInspectorSquareList = this.parentGrid.squareInspectorSquareList.filter((el) => {
 			return !(el.col === this.col && el.row === this.row);
 		});
-		// Remove squareInspectorDiv for this specific square from squareInspector
-		$(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`).remove();
-		// Dehighlight square
-		this.dehighlight();
-		
-		// Remove tab and display the next last squareInspector tab
-		var divToRemove = $(`.squareInspector-section .tabSystem .tab[data-col="${this.col}"][data-row="${this.row}"]`);
-		divToRemove.remove();
-		$('.squareInspectorDiv').last().css('display', 'block');
+
+		var squareInspectorDiv = $(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`);
+		var tabToRemove = $(`.squareInspector-section .tabSystem .tab[data-col="${this.col}"][data-row="${this.row}"]`);
+		if (squareInspectorDiv.css("display") === "none") {
+			// If this square's squareInspectorDiv is not currently showing, then simply
+			// remove the squareInspectorDiv, remove the tab corresponding to the square, and dehighlight the (purple) square
+			squareInspectorDiv.remove();
+			tabToRemove.remove();
+			this.dehighlight();
+		} else {
+			// If this square's squareInspectorDiv is currently showing (i.e. it is the currently inspected square) 
+			// then remove the squareInspectorDiv, remove the tab corresponding to the square and dehighlight the (green) square...
+			squareInspectorDiv.remove();
+			tabToRemove.remove();
+			this.dehighlight();
+			
+			// ...but then now there will be no active squareInspectorDiv
+			// so make the last remaining tab and its corresponding squareInspectorDiv the active/inspected one
+			var lastRemainingTab = $('.squareInspector-section .tabSystem .tab').last();			
+			squareInspectorDiv.css("display", "none");
+			$(`.squareInspectorDiv[data-col="${lastRemainingTab.data("col")}"][data-row="${lastRemainingTab.data("row")}"]`).css("display", "block");
+			lastRemainingTab.addClass("tabActive");
+		}
 
 	}
 
@@ -389,8 +406,8 @@ class Square {
 		this.parentGrid.timeStripSquareList.push(this);
 		// Add timeStrip for this specific square to timeStripPanel and add div to timeStrips-menu
 		timeStripPanel.addTimeStrip(this);
-		// Highlight square
-		this.highlight();
+		
+		// (Highlighting is handled by squareInspector)
 	}
 
 	removeFromTimeStripPanel() {
@@ -402,8 +419,8 @@ class Square {
 		});		
 		// Remove timeStrip for this specific square from timeStripPanel and remove div from timeStrips-menu
 		timeStripPanel.removeTimeStrip(this);
-		// Dehighlight square
-		this.dehighlight();
+		
+		// (Dehighlighting is handled by squareInspector)
 	}
 
 	clickDepolarise() {
@@ -428,8 +445,13 @@ class Square {
 	}
 
 
-	highlight() {
+	highlight(color) {
 		this.sprites.highlight.visible = true;
+		if (typeof color !== 'undefined') {
+		    this.sprites.highlight.tint = color;
+		} else {
+			this.sprites.highlight.tint = 0xA020F0;
+		}
 	}
 
 	dehighlight() {

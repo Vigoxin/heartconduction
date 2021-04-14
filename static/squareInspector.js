@@ -32,6 +32,7 @@ class SquareInspectorDivWrapper {
 					<div class="squareInspectorSectionTitle collapsible-state active"> Activation state </div>
 					<div class="radio-row collapsible-content">
 							<input id='state-radio-depo-squareInspector-${this.col}-${this.row}' class='toggle-button-radio state-radio depo simpleSelectorRadio' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='depo' data-col=${this.col} data-row=${this.row}> <label for='state-radio-depo-squareInspector-${this.col}-${this.row}'>Depo</label> 
+							<input id='state-radio-refrac-squareInspector-${this.col}-${this.row}' class='toggle-button-radio state-radio refrac simpleSelectorRadio' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='refrac' data-col=${this.col} data-row=${this.row} disabled> <label for='state-radio-refrac-squareInspector-${this.col}-${this.row}'>Refrac</label> 
 							<input id='state-radio-repo-squareInspector-${this.col}-${this.row}' class='toggle-button-radio state-radio repo simpleSelectorRadio' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='repo' data-col=${this.col} data-row=${this.row}> <label for='state-radio-repo-squareInspector-${this.col}-${this.row}'>Repo</label> 
 							<input id='state-radio-clear-squareInspector-${this.col}-${this.row}' class='toggle-button-radio state-radio clear simpleSelectorRadio' type="radio" data-selector-type="state" name="squareInspectorSetting-state-${this.col}-${this.row}" value='clear' data-col=${this.col} data-row=${this.row}> <label for='state-radio-clear-squareInspector-${this.col}-${this.row}'>Clear</label> 
 					</div>
@@ -152,7 +153,7 @@ class SquareInspectorDivWrapper {
 		var div = this.div;
 
 	// Highlight square
-		this.parentSquare.highlight();
+		// this.parentSquare.highlight();
 		
 	// Change settings to correspond with square's current settings
 		this.parentSquare.applySquareInspectorDivChanges();
@@ -182,12 +183,13 @@ class SquareInspectorDivWrapper {
 			$('.squareInspector-section .tabSystem .tab').removeClass('tabActive');
 			tab.addClass('tabActive');
 			for (let square of grid.squareInspectorSquareList) {
-				square.dehighlight();
-				console.log(square.squareInspectorDivWrapper.div.find(".squareInspector-highlight-checkbox"));
-				square.squareInspectorDivWrapper.div.find(".squareInspector-highlight-checkbox").prop("checked", false);
+				square.highlight();
+				// square.dehighlight();
+				// console.log(square.squareInspectorDivWrapper.div.find(".squareInspector-highlight-checkbox"));
+				// square.squareInspectorDivWrapper.div.find(".squareInspector-highlight-checkbox").prop("checked", false);
 			}
-			this.parentSquare.highlight();
-			this.parentSquare.squareInspectorDivWrapper.div.find(".squareInspector-highlight-checkbox").prop("checked", true);
+			this.parentSquare.highlight(0x00ff00);
+			// this.parentSquare.squareInspectorDivWrapper.div.find(".squareInspector-highlight-checkbox").prop("checked", true);
 		})
 		tab.click();
 
@@ -228,6 +230,7 @@ class SquareInspectorDivWrapper {
 		// remove button event
 		$(div).find('.removeSquareInspectorDiv').on('click', () => {
 			this.parentSquare.removeFromSquareInspector();
+			this.parentSquare.removeFromTimeStripPanel();
 		})
 
 		// state, conduction velocity, refracLength and randomRefracLengths, and pacingSetting event

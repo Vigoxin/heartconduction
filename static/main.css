@@ -125,6 +125,16 @@ nav, arrhythmia-walkthrough, main {
   color: white;
   border: 3px inset white;
 }
+.radio-row .toggle-button-radio:disabled + label {
+  cursor: default;
+  background-color: #bbb;
+  border: none;
+  padding-top: 8px;
+}
+.radio-row .toggle-button-radio:disabled:checked + label {
+  background-color: #ff9a02;
+  color: black;
+}
 .radio-row label {
   background-color: #e4e4e4;
   text-align: center;

@@ -55,6 +55,7 @@ class TimeStrip extends Array {
 		var removeButton = $(this.div).find(".removeTimeStripDiv");
 		removeButton.on("click", () => {
 			this.mirrorSquare.removeFromTimeStripPanel();
+			this.mirrorSquare.removeFromSquareInspector();
 		});
 
 		var ms = this.mirrorSquare;
@@ -99,7 +100,8 @@ class TimeStrip extends Array {
 	updateTintList() {
 		var nextFrameColour = this.mirrorSquare.sprites.square.tint;
 
-		this.tintList[this.parentCanvas.counterHead] = this.mirrorSquare.state === 'depo' ? nextFrameColour : 0xffffff ;
+		// this.tintList[this.parentCanvas.counterHead] = this.mirrorSquare.state === 'depo' ? nextFrameColour : 0xffffff ;
+		this.tintList[this.parentCanvas.counterHead] = this.mirrorSquare.state === 'depo' ? nextFrameColour : nextFrameColour ;
 		this.tintList[this.parentCanvas.counterTail] = 'initial';
 	}
 
