@@ -18,7 +18,7 @@
 		</div>
 	</div> -->
 	<div class="arrhythmia-walkthrough">
-		Arrhythmia
+		<h3 class="tac">{{arrhythmia["neatName"] if "neatName" in arrhythmia else arrhythmia["serverName"]}}</h3>
 	</div>
 
 	<div class="help-bar">
@@ -103,57 +103,61 @@
 					</div>
 					<div id="propagation-box">
 						<p class="tools-section-title">Propagation direction</p>
-						<div class="prop-box-container">
-							<div class="propagation-settings-directions-grid">
-									<div class='prop-set-dir-grid-sec'>
-										<label>
-											<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,-1]" name="top-left"> <span></span>
-										</label>
-									</div>
-									<div class='prop-set-dir-grid-sec'>
-										<label>
-											<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,-1]" name="top-center" checked> <span></span>
-										</label>
-									</div>
-									<div class='prop-set-dir-grid-sec'>
-										<label>
-											<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,-1]" name="top-right"> <span></span>
-										</label>
-									</div>
-									<div class='prop-set-dir-grid-sec'>
-										<label>
-											<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,0]" name="center-left" checked> <span></span>
-										</label>
-									</div>
-									<div class='prop-set-dir-grid-sec'>
-										<div class="radio-row">
-											<input id="prop-direction-radio-on" class="toggle-button-radio prop-direction-radio on" type="radio" name="selector" value=1 data-selector-type="propagationDirectionSetting"> <label for="prop-direction-radio-on"></label>
+							
+							<div class="prop-box-container">
+								<div class="propagation-settings-directions-grid">
+										<div class='prop-set-dir-grid-sec'>
+											<label>
+												<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,-1]" name="top-left"> <span></span>
+											</label>
 										</div>
-					
-									</div>
-									<div class='prop-set-dir-grid-sec'>
-										<label>
-											<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,0]" name="center-right" checked> <span></span>
-										</label>
-									</div>
-									<div class='prop-set-dir-grid-sec'>
-										<label>
-											<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,1]" name="bottom-left"> <span></span>
-										</label>
-									</div>
-									<div class='prop-set-dir-grid-sec'>
-										<label>
-											<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,1]" name="bottom-center" checked> <span></span>
-										</label>
-									</div>
-									<div class='prop-set-dir-grid-sec'>
-										<label>
-											<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,1]" name="bottom-right"> <span></span>
-										</label>
-									</div>
-					
+										<div class='prop-set-dir-grid-sec'>
+											<label>
+												<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,-1]" name="top-center" checked> <span></span>
+											</label>
+										</div>
+										<div class='prop-set-dir-grid-sec'>
+											<label>
+												<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,-1]" name="top-right"> <span></span>
+											</label>
+										</div>
+										<div class='prop-set-dir-grid-sec'>
+											<label>
+												<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,0]" name="center-left" checked> <span></span>
+											</label>
+										</div>
+										<div class='prop-set-dir-grid-sec'>
+											<div class="radio-row">
+												<input id="prop-direction-radio-on" class="toggle-button-radio prop-direction-radio on" type="radio" name="selector" value=1 data-selector-type="propagationDirectionSetting"> <label for="prop-direction-radio-on"></label>
+											</div>
+						
+										</div>
+										<div class='prop-set-dir-grid-sec'>
+											<label>
+												<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,0]" name="center-right" checked> <span></span>
+											</label>
+										</div>
+										<div class='prop-set-dir-grid-sec'>
+											<label>
+												<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[-1,1]" name="bottom-left"> <span></span>
+											</label>
+										</div>
+										<div class='prop-set-dir-grid-sec'>
+											<label>
+												<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[0,1]" name="bottom-center" checked> <span></span>
+											</label>
+										</div>
+										<div class='prop-set-dir-grid-sec'>
+											<label>
+												<input class='prop-direction' type="checkbox" data-selector-type="propagationDirection" data-direction-code="[1,1]" name="bottom-right"> <span></span>
+											</label>
+										</div>
+						
+								</div>
+								<div class="label-input-pair">
+									<label>Non-conduction rate:</label><input type="number" name="nonConduction" class="nonConductionRate input" min="0" max="1.0" step="0.05">
+								</div>
 							</div>
-						</div>
 					<hr>
 					</div>
 					
@@ -287,7 +291,7 @@
 						
 					</div>
 					<div class="text">
-						<div class="intervalNum">50</div>
+						<div class="intervalNum">100</div>
 						<div class="frames">frames</div>
 					</div>
 				</div>

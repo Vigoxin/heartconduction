@@ -122,6 +122,11 @@ function setEventListeners() {
 	$('.pacingTracker').prop({
 		'value': 50
 	})
+
+	// Nonconduction number
+	$('.nonConductionRate').prop({
+		'value': 0,
+	})
 	
 // Miscellaneous section
 	// Rainbow box

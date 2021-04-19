@@ -1,19 +1,29 @@
 {% extends "base.html" %}
 
 {% block main %}
-	
+
+	<div class="landing-page-content">
+		<div class="landing-introduction">
+			<p>Welcome!</p>
+		
+			<p>Heartconduction.com is an educational website designed to teach cardiac electrophysiology and electrocardiography in a unique way. Using interactive simulations consisting of 2D grids of 'cells', the aim is to help you visualise arrhythmias and complex electrophysiology concepts in real time without relying on plain text and static schematic diagrams.</p>
+
+			<p>To get started, click on any of the arrhythmias below: </p>
+		</div>
+		
 		<div class="has-list-anchors">
 			<ul class="arrhythmia-list">
 				{% for arrhythmia in arrhythmias %}
 					<li>
-						<a href="/arrhythmia/{{arrhythmia}}">{{arrhythmia}}</a>
+						<a href="/arrhythmia/{{arrhythmia}}">{{arrhythmia["neatName"] if "neatName" in arrhythmia else arrhythmia["serverName"]}}</a>
 					</li>
 				{% endfor %}
-					<li>
+					<!-- <li>
 						<a href="/blank">blank</a>
-					</li>
+					</li> -->
 			</ul>
 		</div>
+	</div>
 	
 {% endblock %}
 

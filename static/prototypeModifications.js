@@ -175,7 +175,7 @@ function makeCaliperRightHandleDraggable(elmnt) {
 
 
 		// Change interval text
-		$(elmnt).siblings('.text').find('.intervalNum').text(middle.offsetWidth/2);
+		$(elmnt).siblings('.text').find('.intervalNum').text(Math.round(middle.offsetWidth/timeStripPanel.cellWidth));
 
 		// Change interval text position
 		$(elmnt).siblings('.text')[0].style.left = currentMiddleWidth / 2 + 'px';

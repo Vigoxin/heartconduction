@@ -31,6 +31,8 @@ class Square {
 		this.pacingTracker = 10;
 		this.pacingInterval = 100;
 		
+		this.nonConductionRate = 0;
+
 		this.condVelSetting = this.parentGrid.masterCondVel;
 		this.condVel = this.parentGrid.condVelDict[this.condVelSetting];
 
@@ -107,7 +109,11 @@ class Square {
 
 		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
 			// If this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. whatever AP counter squares this square will receive propagation from), then depolarise this square
-			this.propagationDepolarise();
+			var randomNumberForNonConduction = this.nonConductionRate === 0 ? 1 : Math.random();
+			this.nonConductionRate === 0 ? 1 : console.log(randomNumberForNonConduction);
+			if (randomNumberForNonConduction >= this.nonConductionRate) {
+				this.propagationDepolarise();
+			}
 			// Then, if this square is an automatic focus, reset its pacingTracker
 			if (this.pacingSetting === 'autoFocus') {
 				this.resetPacingTracker();
@@ -245,7 +251,6 @@ class Square {
 
 	applySquareInspectorDivChanges() { //properties that can change with every frame
 		// state
-		console.log(this.squareInspectorDivWrapper.div.find(`.state-radio[value=${this.state}]`));
 		this.squareInspectorDivWrapper.div.find(`.state-radio[value=${this.state}]`).prop('checked', true)
 
 		// pacingTracker
@@ -278,6 +283,8 @@ class Square {
 				$(inp).prop('checked', false);
 			}
 		}
+
+		this.squareInspectorDivWrapper.div.find("input.nonConductionRate").val(this.nonConductionRate);
 	}
 
 	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector, via='.settings-section') {
@@ -308,6 +315,9 @@ class Square {
 				return $(el).data('directionCode');
 			})
 			this.setNeighboursFromNeighbourVectors();
+
+			console.log(parseFloat(propDirBox.find(".nonConductionRate").val()));
+			this.nonConductionRate = parseFloat(propDirBox.find(".nonConductionRate").val());
 		} else if (selectorType === 'pacing' && this.state !== 'clear') {
 			this.pacingSetting = selector;
 			if (selector !== 'noPace')	{
@@ -319,9 +329,7 @@ class Square {
 				console.log(pacingTrackerInput);
 				this.pacingInterval = parseInt(pacingIntervalInput.val());
 				this.pacingTracker = parseInt(pacingTrackerInput.val());
-				// if (this.pacingTracker === 0) {
-
-				// }
+				
 			} else {
 				this.isPacing = false;
 			}
@@ -359,6 +367,9 @@ class Square {
 		this.isInSquareInspector = true;
 		// add to SquareInspectorSquareList
 		this.parentGrid.squareInspectorSquareList.push(this);
+		if (grid.squareInspectorSquareNumberList.filter(x => x[0] === this.col && x[1] === this.row).length === 0) {
+			this.parentGrid.squareInspectorSquareNumberList.push([this.col, this.row]);
+		}
 		// Create and add squareInspectorDiv for this specific square to squareInspector
 		this.squareInspectorDivWrapper.assignSquareInspectorDiv();
 		this.squareInspectorDivWrapper.addDivToSquareInspector();
@@ -372,6 +383,9 @@ class Square {
 		// remove from SquareInspectorSquareList
 		this.parentGrid.squareInspectorSquareList = this.parentGrid.squareInspectorSquareList.filter((el) => {
 			return !(el.col === this.col && el.row === this.row);
+		});
+		this.parentGrid.squareInspectorSquareNumberList = this.parentGrid.squareInspectorSquareNumberList.filter((el) => {
+			return !(el[0] === this.col && el[1] === this.row);
 		});
 
 		var squareInspectorDiv = $(`.squareInspectorDiv[data-col="${this.col}"][data-row="${this.row}"]`);

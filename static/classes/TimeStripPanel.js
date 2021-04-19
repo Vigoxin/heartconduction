@@ -8,7 +8,7 @@ class TimeStripPanel {
 		this.timeStripHeight = 50;
 		this.verticalOneSidedMargin = (this.timeStripHeight-this.cellHeight)/2;
 
-		this.cellWidth = 2;
+		this.cellWidth = 1;
 
 		this.cHeight = 400;
 		this.cWidth = parseInt($(canvasElementSelector).css('width'));

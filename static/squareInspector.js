@@ -133,6 +133,9 @@ class SquareInspectorDivWrapper {
 								</div>
 
 						</div>
+						<div class="label-input-pair">
+							<label>Non-conduction rate:</label><input type="number" name="nonConduction" class="nonConductionRate input" min="0" max="1.0" step="0.05">
+						</div>
 					</div>
 				</div>
 
@@ -241,7 +244,12 @@ class SquareInspectorDivWrapper {
 		// propagation direction box
 		$(div).find('input.prop-direction').on('change', function() {
 			console.log("running event for prop dir box");
-			grid[col][row].clickAndMoveSet($(this).data('selectorType'), 'propagation direction', '.squareInspectorDiv')
+			grid[col][row].clickAndMoveSet($(this).data('selectorType'), 'propagation direction', '.squareInspectorDiv');
+		})
+
+		$(div).find('input.nonConductionRate').on('change', function() {
+			console.log("running event for nonConduction rate");
+			grid[col][row].clickAndMoveSet("propagationDirectionSetting", 'propagation direction', '.squareInspectorDiv');
 		})
 
 		// pacingTracker and pacingInterval events

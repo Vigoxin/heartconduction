@@ -1,40 +1,20 @@
 {
-	"tutorial": {
+	"normal_conduction": "Normal conduction",
+	"sinus_arrhythmia": "Sinus arrhythmia",
 
-	},
+	"sinus_tachycardia": "Sinus tachycardia",
+	"accessory_pathway": "Accessory pathway",
+	"atrial_fibrillation": "Atrial fibrillation",
+	"atrial_flutter": "Atrial flutter",
+	"atrial_tachycardia": "Atrial tachycardia",
+	"AVNRT": "AVNRT",
+	"orthodromic_AVRT": "AVRT (orthodromic)",
+	"antidromic_AVRT": "AVRT (antidromic)",
 	
-	"basic": {
-		"normal_conduction": "Normal conduction",
-		"sinus_arrhythmia": "Sinus arrhythmia",
-
-		"accessory_pathway": "Accessory pathway",
-		"atrial_fibrillation": "Atrial fibrillation",
-		"atrial_flutter": "Atrial flutter",
-		"atrial tachycardia": "Atrial tachycardia",
-		"AVNRT": "AVNRT",
-		"orthodromic_AVRT": "AVRT (orthodromic)",
-		"antidromic_AVRT": "AVRT (antidromic)",
-		
-		"": "",
-		"": "",
-		"": "",
-		"": "",
-		"": "",
-		"": "",
-		"": "",
-		"": "",
-		"": "",
-		"": "",
-		"": "",
-		"": "",
-		"": ""
-	},
-	
-	"intermediate": {
-
-	},
-	
-	"advanced": {
-
-	}
+	"first_degree_AV_block": "First degree AV block",
+	"second_degree_AV_block_mobitz_2": "Second degree AV block - Mobitz type 2",
+	"complete_AV_block_with_junctional_escape": "Complete AV block with junctional escape",
+	"complete_AV_block_with_ventricular_escape": "Complete AV block with ventricular escape",
+	"rbbb": "Right bundle branch block",
+	"lbbb": "Left bundle branch block"
 }

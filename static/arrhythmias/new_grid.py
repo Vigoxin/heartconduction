@@ -2,7 +2,8 @@ import pyperclip
 import os
 import sys
 
-arrhythmia = sys.argv[1]
+# arrhythmia = sys.argv[1]
+arrhythmia = "lbbb"
 arrhythmia_grid = pyperclip.paste()[1:-1]
 
 if not os.path.isdir(arrhythmia):

@@ -1,0 +1,20 @@
+[
+	"normal_conduction",
+	"sinus_arrhythmia",
+
+	"sinus_tachycardia",
+	"accessory_pathway",
+	"atrial_fibrillation",
+	"atrial_flutter",
+	"atrial_tachycardia",
+	"AVNRT",
+	"orthodromic_AVRT",
+	"antidromic_AVRT",
+	
+	"first_degree_AV_block",
+	"second_degree_AV_block_mobitz_2",
+	"complete_AV_block_with_junctional_escape",
+	"complete_AV_block_with_ventricular_escape",
+	"rbbb",
+	"lbbb"
+]

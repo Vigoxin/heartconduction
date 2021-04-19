@@ -15,8 +15,8 @@ function setup() {
 			// b = performance.now(); console.log((b-a)/1000);
 
 			// a = performance.now();
-	if (typeof gridToLoad !== 'undefined') {
-		grid.loadGrid(gridToLoad);
+	if (typeof arrhythmia["gridToLoad"] !== 'undefined') {
+		grid.loadGrid(arrhythmia["gridToLoad"]);
 	}
 			// b = performance.now(); console.log((b-a)/1000);
 

@@ -21,6 +21,7 @@ class Grid extends Array {
 		this.selectorType = 'state';
 		
 		this.squareInspectorSquareList = [];
+		this.squareInspectorSquareNumberList = [];
 		this.timeStripSquareList = [];
 
 		this.tempSelecting = {};
@@ -394,7 +395,7 @@ class Grid extends Array {
 			}
 		}
 
-		var gridKeysToExclude = ['app', 'squareInspectorSquareList'];
+		var gridKeysToExclude = ['app', 'selector', 'selectorType', 'squareInspectorSquareList', "timeStripSquareList"];
 		var savedGridProperties = {};
 
 		for (let key in toSave) {
@@ -403,10 +404,14 @@ class Grid extends Array {
 			}
 		}
 
-		console.log(saved2dArray);
-		console.log(savedGridProperties);
+		// console.log(Object.keys(saved2dArray[0][0]))
 
-
+		// console.log(saved2dArray);
+		// console.log(isCyclic(saved2dArray));
+		
+		// console.log(savedGridProperties);
+		// console.log(isCyclic(savedGridProperties));
+		
 		var json = JSON.stringify([saved2dArray, savedGridProperties]);
 
 		return json;
@@ -479,6 +484,17 @@ class Grid extends Array {
 			for (let square of col) {
 				square.display();
 			}
+		}
+				
+		for (let square of this.squareInspectorSquareList) {
+			square.removeFromSquareInspector();
+			square.removeFromTimeStripPanel();
+		}
+		for (let coords of this.squareInspectorSquareNumberList) {
+			console.log(coords[0], coords[1]);
+			console.log(this[coords[0]][coords[1]]);
+			this[coords[0]][coords[1]].addToSquareInspector();
+			this[coords[0]][coords[1]].addToTimeStripPanel();
 		}
 
 	}
