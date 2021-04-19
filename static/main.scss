@@ -45,6 +45,11 @@ body {
 	// zoom: 0.8; 
  //    -moz-transform: scale(0.8); 
  //    -moz-transform-origin: 0 0;
+
+}
+
+.cursor-question-mark {
+ 	cursor: url("/static/images/question_mark.png"), help !important;
 }
 
 * {
@@ -324,7 +329,6 @@ label {
 
 	&:hover {
 		background: $cool-red !important;
-		cursor: pointer;
 		transform: scale(1.05);
 	}
 

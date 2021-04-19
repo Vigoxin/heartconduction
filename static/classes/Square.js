@@ -40,7 +40,8 @@ class Square {
 		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
 
 		this.randomRefracLengths = false;
-		this.randomRefracRangeConstant = 0.8;
+		this.randomRefracRangeConstant = 0.1;
+		this.masterRandomRefracRangeConstant = 0.1;
 		this.refracPoint;
 
 		this.nameLabel = `[${col.toString()}, ${row.toString()}]`;
@@ -307,6 +308,7 @@ class Square {
 			this.display();
 		} else if (selectorType === 'randomRefracLengths') {
 			this.randomRefracLengths = !!parseInt(selector);
+			this.randomRefracRangeConstant = this.masterRandomRefracRangeConstant;
 		} else if (selectorType === 'propagationDirectionSetting') {
 			// Makes neighbourVectors an array of vectors (e.g. [-1, 1])
 			var propDirBox = via === '.settings-section' ? $('#propagation-box') : $('.squareInspector-propagation-box') ;
