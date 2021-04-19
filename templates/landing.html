@@ -15,7 +15,7 @@
 			<ul class="arrhythmia-list">
 				{% for arrhythmia in arrhythmias %}
 					<li>
-						<a href="/arrhythmia/{{arrhythmia}}">{{arrhythmia["neatName"] if "neatName" in arrhythmia else arrhythmia["serverName"]}}</a>
+						<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"] if "neatName" in arrhythmia else arrhythmia["serverName"]}}</a>
 					</li>
 				{% endfor %}
 					<!-- <li>
