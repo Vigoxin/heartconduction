@@ -51,6 +51,7 @@ nav, arrhythmia-walkthrough, main {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #C8B8DB;
 }
 .help-bar .tooltips-toggle {
   width: 30px;
@@ -327,7 +328,7 @@ nav ul > li > ul > li > ul {
 
 .main {
   color: black;
-  background-color: #C8B8DB;
+  background-color: lavenderblush;
 }
 .main .grid-split-in-three {
   height: 650px;
@@ -594,7 +595,7 @@ nav ul > li > ul > li > ul {
   font-size: 20px;
 }
 .landing-page-content .has-list-anchors li a:visited {
-  color: black;
+  color: blue;
 }
 .landing-page-content .has-list-anchors .arrhythmia-list {
   margin: 0 auto;
@@ -605,7 +606,7 @@ nav ul > li > ul > li > ul {
 .landing-page-content .landing-introduction {
   color: #333;
   margin: 0;
-  width: 900px;
+  width: 850px;
   font-size: 18px;
   margin: 0 auto;
 }
@@ -616,6 +617,7 @@ nav ul > li > ul > li > ul {
 }
 .landing-page-content .landing-introduction p {
   margin-bottom: 20px;
+  line-height: 1.8;
 }
 .landing-page-content .landing-introduction p.no-mb {
   margin-bottom: 5px;
@@ -623,6 +625,9 @@ nav ul > li > ul > li > ul {
 .landing-page-content .landing-introduction .list {
   padding-left: 20px;
   margin-bottom: 10px;
+}
+.landing-page-content .landing-introduction .list li {
+  line-height: 1.5;
 }
 
 /*# sourceMappingURL=main.css.map */

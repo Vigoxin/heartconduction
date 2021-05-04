@@ -16,14 +16,12 @@ pd = {
 	'texturesPath': textures_path
 }
 
-# Making arrhythmias variable (a list of dictionaries)
+# Creating arrhythmias as a list of dictionaries
 with open("static/arrhythmias/arrhythmias_to_include.json", "r") as file:
 	arrhythmias_to_include = json.load(file)
-
 arrhythmias = []
 for arrhythmiaName in [a for a in sorted(next(os.walk('./static/arrhythmias'))[1]) if a in arrhythmias_to_include]:
 	to_add = {}
-	arr_dir = f'static/arrhythmias/{arrhythmiaName}/'
 	
 	# Store shortened/server name with underscores in ["serverName"]
 	to_add["serverName"] = arrhythmiaName
@@ -48,10 +46,6 @@ def about():
 @app.route('/contact')
 def contact():
 	return render_template('contact.html', arrhythmias=arrhythmias)
-
-# @app.route('/sandbox')
-# def normal():
-# 	return render_template('normal.html', pd=pd)
 
 @app.route('/blank')
 def blank():

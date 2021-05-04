@@ -110,6 +110,7 @@ $help-color: #02ac9d;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-color: $primary-light;
 
 	.tooltips-toggle {
 		width: 30px;
@@ -497,7 +498,7 @@ nav {
 // Main
 .main {
 	color: black;
-	background-color: $primary-light;
+	background-color: $primary-lightest;
 
 	.grid-split-in-three {
 		height: $grid-section-height;
@@ -863,7 +864,7 @@ nav {
 			}
 
 			a:visited {
-				color: black;
+				color: blue;
 			}
 
 		}
@@ -881,7 +882,7 @@ nav {
 	.landing-introduction {
 		color: #333;
 		margin: 0;
-		width: 900px;
+		width: 850px;
 		font-size: 18px;
 		margin: 0 auto;
 
@@ -893,6 +894,7 @@ nav {
 
 		p {
 			margin-bottom: 20px;
+			line-height: 1.8;
 
 			&.no-mb {
 				margin-bottom: 5px;
@@ -902,6 +904,10 @@ nav {
 		.list {
 			padding-left: 20px;
 			margin-bottom: 10px;
+
+			li {
+				line-height: 1.5;
+			}
 		}
 	}
 	
