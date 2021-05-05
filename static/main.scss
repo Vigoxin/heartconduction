@@ -79,7 +79,7 @@ $main-content-border-color: $primary-medium;
 // 	border-right: solid $main-content-border-size $main-content-border-color;
 // }
 
-nav, arrhythmia-walkthrough, main {
+nav, arrhythmia-specifics, main {
 	border-left: solid $main-content-border-size $main-content-border-color;
 	border-right: solid $main-content-border-size $main-content-border-color;
 }
@@ -488,7 +488,7 @@ nav {
 	}
 }
 
-.arrhythmia-walkthrough {
+.arrhythmia-specifics {
 	height: 200px;
 	background: lavenderblush;
 	padding: 10px;

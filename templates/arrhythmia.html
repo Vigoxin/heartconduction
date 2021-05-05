@@ -17,7 +17,7 @@
 			</div>
 		</div>
 	</div> -->
-	<div class="arrhythmia-walkthrough">
+	<div class="arrhythmia-specifics">
 		<h3 class="tac">{{arrhythmia["neatName"] if "neatName" in arrhythmia else arrhythmia["serverName"]}}</h3>
 	</div>
 
@@ -201,16 +201,19 @@
 			</div>
 			<div class="canvas">
 				<div class="container">
-					<div class="preloader-wrapper big active">
-						<div class="spinner-layer spinner-blue-only">
-							<div class="circle-clipper left">
-								<div class="circle"></div>
-							</div><div class="gap-patch">
-								<div class="circle"></div>
-							</div><div class="circle-clipper right">
-								<div class="circle"></div>
+					<div class="loader-to-remove">
+						<div class="preloader-wrapper big active">
+							<div class="spinner-layer spinner-blue-only">
+								<div class="circle-clipper left">
+									<div class="circle"></div>
+								</div><div class="gap-patch">
+									<div class="circle"></div>
+								</div><div class="circle-clipper right">
+									<div class="circle"></div>
+								</div>
 							</div>
 						</div>
+						<p class="tac"><strong>Loading grid</strong></p>
 					</div>
 				</div>
 			</div>
@@ -341,7 +344,10 @@
 	<script type="text/javascript" src='/static/squareInspector.js'></script>
 
 
+
 	<script type="text/javascript" src='/static/eventListeners.js'></script>
 	<script type="text/javascript" src='/static/utilities.js'></script>
+
+	<script type="text/javascript" src='/static/arrhythmias/{{arrhythmia["serverName"]}}/tutorial/tut.js'></script>
 		
 {% endblock %}

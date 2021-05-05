@@ -23,6 +23,10 @@ function setup() {
 	DOMSetup();
 
 	setEventListeners();
+
+	if (typeof tutorial !== 'undefined') {
+		tutorial();
+	}
 			
 								// btot = performance.now(); console.log((btot-atot)/1000);
 

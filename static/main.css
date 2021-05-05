@@ -26,7 +26,7 @@ body {
   text-align: center;
 }
 
-nav, arrhythmia-walkthrough, main {
+nav, arrhythmia-specifics, main {
   border-left: solid 3px #70587C;
   border-right: solid 3px #70587C;
 }
@@ -320,7 +320,7 @@ nav ul > li > ul > li > ul {
   width: 100%;
 }
 
-.arrhythmia-walkthrough {
+.arrhythmia-specifics {
   height: 200px;
   background: lavenderblush;
   padding: 10px;
