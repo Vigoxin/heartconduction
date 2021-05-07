@@ -619,7 +619,7 @@ nav {
 			overflow: hidden;
 
 			.expand-or-collapse-arrow {
-				transform: translateX(0px);
+				transform: translate(0px, 30px);
 			}
 
 			.sidebar {
@@ -664,7 +664,7 @@ nav {
 			overflow: hidden;
 
 			.expand-or-collapse-arrow {
-				transform: translateX(300px);
+				transform: translate(300px, 30px);
 			}
 
 			.sidebar {

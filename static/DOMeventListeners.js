@@ -22,11 +22,14 @@ $(".expand-or-collapse-arrow").on("click", function() {
 
 	if (sidebar.css("transform").split(", ")[4].includes("330")) {
 		sidebar.css("transform", "translateX(0px)");
+		if ($(this).parent().hasClass("squareInspector-section")) {
+			squareInspectorSectionOpen = true;
+		}
 	} else if (sidebar.css("transform").split(", ")[4] === "0") {
-		console.log($(this).parent());
 		if ($(this).parent().hasClass("tools-section")) {
 			sidebar.css("transform", "translateX(-330px)");
 		} else if ($(this).parent().hasClass("squareInspector-section")) {
+			squareInspectorSectionOpen = false;
 			sidebar.css("transform", "translateX(330px)");
 		}
 	}
@@ -44,5 +47,6 @@ $(".expand-or-collapse-arrow").on("click", function() {
 	}
 });
 
-$(".expand-or-collapse-arrow").first().click();
-$(".expand-or-collapse-arrow").last().click();
+var squareInspectorSectionOpen = false;
+// $(".expand-or-collapse-arrow").first().click();
+// $(".expand-or-collapse-arrow").last().click();

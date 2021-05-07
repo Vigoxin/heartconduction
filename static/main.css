@@ -424,7 +424,7 @@ nav ul > li > ul > li > ul {
   overflow: hidden;
 }
 .main .grid-split-in-three .tools-section .expand-or-collapse-arrow {
-  transform: translateX(0px);
+  transform: translate(0px, 30px);
 }
 .main .grid-split-in-three .tools-section .sidebar {
   transform: translateX(-330px);
@@ -461,7 +461,7 @@ nav ul > li > ul > li > ul {
   overflow: hidden;
 }
 .main .grid-split-in-three .squareInspector-section .expand-or-collapse-arrow {
-  transform: translateX(300px);
+  transform: translate(300px, 30px);
 }
 .main .grid-split-in-three .squareInspector-section .sidebar {
   transform: translateX(330px);
