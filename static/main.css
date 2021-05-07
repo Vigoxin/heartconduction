@@ -17,6 +17,12 @@ body {
   padding: 0;
 }
 
+.highlight-on-window {
+  z-index: 50;
+  background-color: rgba(0, 255, 0, 0.5);
+  position: absolute;
+}
+
 .content {
   width: 1200px;
   margin: 0 auto;
@@ -24,6 +30,10 @@ body {
 
 .tac {
   text-align: center;
+}
+
+.dn {
+  display: none;
 }
 
 nav, arrhythmia-specifics, main {

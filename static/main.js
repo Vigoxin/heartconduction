@@ -27,6 +27,7 @@ function setup() {
 	if (typeof tutorial !== 'undefined') {
 		tutorial();
 	}
+	setHighlightOnWindowEventListeners();
 			
 								// btot = performance.now(); console.log((btot-atot)/1000);
 

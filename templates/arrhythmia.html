@@ -17,6 +17,7 @@
 			</div>
 		</div>
 	</div> -->
+
 	<div class="arrhythmia-specifics">
 		<h3 class="tac">{{arrhythmia["neatName"] if "neatName" in arrhythmia else arrhythmia["serverName"]}}</h3>
 	</div>
@@ -343,11 +344,12 @@
 	<script type="text/javascript" src='/static/main.js'></script>
 	<script type="text/javascript" src='/static/squareInspector.js'></script>
 
+	<script type="text/javascript" src='/static/arrhythmias/{{arrhythmia["serverName"]}}/tutorial/tut.js'></script>
 
 
 	<script type="text/javascript" src='/static/eventListeners.js'></script>
+	<script type="text/javascript" src='/static/highlightOnWindow.js'></script>
 	<script type="text/javascript" src='/static/utilities.js'></script>
 
-	<script type="text/javascript" src='/static/arrhythmias/{{arrhythmia["serverName"]}}/tutorial/tut.js'></script>
 		
 {% endblock %}

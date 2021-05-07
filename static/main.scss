@@ -59,6 +59,13 @@ body {
 	padding: 0;
 }
 
+// Highlight and tooltips
+.highlight-on-window {
+	z-index: 50;
+	background-color: rgba(0, 255, 0, 0.5);
+	position: absolute;
+}
+
 // Anywhere
 .content {
 	width: 1200px;
@@ -67,6 +74,10 @@ body {
 
 .tac {
 	text-align: center;
+}
+
+.dn {
+	display: none;
 }
 
 	// content borders

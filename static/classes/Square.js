@@ -534,6 +534,7 @@ class Square {
 			[sprite.width, sprite.height] = [this.parentGrid.cellSize, this.parentGrid.cellSize];
 			[sprite.x, sprite.y] = [this.parentGrid.grid2pixel(this.col), this.parentGrid.grid2pixel(this.row)];
 		}
+		[this.x, this.y] = [this.parentGrid.grid2pixel(this.col), this.parentGrid.grid2pixel(this.row)]
 	}
 
 
