@@ -17,7 +17,6 @@ function setDOMeventListeners() {
 
 	tabResponse(0);
 
-	console.log($(".expand-or-collapse-arrow").data("tooltip"));
 	// Sidebar system
 	$(".expand-or-collapse-arrow").on("click", function() {
 		var sidebar = $(this).parent().find(".sidebar");

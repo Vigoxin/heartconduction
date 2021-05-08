@@ -1,28 +1,35 @@
 function showTooltipFor(el) {
 	elToHighlight = $(el);
-	$(".tooltip span").text(elToHighlight.data("tooltip"));
+	$(tooltipWrapperToUse).find(".tooltip span").text(elToHighlight.data("tooltip"));
 	
 	elWidth = elToHighlight[0].offsetWidth;
 	elHeight = elToHighlight[0].offsetHeight;
 	elTop = elToHighlight.offset().top;
 	elLeft = elToHighlight.offset().left;
-    tooltipWidth = $(".tooltip-wrapper")[0].offsetWidth;
-    tooltipHeight = $(".tooltip-wrapper")[0].offsetHeight;
+    tooltipWidth = $(tooltipWrapperToUse)[0].offsetWidth;
+    tooltipHeight = $(tooltipWrapperToUse)[0].offsetHeight;
 
-	$(".tooltip-wrapper").css({
+	$(tooltipWrapperToUse).css({
 	    "top": elTop-tooltipHeight-10,
 	    "left": elLeft-tooltipWidth/2+elWidth/2,
 	})
-	$(".tooltip-wrapper").css({
+	$(tooltipWrapperToUse).css({
 	    "transform": "scale(1)"
 	})
 }
 
 function hideTooltip() {
-	$(".tooltip-wrapper").css({"transform": "scale(0)"});
+	$(".tooltip-wrapper, .tooltip-wrapper-2").css({"transform": "scale(0)"});
+	toggleTooltipWrapperToUse();
 }
 
 var tooltipModeActive = false;
+var tooltipWrapperToUse = ".tooltip-wrapper";
+
+function toggleTooltipWrapperToUse() {
+	tooltipWrapperToUse = tooltipWrapperToUse === ".tooltip-wrapper" ? ".tooltip-wrapper-2" : ".tooltip-wrapper";
+}
+
 function setTooltipEventListeners() {
 	$.getJSON({
 	    url: "/static/tooltipsData.json",
@@ -54,11 +61,12 @@ function setTooltipEventListeners() {
 	    }
 	});
 
-	$(".tooltip-wrapper").mousemove(function() {
+	$(".tooltip-wrapper, .tooltip-wrapper-2").mousemove(function() {
 	    if (tooltipModeActive) {
 		    $(this).css("transform", "scale(1)");
 	    }
 	}).mouseleave(function() {
+		console.log("leaving");
 		if (tooltipModeActive) {
 			hideTooltip();
 		}
@@ -68,7 +76,7 @@ function setTooltipEventListeners() {
 	$(".tooltips-toggle").on("click", function() {
 		if (tooltipModeActive) {
 			$("body *").removeClass("cursor-question-mark");
-			$(".tooltip-wrapper").css("transform", "scale(0)");
+			$(".tooltip-wrapper, .tooltip-wrapper-2").css("transform", "scale(0)");
 			tooltipModeActive = false;
 		} else {
 			$("body *").addClass("cursor-question-mark");

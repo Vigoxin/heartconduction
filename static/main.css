@@ -23,7 +23,7 @@ body {
   position: absolute;
 }
 
-.tooltip-wrapper {
+.tooltip-wrapper, .tooltip-wrapper-2 {
   position: absolute;
   top: 0;
   left: 0;
@@ -32,7 +32,7 @@ body {
   transition: transform 0.3s;
   z-index: 50;
 }
-.tooltip-wrapper .tooltip {
+.tooltip-wrapper .tooltip, .tooltip-wrapper-2 .tooltip {
   position: relative;
   width: max-content;
   min-width: 100px;
@@ -43,7 +43,7 @@ body {
   text-align: center;
   border-radius: 6px;
 }
-.tooltip-wrapper .tooltip .tooltip-triangle {
+.tooltip-wrapper .tooltip .tooltip-triangle, .tooltip-wrapper-2 .tooltip .tooltip-triangle {
   content: "";
   position: absolute;
   left: 50%;
