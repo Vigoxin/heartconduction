@@ -69,6 +69,11 @@ body {
   display: none;
 }
 
+.complete-the-square {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
 nav, arrhythmia-specifics, main {
   border-left: solid 3px #70587C;
   border-right: solid 3px #70587C;

@@ -22,16 +22,37 @@ function hideTooltip() {
 	$(".tooltip-wrapper").css({"transform": "scale(0)"});
 }
 
+var tooltipModeActive = false;
 function setTooltipEventListeners() {
-	$("[data-tooltip]").mousemove(function() {
-	    if (tooltipModeActive) {
-		    showTooltipFor(this);
+	$.getJSON({
+	    url: "/static/tooltipsData.json",
+	    async: false,
+	    success: function(data){ 
+	    	for (let el in data) {
+	    		$(el).data("tooltip", data[el]);
+				// $("*").filter(function(i, el){return $(el).data("tooltip")!==undefined})
+				$(el).mousemove(function() {
+				    if (tooltipModeActive) {
+					    showTooltipFor(this);
+				    }
+				}).mouseleave(function() {
+					if (tooltipModeActive) {
+						hideTooltip();
+					}
+				})
+	    	}
+
+			// if (sidebar.css("transform").split(", ")[4] === "0") {
+			// 	if ($(this).parent().hasClass("tools-section")) {
+
+		
+
+	    },
+	    error: function(e) {
+	    	console.log("ERROR");
+	    	console.log(e);
 	    }
-	}).mouseleave(function() {
-		if (tooltipModeActive) {
-			hideTooltip();
-		}
-	})
+	});
 
 	$(".tooltip-wrapper").mousemove(function() {
 	    if (tooltipModeActive) {
@@ -42,4 +63,19 @@ function setTooltipEventListeners() {
 			hideTooltip();
 		}
 	})
+
+
+	$(".tooltips-toggle").on("click", function() {
+		if (tooltipModeActive) {
+			$("body *").removeClass("cursor-question-mark");
+			$(".tooltip-wrapper").css("transform", "scale(0)");
+			tooltipModeActive = false;
+		} else {
+			$("body *").addClass("cursor-question-mark");
+			tooltipModeActive = true;
+			// $(".tooltips-toggle").removeClass("cursor-question-mark");
+			// $(".tooltips-toggle .circle-border").removeClass("cursor-question-mark");
+		}
+	})
+
 }

@@ -1,0 +1,43 @@
+{
+	".tooltips-toggle": "Toggle help mode",
+	".tools-section .title-bar": "Change features of cells by clicking on a button here and then clicking on cells in the simulation. This is the easiest way to change one feature for multiple cells",
+	".tools-section .expand-or-collapse-arrow": "Open Tools section",
+	".squareInspector-section .title-bar": "View and change features of cells by first adding them to the Cell Inspector and then changing inputs for the cell. This is the easiest way to change multiple features for one cell",
+	".squareInspector-section .expand-or-collapse-arrow": "Open Cell Inspector section",
+
+	".play-button": "Play or pause the simulation",
+	".frame-button": "Advance by 1 frame when the simulation is paused",
+	".fps-slider": "Sets the framerate of the simulation (in frames per second)",
+	".fps-number": "Sets the framerate of the simulation (in frames per second)",
+	".master-frame-box": "Shows the frame of the simulation since its beginning",
+
+	"#state-radio-depo+label": "Depolarise a cell",
+	"#state-radio-repo+label": "Repolarise a cell",
+	"#state-radio-clear+label": "Change a cell into a non-conductive, fully insulated cell (a barrier to propagation)",
+
+	"#condVel-radio-normal+label": "Makes conduction velocity maximum (immediate depolarisation upon depolarisation of a neighbouring cell)",
+	"#condVel-radio-slow+label": "Makes conduction velocity slow (waits before receiving propagation from neighbouring cell)",
+
+	"#refracLength-radio-short+label": "Makes the refractory period of a cell's action potential short",
+	"#refracLength-radio-normal+label": "Makes the refractory period of a cell's action potential medium length",
+	"#refracLength-radio-long+label": "Makes the refractory period of a cell's action potential long",
+	
+	"#randomRefracLengths-radio-off+label": "Makes the refractory period fixed to the number assigned by the length above",
+	"#randomRefracLengths-radio-on+label": "Makes the refractory period differ randomly around the number assigned by the length above",
+
+	"#pacing-radio-extPace+label": "Paces at a fixed interval (the number assigned below). This interval will not reset when the cell receives propagation from a neighbouring cell (similar to if there was a pacing lead on this cell)",
+	"#pacing-radio-autoFocus+label": "Paces at a fixed interval (the number assigned below). This interval will reset when the cell receives propagation from a neighbouring cell (similar to any cell that exhibits automaticity)",
+	"#pacing-radio-noPace+label": "Removes any pacing function from a cell",
+
+	".pacingIntervalLabelInputPair": "The cycle length (in frames) at which a cell will pace, when given pacing functionality with one of the buttons above",
+	".pacingTrackerLabelInputPair": "The initial pacing timer value for a cell (counts down with each frame and paces when it reaches 0), when given pacing functionality with one of the buttons above",
+
+	".propagation-settings-directions-grid": "Selects which neighbours a cell receives propagation from (useful for simulating unidirectional block). Choose the neighbouring cells, then press the middle button, then click on a cell",
+	".nonConductionRateLabelInputPair": "Sets a probability (between 0 and 1) that a cell will not depolarise when receiving propagation from a neighbouring cell. Choose the number, then press the middle button on the left, then click on a cell",
+
+	"#squareInspector-toggle-radio+label": "Select this and click on a cell to add it to the Cell Inspector (in order to change multiple features individually)",
+
+	".save-button": "Saves the current grid state (to load later)",
+	".load-button": "Loads a grid state if this has been saved"
+
+}

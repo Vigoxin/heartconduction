@@ -349,7 +349,6 @@ class Square {
 	onlyClickSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {
 		if (selectorType === 'squareInspectorSelector') {
 			if (!this.isInSquareInspector) {
-				console.log(squareInspectorSectionOpen);
 				if (!squareInspectorSectionOpen) {
 					$(".expand-or-collapse-arrow").last().click();
 				}

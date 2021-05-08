@@ -23,13 +23,13 @@
 	</div>
 
 	<div class="help-bar">
-		<div class="tooltips-toggle" data-tooltip="Toggle help mode"><span class="circle-border">?</span></div>
+		<span>Need help? </span><div class="tooltips-toggle"><span class="circle-border">?</span></div>
 	</div>
 
 	<div class="grid-split-in-three bottom-bordered">
 
 		<div class="tools-section">
-			<div class="expand-or-collapse-arrow" data-tooltip="Open tools section">
+			<div class="expand-or-collapse-arrow">
 				<i class="fa fa-angle-double-right"></i>
 			</div>
 				<div class="title-bar">
@@ -44,7 +44,7 @@
 							<div class="radio-row">
 								
 								<input id="state-radio-depo" class='toggle-button-radio state-radio depo' type="radio" data-selector-type="state" name="selector" value='depo' checked='checked'>
-								<label for="state-radio-depo" data-tooltip="Click on a cell with this selected to immediately depolarise it">Depo</label>
+								<label for="state-radio-depo">Depo</label>
 								
 
 								
@@ -58,7 +58,7 @@
 						<p class="tools-section-title">Conduction velocity</p>
 						<div class="container">
 							<div class="radio-row">
-								<input id="condVel-radio-fast" class='toggle-button-radio condVel-radio fast' type="radio" data-selector-type="condVel" name="selector" value='fast'><label for="condVel-radio-fast">Fast</label>
+								<!-- <input id="condVel-radio-fast" class='toggle-button-radio condVel-radio fast' type="radio" data-selector-type="condVel" name="selector" value='fast'><label for="condVel-radio-fast">Fast</label> -->
 								<input id="condVel-radio-normal" class='toggle-button-radio condVel-radio normal' type="radio" data-selector-type="condVel" name="selector" value='normal'><label for="condVel-radio-normal">Normal</label>
 								<input id="condVel-radio-slow" class='toggle-button-radio condVel-radio slow' type="radio" data-selector-type="condVel" name="selector" value='slow'><label for="condVel-radio-slow">Slow</label>
 							</div>
@@ -69,16 +69,16 @@
 						<p class="tools-section-title">Refractory period length</p>
 						<div class="container">
 							<div class="radio-row">
-									<input id="refracLength-radio-long" class='toggle-button-radio refracLength-radio long' type="radio" data-selector-type="refracLength" name="selector" value='long'> <label for="refracLength-radio-long">Long</label>
-									<input id="refracLength-radio-normal" class='toggle-button-radio refracLength-radio normal' type="radio" data-selector-type="refracLength" name="selector" value='normal'> <label for="refracLength-radio-normal">Normal</label>
 									<input id="refracLength-radio-short" class='toggle-button-radio refracLength-radio short' type="radio" data-selector-type="refracLength" name="selector" value='short'> <label for="refracLength-radio-short">Short</label>
+									<input id="refracLength-radio-normal" class='toggle-button-radio refracLength-radio normal' type="radio" data-selector-type="refracLength" name="selector" value='normal'> <label for="refracLength-radio-normal">Normal</label>
+									<input id="refracLength-radio-long" class='toggle-button-radio refracLength-radio long' type="radio" data-selector-type="refracLength" name="selector" value='long'> <label for="refracLength-radio-long">Long</label>
 							</div>
 							<div class="row">
 								<p>Random refractory period:</p>
 							</div>
 							<div class="radio-row" style="justify-content: center;">
-									<input id="randomRefracLengths-radio-on" class="toggle-button-radio randomRefracLengths-radio on" type="radio" name="selector" value=1 data-selector-type="randomRefracLengths"> <label for="randomRefracLengths-radio-on">On</label>
 									<input id="randomRefracLengths-radio-off" class="toggle-button-radio randomRefracLengths-radio off" type="radio" name="selector" value=0 data-selector-type="randomRefracLengths"> <label for="randomRefracLengths-radio-off">Off</label>
+									<input id="randomRefracLengths-radio-on" class="toggle-button-radio randomRefracLengths-radio on" type="radio" name="selector" value=1 data-selector-type="randomRefracLengths"> <label for="randomRefracLengths-radio-on">On</label>
 							</div>
 						</div>
 						<hr>
@@ -92,10 +92,10 @@
 								<input id="pacing-radio-noPace" class='toggle-button-radio pacing-radio noPace' type="radio" data-selector-type="pacing" name="selector" value='noPace'> <label for="pacing-radio-noPace"">No pace</label>
 							</div>
 							<div class="row">
-								<div class="label-input-pair">
+								<div class="label-input-pair pacingIntervalLabelInputPair">
 									<label>Pacing interval:</label><input type="number" name="pacing" class="pacingInterval pacing-number input">
 								</div>
-								<div class="label-input-pair">
+								<div class="label-input-pair pacingTrackerLabelInputPair">
 									<label>Initial pacing timer value:</label><input type="number" name="pacing" class="pacingTracker pacing-number input">
 								</div>
 							</div>
@@ -155,7 +155,7 @@
 										</div>
 						
 								</div>
-								<div class="label-input-pair">
+								<div class="label-input-pair nonConductionRateLabelInputPair">
 									<label>Non-conduction rate:</label><input type="number" name="nonConduction" class="nonConductionRate input" min="0" max="1.0" step="0.05">
 								</div>
 							</div>
@@ -165,7 +165,7 @@
 					<div id="square-inspector-toggle-box" class="square-inspector-toggle-box">
 						<div class="container">
 							<div class="radio-row">
-								<input id="squareInspector-toggle-radio" class='toggle-button-radio square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <label for="squareInspector-toggle-radio">Square Inspector</label>
+								<input id="squareInspector-toggle-radio" class='toggle-button-radio square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <label for="squareInspector-toggle-radio">Cell Inspector</label>
 								<input id="timeStrip-toggle-radio" class='toggle-button-radio time-strip-toggle-radio' type="radio" data-selector-type="timeStripPanelSelector" name="selector" value='timeStripPanelSelector'> <label for="timeStrip-toggle-radio">Time Strip</label>
 							</div>
 						</div>
@@ -182,7 +182,7 @@
 				<div id="play-box" class="play-box settings-section">
 					<div class="row">
 						<!-- <button class="play-button btn btn-custom">&#9658; / <strong style="font-size: 14px">||</strong></button> -->
-						<button class="play-button btn btn-custom" data-tooltip="Play or pause the simulation">
+						<button class="play-button btn btn-custom">
 							<i class="material-icons">play_arrow</i><i>/</i> <i class="material-icons">pause</i>
 						</button>
 						<button class="frame-button btn btn-custom">Frame</button>
@@ -221,11 +221,11 @@
 		</div>
 
 		<div class="squareInspector-section">
-			<div class="expand-or-collapse-arrow" data-tooltip="Open Square Inspector section">
+			<div class="expand-or-collapse-arrow">
 				<i class="fa fa-angle-double-left"></i>
 			</div>
 				<div class="title-bar">
-					Square Inspector
+					Cell Inspector
 				</div>
 			<div class="sidebar">
 				<div class="tabSystem">			

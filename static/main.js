@@ -22,14 +22,15 @@ function setup() {
 
 	DOMSetup();
 
+	setDOMeventListeners();
 	setEventListeners();
+	setTooltipEventListeners();
 
 	if (typeof tutorial !== 'undefined') {
 		tutorial();
 	}
 	setHighlightOnWindowEventListeners();
 
-	setTooltipEventListeners();
 			
 								// btot = performance.now(); console.log((btot-atot)/1000);
 
