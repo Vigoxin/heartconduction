@@ -50,3 +50,4 @@ $(".expand-or-collapse-arrow").on("click", function() {
 var squareInspectorSectionOpen = false;
 // $(".expand-or-collapse-arrow").first().click();
 // $(".expand-or-collapse-arrow").last().click();
+

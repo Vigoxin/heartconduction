@@ -28,6 +28,8 @@ function setup() {
 		tutorial();
 	}
 	setHighlightOnWindowEventListeners();
+
+	setTooltipEventListeners();
 			
 								// btot = performance.now(); console.log((btot-atot)/1000);
 

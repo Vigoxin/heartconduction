@@ -23,6 +23,39 @@ body {
   position: absolute;
 }
 
+.tooltip-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: bottom center;
+  transform: scale(0);
+  transition: transform 0.3s;
+  z-index: 50;
+}
+.tooltip-wrapper .tooltip {
+  position: relative;
+  width: max-content;
+  min-width: 100px;
+  max-width: 200px;
+  padding: 5px;
+  background-color: #02ac9d;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+}
+.tooltip-wrapper .tooltip .tooltip-triangle {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-left: -10px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #02ac9d;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+}
+
 .content {
   width: 1200px;
   margin: 0 auto;
@@ -80,35 +113,6 @@ nav, arrhythmia-specifics, main {
   color: #02ac9d;
   font-weight: bold;
   transition: all 0.3s;
-}
-
-.tooltip-wrapper {
-  position: absolute;
-  display: none;
-  top: 0;
-  left: 0;
-}
-.tooltip-wrapper .tooltip {
-  position: relative;
-  width: max-content;
-  min-width: 100px;
-  padding: 5px;
-  background-color: #02ac9d;
-  color: white;
-  text-align: center;
-  border-radius: 6px;
-}
-.tooltip-wrapper .tooltip .tooltip-triangle {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  margin-left: -8px;
-  width: 0;
-  height: 0;
-  border-top: 8px solid #02ac9d;
-  border-right: 8px solid transparent;
-  border-left: 8px solid transparent;
 }
 
 .title-bar {

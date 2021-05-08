@@ -36,6 +36,8 @@ $footer-color: $cool-red;
 
 $grid-section-height: 650px;
 
+$help-color: #02ac9d;
+
 body {
 	background-color: papayawhip;
 	// background-color: $cool-red;
@@ -64,6 +66,44 @@ body {
 	z-index: 50;
 	background-color: rgba(0, 255, 0, 0.5);
 	position: absolute;
+}
+
+
+.tooltip-wrapper {
+	position: absolute;
+	// display: none;
+	top: 0;
+	left: 0;
+
+	transform-origin: bottom center;
+	transform: scale(0);
+	transition: transform 0.3s;
+	z-index: 50;
+
+	.tooltip {
+		position: relative;
+		width: max-content;
+		min-width: 100px;
+		max-width: 200px;
+		padding: 5px;
+		background-color: $help-color;
+		color: white;
+		text-align: center;
+		border-radius: 6px;
+
+		.tooltip-triangle {
+		    content: "";
+		    position: absolute;
+		    left: 50%;
+		    top: 100%;
+		    margin-left: -10px;
+		    width: 0;
+		    height: 0;
+		    border-top: 10px solid #02ac9d;
+		    border-right: 10px solid transparent;
+		    border-left: 10px solid transparent;
+		}
+	}
 }
 
 // Anywhere
@@ -116,7 +156,6 @@ nav, arrhythmia-specifics, main {
 }
 
 
-$help-color: #02ac9d;
 .help-bar {
 	display: flex;
 	justify-content: center;
@@ -146,36 +185,6 @@ $help-color: #02ac9d;
 	}
 }
 
-.tooltip-wrapper {
-	position: absolute;
-	display: none;
-	top: 0;
-	left: 0;
-
-	.tooltip {
-		position: relative;
-		width: max-content;
-		min-width: 100px;
-		padding: 5px;
-		background-color: $help-color;
-		color: white;
-		text-align: center;
-		border-radius: 6px;
-
-		.tooltip-triangle {
-		    content: "";
-		    position: absolute;
-		    left: 50%;
-		    top: 100%;
-		    margin-left: -8px;
-		    width: 0;
-		    height: 0;
-		    border-top: 8px solid #02ac9d;
-		    border-right: 8px solid transparent;
-		    border-left: 8px solid transparent;
-		}
-	}
-}
 
 
 

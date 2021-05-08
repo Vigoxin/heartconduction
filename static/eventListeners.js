@@ -170,12 +170,12 @@ function setEventListeners() {
 	$(".tooltips-toggle").on("click", function() {
 		if (!tooltipModeActive) {
 			tooltipModeActive = true;
-			$("*").addClass("cursor-question-mark");
+			$("body *").addClass("cursor-question-mark");
 			$(".tooltips-toggle").removeClass("cursor-question-mark");
 			$(".tooltips-toggle .circle-border").removeClass("cursor-question-mark");
 		} else {
 			tooltipModeActive = false;
-			$("*").removeClass("cursor-question-mark");
+			$("body *").removeClass("cursor-question-mark");
 		}
 	})
 
