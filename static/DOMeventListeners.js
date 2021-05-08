@@ -45,6 +45,12 @@ $(".expand-or-collapse-arrow").on("click", function() {
 	} else if (arrowIcon.hasClass("fa-angle-double-left")) {
 		arrowIcon.removeClass("fa-angle-double-left").addClass("fa-angle-double-right");
 	}
+
+	if ($(this).data("tooltip").includes("Open")) {
+		$(this).data("tooltip", $(this).data("tooltip").replace("Open", "Close"));
+	} else if ($(this).data("tooltip").includes("Close")) {
+		$(this).data("tooltip", $(this).data("tooltip").replace("Close", "Open"));
+	}
 });
 
 var squareInspectorSectionOpen = false;

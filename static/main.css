@@ -97,21 +97,22 @@ nav, arrhythmia-specifics, main {
   background-color: #C8B8DB;
 }
 .help-bar .tooltips-toggle {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
 .help-bar .tooltips-toggle .circle-border {
-  border: 2px solid #02ac9d;
+  border: 3px solid #02ac9d;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   text-align: center;
   color: #02ac9d;
   font-weight: bold;
+  font-size: 22px;
   transition: all 0.3s;
 }
 

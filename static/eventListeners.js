@@ -171,11 +171,12 @@ function setEventListeners() {
 		if (!tooltipModeActive) {
 			tooltipModeActive = true;
 			$("body *").addClass("cursor-question-mark");
-			$(".tooltips-toggle").removeClass("cursor-question-mark");
-			$(".tooltips-toggle .circle-border").removeClass("cursor-question-mark");
+			// $(".tooltips-toggle").removeClass("cursor-question-mark");
+			// $(".tooltips-toggle .circle-border").removeClass("cursor-question-mark");
 		} else {
 			tooltipModeActive = false;
 			$("body *").removeClass("cursor-question-mark");
+			$(".tooltip-wrapper").css("transform", "scale(0)");
 		}
 	})
 

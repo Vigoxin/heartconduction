@@ -10,7 +10,7 @@ function showTooltipFor(el) {
     tooltipHeight = $(".tooltip-wrapper")[0].offsetHeight;
 
 	$(".tooltip-wrapper").css({
-	    "top": elTop-tooltipHeight-5,
+	    "top": elTop-tooltipHeight-10,
 	    "left": elLeft-tooltipWidth/2+elWidth/2,
 	})
 	$(".tooltip-wrapper").css({
@@ -23,13 +23,23 @@ function hideTooltip() {
 }
 
 function setTooltipEventListeners() {
-	$(".tooltippable").hover(function() {
+	$("[data-tooltip]").mousemove(function() {
 	    if (tooltipModeActive) {
 		    showTooltipFor(this);
 	    }
-	}, function() {
+	}).mouseleave(function() {
 		if (tooltipModeActive) {
-			// hideTooltip();
+			hideTooltip();
+		}
+	})
+
+	$(".tooltip-wrapper").mousemove(function() {
+	    if (tooltipModeActive) {
+		    $(this).css("transform", "scale(1)");
+	    }
+	}).mouseleave(function() {
+		if (tooltipModeActive) {
+			hideTooltip();
 		}
 	})
 }

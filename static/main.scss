@@ -163,63 +163,28 @@ nav, arrhythmia-specifics, main {
 	background-color: $primary-light;
 
 	.tooltips-toggle {
-		width: 30px;
-		height: 30px;
+		width: 40px;
+		height: 40px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		cursor: pointer;
 
 		.circle-border {
-			border: 2px solid $help-color;
+			border: 3px solid $help-color;
 			border-radius: 50%;
-			width: 20px;
-			height: 20px;
+			width: 30px;
+			height: 30px;
 			text-align: center;
 
 			color: $help-color;
 			font-weight: bold;
+			font-size: 22px;
 
 			transition: all 0.3s;
 		}
 	}
 }
-
-
-
-
-// .tooltippable {
-// 	// position: relative;
-// }
-
-// .tooltipabble-wrapper {
-// 	// position: absolute;
-// }
-
-// // .tooltip {
-// // 	position: absolute;
-// // }
-
-// // .tooltip {
-
-// // 	display: none;
-// // 	content: attr(data-tooltip);
-
-// // 	position: absolute;
-// // 	transform: translate(-40%, -120%);
-
-// // 	width: max-content;
-// // 	max-width: 100px;
-
-// // 	padding: 5px;
-
-
-// // 	background-color: $help-color;
-
-// // 	color: white;
-
-// // 	cursor: default;
-// // }
 
 
 $arrow-height: 30px;	
