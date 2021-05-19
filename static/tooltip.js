@@ -66,7 +66,6 @@ function setTooltipEventListeners() {
 		    $(this).css("transform", "scale(1)");
 	    }
 	}).mouseleave(function() {
-		console.log("leaving");
 		if (tooltipModeActive) {
 			hideTooltip();
 		}

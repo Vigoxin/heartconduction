@@ -1,5 +1,5 @@
 {
-	"normal_conduction": "Normal conduction",
+	"sinus_rhythm": "Normal sinus rhythm",
 	"sinus_arrhythmia": "Sinus arrhythmia",
 
 	"sinus_tachycardia": "Sinus tachycardia",
@@ -16,5 +16,7 @@
 	"complete_AV_block_with_junctional_escape": "Complete AV block with junctional escape",
 	"complete_AV_block_with_ventricular_escape": "Complete AV block with ventricular escape",
 	"rbbb": "Right bundle branch block",
-	"lbbb": "Left bundle branch block"
+	"lbbb": "Left bundle branch block",
+
+	"tutorial": "Tutorial"
 }

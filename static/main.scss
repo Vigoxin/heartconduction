@@ -832,42 +832,54 @@ nav {
 	// display: grid;
 	// grid-template-columns: 70% 30%;
 	padding: 20px;
+	width: 850px;
+	margin: 0 auto;
 
-	.has-list-anchors {
 
-		li {
-			padding: 5px;
+	.page-category-section {
 		
-			a {
-				display: inline-block;
-				height: 22px;
-				
-				font-size: 18px;
-				transition: font-size 0.2s ease-out;
+		margin-bottom: 20px;
 
-				text-decoration: none;
-			}
-
-			a:hover {
-				font-size: 20px;
-
-			}
-
-			a:visited {
-				color: blue;
-			}
-
+		h3 {
+			margin-bottom: 10px;
+			color: #444;
 		}
 
 		.arrhythmia-list {
-			margin: 0 auto;
-			max-width: 500px;
-			padding: 20px;
+			margin-left: 10px;
 
 			list-style: none;
 
+
+			li {
+				margin-bottom: 5px;
+			
+				a {
+					display: inline-block;
+					height: 22px;
+					
+					font-size: 18px;
+					transition: font-size 0.2s ease-out;
+
+					text-decoration: none;
+				}
+
+				a:hover {
+					font-size: 20px;
+
+				}
+
+				a:visited {
+					color: blue;
+				}
+
 			}
+
+
+		}
+		
 	}
+
 
 	.landing-introduction {
 		color: #333;

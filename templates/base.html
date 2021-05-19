@@ -60,20 +60,64 @@
 		<nav>
 			<ul>
 				<li><a href="/">Home</a></li>
-				<li class="has-children"><a>Arrhythmias</a>
+				<li class="has-children"><a>Learn</a>
 					<ul>
+						
 						<li>
-							<a class="has-children" href="#">Basic</a>
+							<a class="has-children" href="#">Getting started</a>
 							<ul>
-								{% for arrhythmia in arrhythmias %}
+								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "getting_started" %}
 									<li>
-										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"] if "neatName" in arrhythmia else arrhythmia["serverName"]}}</a>
+										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
 									</li>
 								{% endfor %}
 							</ul>							
 						</li>
-						<li><a href="#">Intermediate</a></li>
-						<li><a href="#">Advanced</a></li>
+
+						<li>
+							<a class="has-children" href="#">Normal conduction</a>
+							<ul>
+								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "normal_conduction" %}
+									<li>
+										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+									</li>
+								{% endfor %}
+							</ul>							
+						</li>
+						
+						<li>
+							<a class="has-children" href="#">Tachyarrhythmias</a>
+							<ul>
+								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "tachyarrhythmias" %}
+									<li>
+										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+									</li>
+								{% endfor %}
+							</ul>							
+						</li>
+
+						<li>
+							<a class="has-children" href="#">Bradyarrhythmias/conduction system disease</a>
+							<ul>
+								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "bradyarrhythmias" %}
+									<li>
+										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+									</li>
+								{% endfor %}
+							</ul>							
+						</li>
+
+						<li>
+							<a class="has-children" href="#">Electrophysiology concepts</a>
+							<ul>
+								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "concepts" %}
+									<li>
+										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+									</li>
+								{% endfor %}
+							</ul>							
+						</li>
+						
 					</ul>
 				</li>		
 				<!-- <li><a href="#">Services</a></li> -->

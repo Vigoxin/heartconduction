@@ -1,13 +1,13 @@
 [
-	"normal_conduction",
+	"sinus_rhythm",
 	"sinus_arrhythmia",
 
 	"sinus_tachycardia",
-	"accessory_pathway",
 	"atrial_fibrillation",
 	"atrial_flutter",
 	"atrial_tachycardia",
 	"AVNRT",
+	"accessory_pathway",
 	"orthodromic_AVRT",
 	"antidromic_AVRT",
 	
@@ -16,5 +16,7 @@
 	"complete_AV_block_with_junctional_escape",
 	"complete_AV_block_with_ventricular_escape",
 	"rbbb",
-	"lbbb"
+	"lbbb",
+
+	"tutorial"
 ]

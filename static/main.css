@@ -600,28 +600,35 @@ nav ul > li > ul > li > ul {
 
 .landing-page-content {
   padding: 20px;
+  width: 850px;
+  margin: 0 auto;
 }
-.landing-page-content .has-list-anchors li {
-  padding: 5px;
+.landing-page-content .page-category-section {
+  margin-bottom: 20px;
 }
-.landing-page-content .has-list-anchors li a {
+.landing-page-content .page-category-section h3 {
+  margin-bottom: 10px;
+  color: #444;
+}
+.landing-page-content .page-category-section .arrhythmia-list {
+  margin-left: 10px;
+  list-style: none;
+}
+.landing-page-content .page-category-section .arrhythmia-list li {
+  margin-bottom: 5px;
+}
+.landing-page-content .page-category-section .arrhythmia-list li a {
   display: inline-block;
   height: 22px;
   font-size: 18px;
   transition: font-size 0.2s ease-out;
   text-decoration: none;
 }
-.landing-page-content .has-list-anchors li a:hover {
+.landing-page-content .page-category-section .arrhythmia-list li a:hover {
   font-size: 20px;
 }
-.landing-page-content .has-list-anchors li a:visited {
+.landing-page-content .page-category-section .arrhythmia-list li a:visited {
   color: blue;
-}
-.landing-page-content .has-list-anchors .arrhythmia-list {
-  margin: 0 auto;
-  max-width: 500px;
-  padding: 20px;
-  list-style: none;
 }
 .landing-page-content .landing-introduction {
   color: #333;

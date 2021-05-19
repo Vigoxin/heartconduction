@@ -1,0 +1,23 @@
+{
+	"tutorial": "getting_started",
+
+	"sinus_rhythm": "normal_conduction",
+	"sinus_arrhythmia": "normal_conduction",
+
+	"sinus_tachycardia": "tachyarrhythmias",
+	"accessory_pathway": "tachyarrhythmias",
+	"atrial_fibrillation": "tachyarrhythmias",
+	"atrial_flutter": "tachyarrhythmias",
+	"atrial_tachycardia": "tachyarrhythmias",
+	"AVNRT": "tachyarrhythmias",
+	"orthodromic_AVRT": "tachyarrhythmias",
+	"antidromic_AVRT": "tachyarrhythmias",
+	
+	"first_degree_AV_block": "bradyarrhythmias",
+	"second_degree_AV_block_mobitz_2": "bradyarrhythmias",
+	"complete_AV_block_with_junctional_escape": "bradyarrhythmias",
+	"complete_AV_block_with_ventricular_escape": "bradyarrhythmias",
+	"rbbb": "bradyarrhythmias",
+	"lbbb": "bradyarrhythmias"
+
+}

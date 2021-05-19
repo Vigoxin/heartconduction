@@ -17,27 +17,34 @@ pd = {
 }
 
 # Creating arrhythmias as a list of dictionaries
-with open("static/arrhythmias/arrhythmias_to_include.json", "r") as file:
-	arrhythmias_to_include = json.load(file)
+with open("static/pages/pages_to_include.json", "r") as file:
+	pages_to_include = json.load(file)
 arrhythmias = []
-for arrhythmiaName in [a for a in sorted(next(os.walk('./static/arrhythmias'))[1]) if a in arrhythmias_to_include]:
+# for arrhythmiaName in [a for a in sorted(next(os.walk('./static/pages'))[1]) if a in pages_to_include]:
+for arrhythmiaName in pages_to_include:
 	to_add = {}
 	
 	# Store shortened/server name with underscores in ["serverName"]
 	to_add["serverName"] = arrhythmiaName
 
-	# If there's a key in arrhythmia_names_dict.json, then store this in ["neatName"]
-	with open('static/arrhythmias/arrhythmia_names_dict.json', 'r') as file:
-		arrhythmia_names_dict = json.load(file)
-		if arrhythmiaName in arrhythmia_names_dict:
-			to_add["neatName"] = arrhythmia_names_dict[arrhythmiaName]
+	# If there's a key in pages_names_dict.json, then store this in ["neatName"]
+	with open('static/pages/pages_names_dict.json', 'r') as file:
+		pages_names_dict = json.load(file)
+		if arrhythmiaName in pages_names_dict:
+			to_add["neatName"] = pages_names_dict[arrhythmiaName]
+
+	# Store the category in ["category"]
+	with open('static/pages/pages_categories_dict.json', 'r') as file:
+		pages_categories_dict = json.load(file)
+		if arrhythmiaName in pages_categories_dict:
+			to_add["category"] = pages_categories_dict[arrhythmiaName]
 
 	arrhythmias.append(to_add)
 
 # Routes
 @app.route('/')
 def index():
-	return render_template('landing.html', arrhythmias=arrhythmias)
+	return render_template('home.html', arrhythmias=arrhythmias)
 
 @app.route('/about')
 def about():
@@ -62,7 +69,7 @@ def arrhythmia(arrhythmiaName):
 	# print(arrhythmia)
 
 	# If there's a 'grid.txt' file, then store this in ["gridToLoad"]
-	arr_dir = f'static/arrhythmias/{arrhythmiaName}/'
+	arr_dir = f'static/pages/{arrhythmiaName}/'
 	print(arr_dir)
 	if os.path.isfile(arr_dir + 'grid.txt'):
 		with open(arr_dir + 'grid.txt', 'r') as file:
