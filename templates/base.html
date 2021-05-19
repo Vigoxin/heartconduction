@@ -66,9 +66,9 @@
 						<li>
 							<a class="has-children" href="#">Getting started</a>
 							<ul>
-								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "getting_started" %}
+								{% for page in pages if page["category"] == "getting_started" %}
 									<li>
-										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+										<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 									</li>
 								{% endfor %}
 							</ul>							
@@ -77,9 +77,9 @@
 						<li>
 							<a class="has-children" href="#">Normal conduction</a>
 							<ul>
-								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "normal_conduction" %}
+								{% for page in pages if page["category"] == "normal_conduction" %}
 									<li>
-										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+										<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 									</li>
 								{% endfor %}
 							</ul>							
@@ -88,9 +88,9 @@
 						<li>
 							<a class="has-children" href="#">Tachyarrhythmias</a>
 							<ul>
-								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "tachyarrhythmias" %}
+								{% for page in pages if page["category"] == "tachyarrhythmias" %}
 									<li>
-										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+										<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 									</li>
 								{% endfor %}
 							</ul>							
@@ -99,9 +99,9 @@
 						<li>
 							<a class="has-children" href="#">Bradyarrhythmias/conduction system disease</a>
 							<ul>
-								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "bradyarrhythmias" %}
+								{% for page in pages if page["category"] == "bradyarrhythmias" %}
 									<li>
-										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+										<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 									</li>
 								{% endfor %}
 							</ul>							
@@ -110,14 +110,14 @@
 						<li>
 							<a class="has-children" href="#">Electrophysiology concepts</a>
 							<ul>
-								{% for arrhythmia in arrhythmias if arrhythmia["category"] == "concepts" %}
+								{% for page in pages if page["category"] == "concepts" %}
 									<li>
-										<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+										<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 									</li>
 								{% endfor %}
 							</ul>							
 						</li>
-						
+
 					</ul>
 				</li>		
 				<!-- <li><a href="#">Services</a></li> -->

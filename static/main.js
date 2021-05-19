@@ -15,8 +15,8 @@ function setup() {
 			// b = performance.now(); console.log((b-a)/1000);
 
 			// a = performance.now();
-	if (typeof arrhythmia["gridToLoad"] !== 'undefined') {
-		grid.loadGrid(arrhythmia["gridToLoad"]);
+	if (typeof page["gridToLoad"] !== 'undefined') {
+		grid.loadGrid(page["gridToLoad"]);
 	}
 			// b = performance.now(); console.log((b-a)/1000);
 
@@ -26,9 +26,7 @@ function setup() {
 	setEventListeners();
 	setTooltipEventListeners();
 
-	if (typeof tutorial !== 'undefined') {
-		tutorial();
-	}
+
 	setHighlightOnWindowEventListeners();
 
 			

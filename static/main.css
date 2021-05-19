@@ -74,7 +74,7 @@ body {
   border-bottom: 1px solid black;
 }
 
-nav, arrhythmia-specifics, main {
+nav, page-specifics, main {
   border-left: solid 3px #70587C;
   border-right: solid 3px #70587C;
 }
@@ -340,7 +340,7 @@ nav ul > li > ul > li > ul {
   width: 100%;
 }
 
-.arrhythmia-specifics {
+.page-specifics {
   height: 200px;
   background: lavenderblush;
   padding: 10px;
@@ -610,24 +610,24 @@ nav ul > li > ul > li > ul {
   margin-bottom: 10px;
   color: #444;
 }
-.landing-page-content .page-category-section .arrhythmia-list {
+.landing-page-content .page-category-section .page-list {
   margin-left: 10px;
   list-style: none;
 }
-.landing-page-content .page-category-section .arrhythmia-list li {
+.landing-page-content .page-category-section .page-list li {
   margin-bottom: 5px;
 }
-.landing-page-content .page-category-section .arrhythmia-list li a {
+.landing-page-content .page-category-section .page-list li a {
   display: inline-block;
   height: 22px;
   font-size: 18px;
   transition: font-size 0.2s ease-out;
   text-decoration: none;
 }
-.landing-page-content .page-category-section .arrhythmia-list li a:hover {
+.landing-page-content .page-category-section .page-list li a:hover {
   font-size: 20px;
 }
-.landing-page-content .page-category-section .arrhythmia-list li a:visited {
+.landing-page-content .page-category-section .page-list li a:visited {
   color: blue;
 }
 .landing-page-content .landing-introduction {

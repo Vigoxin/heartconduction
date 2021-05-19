@@ -19,40 +19,40 @@ pd = {
 # Creating arrhythmias as a list of dictionaries
 with open("static/pages/pages_to_include.json", "r") as file:
 	pages_to_include = json.load(file)
-arrhythmias = []
-# for arrhythmiaName in [a for a in sorted(next(os.walk('./static/pages'))[1]) if a in pages_to_include]:
-for arrhythmiaName in pages_to_include:
+pages = []
+# for pageName in [a for a in sorted(next(os.walk('./static/pages'))[1]) if a in pages_to_include]:
+for pageName in pages_to_include:
 	to_add = {}
 	
 	# Store shortened/server name with underscores in ["serverName"]
-	to_add["serverName"] = arrhythmiaName
+	to_add["serverName"] = pageName
 
 	# If there's a key in pages_names_dict.json, then store this in ["neatName"]
 	with open('static/pages/pages_names_dict.json', 'r') as file:
 		pages_names_dict = json.load(file)
-		if arrhythmiaName in pages_names_dict:
-			to_add["neatName"] = pages_names_dict[arrhythmiaName]
+		if pageName in pages_names_dict:
+			to_add["neatName"] = pages_names_dict[pageName]
 
 	# Store the category in ["category"]
 	with open('static/pages/pages_categories_dict.json', 'r') as file:
 		pages_categories_dict = json.load(file)
-		if arrhythmiaName in pages_categories_dict:
-			to_add["category"] = pages_categories_dict[arrhythmiaName]
+		if pageName in pages_categories_dict:
+			to_add["category"] = pages_categories_dict[pageName]
 
-	arrhythmias.append(to_add)
+	pages.append(to_add)
 
 # Routes
 @app.route('/')
 def index():
-	return render_template('home.html', arrhythmias=arrhythmias)
+	return render_template('home.html', pages=pages)
 
 @app.route('/about')
 def about():
-	return render_template('about.html', arrhythmias=arrhythmias)
+	return render_template('about.html', pages=pages)
 
 @app.route('/contact')
 def contact():
-	return render_template('contact.html', arrhythmias=arrhythmias)
+	return render_template('contact.html', pages=pages)
 
 @app.route('/blank')
 def blank():
@@ -60,57 +60,27 @@ def blank():
 		'textureFiles': texture_files,
 		'texturesPath': textures_path
 	}
-	return render_template('arrhythmia.html', pd=pd)
+	return render_template('page.html', pd=pd)
 
-@app.route('/arrhythmia/<arrhythmiaName>')
-def arrhythmia(arrhythmiaName):
-	print(arrhythmiaName)
-	arrhythmia = [a for a in arrhythmias if a["serverName"] == arrhythmiaName][0]
-	# print(arrhythmia)
+@app.route('/learn/<pageName>')
+def learn(pageName):
+	print(pageName)
+	page = [a for a in pages if a["serverName"] == pageName][0]
+	# print(page)
 
 	# If there's a 'grid.txt' file, then store this in ["gridToLoad"]
-	arr_dir = f'static/pages/{arrhythmiaName}/'
+	arr_dir = f'static/pages/{pageName}/'
 	print(arr_dir)
 	if os.path.isfile(arr_dir + 'grid.txt'):
 		with open(arr_dir + 'grid.txt', 'r') as file:
-			# arrhythmia['gridToLoad'] = file.read()
-			arrhythmia['gridToLoad'] = file.read()
-			# print(arrhythmia["gridToLoad"])
-	
-	# # If there's a 'neatName.txt' file, then store this in pd["neatName"]
-	# if os.path.isfile(arr_dir + 'neatName.txt'):
-	# 	with open(arr_dir + 'neatName.txt', 'r') as file:
-	# 		pd['neatName'] = file.read()
+			# page['gridToLoad'] = file.read()
+			page['gridToLoad'] = file.read()
+			# print(page["gridToLoad"])
 
-	# # If there's a 'grid.txt' file, then store this in pd["gridToLoad"]
-	# if os.path.isfile(arr_dir + 'grid.txt'):
-	# 	with open(arr_dir + 'grid.txt', 'r') as file:
-	# 		pd['gridToLoad'] = file.read()
+	pd["page"] = page
 
-	# # If there's a 'info.txt' file, then store this in pd["info"]
-	# if os.path.isfile(arr_dir + 'info.txt'):
-	# 	pd['info'] = []
-	# 	with open(arr_dir + 'info.txt', 'r') as file:
-	# 		for line in file.readlines():
-				
-	# 			line = re.sub('\n', '', line)		# Removing new line characters
-	# 			if bool(re.search(r'\w', line)):	# If the line is not an empty one
-	# 				if line.startswith('A: '):
-	# 					current_arrhythmia = line.split('A: ')[1]
-	# 					pd['arrhythmia'] = current_arrhythmia
-	# 				elif line.startswith('H: '):
-	# 					heading = line.split('H: ')[1]
-	# 					pd['info'].append({'heading': heading, 'paragraphs': []})
-	# 				elif line.startswith('P: '):
-	# 					paragraph = line.split('P: ')[1]
-	# 					pd['info'][-1]['paragraphs'].append(paragraph)
-	# 				else:
-	# 					pd['info'][-1]['paragraphs'][-1] += ' ' + line
-
-	pd["arrhythmia"] = arrhythmia
-
-	return render_template('arrhythmia.html', pd=pd, arrhythmia=arrhythmia, arrhythmias=arrhythmias)
-	# return render_template('normal.html', pd=pd, arrhythmias=arrhythmias)
+	return render_template('page.html', pd=pd, page=page, pages=pages)
+	# return render_template('normal.html', pd=pd, pages=pages)
 
 @app.route('/testing')
 def testing():

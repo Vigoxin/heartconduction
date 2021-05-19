@@ -18,8 +18,8 @@
 		</div>
 	</div> -->
 
-	<div class="arrhythmia-specifics">
-		<h3 class="tac">{{arrhythmia["neatName"] if "neatName" in arrhythmia else arrhythmia["serverName"]}}</h3>
+	<div class="page-specifics">
+		<h3 class="tac">{{page["neatName"] if "neatName" in page else page["serverName"]}}</h3>
 	</div>
 
 	<div class="help-bar">
@@ -344,7 +344,7 @@
 	<script type="text/javascript" src='/static/main.js'></script>
 	<script type="text/javascript" src='/static/squareInspector.js'></script>
 
-	<script type="text/javascript" src='/static/pages/{{arrhythmia["serverName"]}}/tutorial/tut.js'></script>
+	<script type="text/javascript" src='/static/pages/{{page["serverName"]}}/infoDiv/infoDiv.js'></script>
 
 
 	<script type="text/javascript" src='/static/eventListeners.js'></script>

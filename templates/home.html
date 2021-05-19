@@ -8,15 +8,15 @@
 		
 			<p>Heartconduction.com is an educational website designed to teach cardiac electrophysiology and electrocardiography in a unique way. Using interactive simulations consisting of 2D grids of 'cells', the aim is to help you visualise arrhythmias and complex electrophysiology concepts in real time without relying on plain text and static schematic diagrams.</p>
 
-			<p>To get started, I strongly recommend going through the brief <a href="/arrhythmia/tutorial">tutorial</a>. Otherwise click on any of the pages below: </p>
+			<p>To get started, I strongly recommend going through the brief <a href="/learn/tutorial">tutorial</a>. Otherwise click on any of the pages below: </p>
 		</div>
 		
 		<div class="page-category-section">
 			<h3>Getting started</h3>
-				<ul class="arrhythmia-list has-list-anchors">
-					{% for arrhythmia in arrhythmias if arrhythmia["category"] == "getting_started" %}
+				<ul class="page-list has-list-anchors">
+					{% for page in pages if page["category"] == "getting_started" %}
 						<li>
-							<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+							<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 						</li>
 					{% endfor %}
 				</ul>
@@ -24,10 +24,10 @@
 
 		<div class="page-category-section">
 			<h3>Normal conduction</h3>
-				<ul class="arrhythmia-list has-list-anchors">
-					{% for arrhythmia in arrhythmias if arrhythmia["category"] == "normal_conduction" %}
+				<ul class="page-list has-list-anchors">
+					{% for page in pages if page["category"] == "normal_conduction" %}
 						<li>
-							<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+							<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 						</li>
 					{% endfor %}
 				</ul>
@@ -35,10 +35,10 @@
 
 		<div class="page-category-section">
 			<h3>Tachyarrhythmias</h3>
-				<ul class="arrhythmia-list has-list-anchors">
-					{% for arrhythmia in arrhythmias if arrhythmia["category"] == "tachyarrhythmias" %}
+				<ul class="page-list has-list-anchors">
+					{% for page in pages if page["category"] == "tachyarrhythmias" %}
 						<li>
-							<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+							<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 						</li>
 					{% endfor %}
 				</ul>
@@ -46,10 +46,10 @@
 
 		<div class="page-category-section">
 			<h3>Bradyarrhythmias and conduction system disease</h3>
-				<ul class="arrhythmia-list has-list-anchors">
-					{% for arrhythmia in arrhythmias if arrhythmia["category"] == "bradyarrhythmias" %}
+				<ul class="page-list has-list-anchors">
+					{% for page in pages if page["category"] == "bradyarrhythmias" %}
 						<li>
-							<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+							<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 						</li>
 					{% endfor %}
 				</ul>
@@ -57,10 +57,10 @@
 
 		<div class="page-category-section">
 			<h3>Electrophysiology concepts</h3>
-				<ul class="arrhythmia-list has-list-anchors">
-					{% for arrhythmia in arrhythmias if arrhythmia["category"] == "concepts" %}
+				<ul class="page-list has-list-anchors">
+					{% for page in pages if page["category"] == "concepts" %}
 						<li>
-							<a href="/arrhythmia/{{arrhythmia['serverName']}}">{{arrhythmia["neatName"]}}</a>
+							<a href="/learn/{{page['serverName']}}">{{page["neatName"]}}</a>
 						</li>
 					{% endfor %}
 				</ul>
