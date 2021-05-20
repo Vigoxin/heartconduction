@@ -17,6 +17,8 @@ class Grid extends Array {
 		// this.masterPacingIntervalSelector = 100;
 		// this.masterPacingTrackerSelector = 0;
 
+		this.masterFrameCount = 0;
+
 		this.selector = 'depo';
 		this.selectorType = 'state';
 		

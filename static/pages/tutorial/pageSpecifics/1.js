@@ -1,21 +1,42 @@
 function pageSpecifics() {
+	// Update related pages section
+	$(".related-pages .page-list").empty();
+	$.ajax({
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/relatedPAges.html`,
+	    async: false,
+	    success: function(data){ 
+			$(".related-pages .page-list").append(data);
+	    }
+	});
+
 	// Info Div changes
-	infoDiv = $("<div></div>").attr({"class": "info"});
+	$(".info").empty();
 	$.ajax({
 	    url: `/static/pages/${page["serverName"]}/pageSpecifics/1.html`,
 	    async: false,
 	    success: function(data){ 
-	    	$(infoDiv).html(data);
+			$(".info").append(data);
 	    }
 	});
-	$(".page-specifics").append(infoDiv);
+
+	// Change next and prev button links
+	$(".info-footer-button").css("visibility", "visible");
+	$(".info-footer-button").off("click");
+	
+	$(".info-footer-previous").css("visibility", "hidden");
+	$(".info-footer-next").on("click", pageSpecifics2);
+
+	$(".info-section-footer .page-num").text("Page 1");
 
 	// Grid changes
 	$(".fps-slider").val(30);
 	$(".fps-slider").trigger("input");
-	$("canvas").css("borderRight", "1px solid #444");
-	$("canvas").css("borderBottom", "1px solid #444");
-	$("canvas").css("margin-bottom", "20px");
+	$(".canvas canvas").css("borderRight", "1px solid #444");
+	$(".canvas canvas").css("borderBottom", "1px solid #444");
+	$(".canvas canvas").css("margin-bottom", "20px");
+
+	// Outside-of-canvas div changes
+	$(".outside-of-canvas").empty();
 
 	var APDemonstration = $(`
 		<div class="APDemonstration">
@@ -32,7 +53,6 @@ function pageSpecifics() {
 		"width": "500px",
 		"display": "block",
 		"position": "relative",
-		// "border": "1px solid black",
 	})
 
 	APDemonstration.find(".AP-img-tracking-square").css({
@@ -45,7 +65,7 @@ function pageSpecifics() {
 		"left": "0px",
 	})
 
-	$(".canvas").append(APDemonstration);
+	$(".outside-of-canvas").append(APDemonstration);
 
 	APDemonstrationSquareCoords = [
 		[120, 174],
@@ -84,10 +104,7 @@ function pageSpecifics() {
 	]
 
 	APDidx = APDemonstrationSquareCoords.length-1;
-
 }
-
-var APDidx;
 	
 function pageSpecificChangesWithEachFrame() {
 	var sq = $(".AP-img-tracking-square");
@@ -107,4 +124,51 @@ function pageSpecificChangesWithEachFrame() {
 	APDidx++;
 
 	sq.css("backgroundColor", decimalToRGB(grid[0][0].sprites.square.tint));
+}
+
+function pageSpecifics2() {
+	// Info Div changes
+	$(".info").empty();
+	$.ajax({
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/2.html`,
+	    async: false,
+	    success: function(data){ 
+			$(".info").append(data);
+	    }
+	});
+
+	// Change next and prev button links
+	$(".info-footer-button").css("visibility", "visible");
+	$(".info-footer-button").off("click");
+	
+	$(".info-footer-previous").on("click", pageSpecifics);
+	$(".info-footer-next").on("click", pageSpecifics3);
+
+	$(".info-section-footer .page-num").text("Page 2");
+
+}
+
+function pageSpecifics3() {
+	// Info Div changes
+	$(".info").empty();
+	$.ajax({
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/3.html`,
+	    async: false,
+	    success: function(data){ 
+			$(".info").append(data);
+	    }
+	});	
+
+	// Change next and prev button links
+	$(".info-footer-button").css("visibility", "visible");
+	$(".info-footer-button").off("click");
+	
+	$(".info-footer-previous").on("click", pageSpecifics2);
+	$(".info-footer-next").on("click", pageSpecifics4);
+
+	$(".info-section-footer .page-num").text("Page 3");
+}
+
+function pageSpecifics4() {
+	
 }

@@ -49,6 +49,9 @@ body {
  //    -moz-transform: scale(0.8); 
  //    -moz-transform-origin: 0 0;
 
+ 	// transform: scale(0.8);
+ 	// transform-origin: 0 0;
+
 }
 
 .cursor-question-mark {
@@ -136,7 +139,7 @@ $main-content-border-color: $primary-medium;
 // 	border-right: solid $main-content-border-size $main-content-border-color;
 // }
 
-nav, page-specifics, main {
+nav, main {
 	border-left: solid $main-content-border-size $main-content-border-color;
 	border-right: solid $main-content-border-size $main-content-border-color;
 }
@@ -488,7 +491,9 @@ nav {
 	// height: 300px;
 	background: lavenderblush;
 	padding: 10px;
-	padding-bottom: 30px;
+
+	display: flex;
+	flex-direction: row;
 
 	h3 {
 		margin-bottom: 10px;
@@ -496,13 +501,57 @@ nav {
 
 	// border-left: 3px $main-content-border-color solid;
 
-	.info {
-		padding: 0 100px;
+	.related-pages {
+		flex: 1;
+
+		.related-pages-title {
+			margin-bottom: 15px;
+		}
+	}
+
+	.info-section {
+		padding: 0 10px;
+		width: 980px;
 		
 		font-size: 18px;
 		line-height: 1.2;
 		color: #333;
 		letter-spacing: 0.3px;
+
+		.info {
+			height: 380px;
+		}
+
+		.info-section-footer {
+			display: flex;
+			justify-content: center;
+
+			p {
+				margin: 0 100px;
+			}
+
+			.info-footer-previous {
+				visibility: hidden;
+			}
+
+			.info-footer-button {
+				height: 30px;
+				width: 30px;
+				border: none;
+				border-radius: 5px;
+
+				background-color: $primary-medium-light;
+				color: white;
+
+				transition: all 0.3s;
+				cursor: pointer;
+
+				&:hover {
+					color: $primary-medium-light;
+					background-color: white;
+				}
+			}
+		}
 
 		p {
 			margin-bottom: 20px;
@@ -514,7 +563,7 @@ nav {
 
 		ul {
 			list-style: none;
-			margin-bottom: 10px;
+			margin-bottom: 20px;
 		}
 
 
@@ -897,39 +946,6 @@ nav {
 			margin-bottom: 10px;
 			color: #444;
 		}
-
-		.page-list {
-			margin-left: 10px;
-
-			list-style: none;
-
-
-			li {
-				margin-bottom: 5px;
-			
-				a {
-					display: inline-block;
-					height: 22px;
-					
-					font-size: 18px;
-					transition: font-size 0.2s ease-out;
-
-					text-decoration: none;
-				}
-
-				a:hover {
-					font-size: 20px;
-
-				}
-
-				a:visited {
-					color: blue;
-				}
-
-			}
-
-
-		}
 		
 	}
 
@@ -966,5 +982,39 @@ nav {
 		}
 	}
 	
+}
+
+.page-list {
+	
+	margin-left: 10px;
+
+	list-style: none;
+
+
+	li {
+		margin-bottom: 5px;
+	
+		a {
+			display: inline-block;
+			height: 22px;
+			
+			font-size: 18px;
+			transition: font-size 0.2s ease-out;
+
+			text-decoration: none;
+		}
+
+		a:hover {
+			font-size: 20px;
+
+		}
+
+		a:visited {
+			color: blue;
+		}
+
+	}
+
+
 }
 

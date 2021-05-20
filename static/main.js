@@ -11,7 +11,7 @@ function setup() {
 	timeStripPanel = new TimeStripPanel();
 
 			// a = performance.now();
-	grid = new Grid('.canvas', cellSize=15, cellNum=60);
+	grid = new Grid('.canvas-parent', cellSize=15, cellNum=60);
 			// b = performance.now(); console.log((b-a)/1000);
 
 			// a = performance.now();
@@ -34,7 +34,7 @@ function setup() {
 	setHighlightOnWindowEventListeners();
 
 			
-								// btot = performance.now(); console.log((btot-atot)/1000);
+								// btot	 = performance.now(); console.log((btot-atot)/1000);
 
 
 
@@ -52,8 +52,8 @@ function drawingFunction() {
 
 function drawFrame() {
 	grid.play();
-	masterFrameCount++;
-	$(".master-frame").text(masterFrameCount);
+	grid.masterFrameCount++;
+	$(".master-frame").text(grid.masterFrameCount);
 
 	if (typeof pageSpecificChangesWithEachFrame !== 'undefined') {
 		pageSpecificChangesWithEachFrame();

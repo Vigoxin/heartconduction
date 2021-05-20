@@ -19,7 +19,22 @@
 	</div> -->
 
 	<div class="page-specifics">
-		<h3 class="tac">{{page["neatName"] if "neatName" in page else page["serverName"]}}</h3>
+		<div class="related-pages">
+			<h4 class="tac related-pages-title">Related pages</h4>
+			<ul class="page-list has-list-anchors">
+
+			</ul>
+		</div>
+
+		<div class="info-section">
+			<h3 class="tac page-title">{{page["neatName"] if "neatName" in page else page["serverName"]}}</h3>
+			<div class="info"></div>
+			<div class="info-section-footer">
+				<button class="info-footer-button info-footer-previous"><<</button>
+				<p class="page-num">Page 1</p>
+				<button class="info-footer-button info-footer-next">>></button>
+			</div>
+		</div>
 	</div>
 
 	<div class="help-bar">
@@ -217,6 +232,8 @@
 						<p class="tac"><strong>Loading grid</strong></p>
 					</div>
 				</div>
+				<div class="canvas-parent"></div>
+				<div class="outside-of-canvas"></div>
 			</div>
 		</div>
 
