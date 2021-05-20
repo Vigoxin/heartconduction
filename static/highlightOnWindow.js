@@ -4,7 +4,7 @@ function highlightElementOnWindow(el) {
 	elHeight = elToHighlight[0].offsetHeight;
 	elTop = elToHighlight.offset().top;
 	elLeft = elToHighlight.offset().left;
-	overHang = 0.1;
+	overHang = 0.3;
 
 	$(".highlight-on-window").css({
 	    "width": elWidth+2*elWidth*overHang,

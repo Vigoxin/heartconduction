@@ -27,10 +27,16 @@ function setup() {
 	setTooltipEventListeners();
 
 
+	// Load page specifics into .infoDiv
+	if (typeof pageSpecifics !== 'undefined') {
+		pageSpecifics();
+	}
 	setHighlightOnWindowEventListeners();
 
 			
 								// btot = performance.now(); console.log((btot-atot)/1000);
+
+
 
 	drawingFunction();
 }
@@ -48,4 +54,8 @@ function drawFrame() {
 	grid.play();
 	masterFrameCount++;
 	$(".master-frame").text(masterFrameCount);
+
+	if (typeof pageSpecificChangesWithEachFrame !== 'undefined') {
+		pageSpecificChangesWithEachFrame();
+	}
 }

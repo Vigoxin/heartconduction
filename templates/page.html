@@ -38,7 +38,7 @@
 			<div class="sidebar">
 
 				<div class="sidebar-contents">
-					<div id="state-box">
+					<div class="tools-box" id="state-box">
 						<p class="tools-section-title">Activation state</p>
 						<div class="container">
 							<div class="radio-row">
@@ -54,7 +54,7 @@
 						</div>
 						<hr>
 					</div>
-					<div id="condVel-box">
+					<div class="tools-box" id="condVel-box">
 						<p class="tools-section-title">Conduction velocity</p>
 						<div class="container">
 							<div class="radio-row">
@@ -65,7 +65,7 @@
 						</div>
 						<hr>
 					</div>
-					<div id="refracLength-box">
+					<div class="tools-box" id="refracLength-box">
 						<p class="tools-section-title">Refractory period length</p>
 						<div class="container">
 							<div class="radio-row">
@@ -83,13 +83,13 @@
 						</div>
 						<hr>
 					</div>
-					<div id="pacing-box">
+					<div class="tools-box" id="pacing-box">
 						<p class="tools-section-title">Pacing</p>
 						<div class="container">
 							<div class="radio-row">
+								<input id="pacing-radio-noPace" class='toggle-button-radio pacing-radio noPace' type="radio" data-selector-type="pacing" name="selector" value='noPace'> <label for="pacing-radio-noPace"">No pace</label>
 								<input id="pacing-radio-extPace" class='toggle-button-radio pacing-radio extPace' type="radio" data-selector-type="pacing" name="selector" value='extPace'> <label for="pacing-radio-extPace">External Pacing</label>
 								<input id="pacing-radio-autoFocus" class='toggle-button-radio pacing-radio autoFocus' type="radio" data-selector-type="pacing" name="selector" value='autoFocus'> <label for="pacing-radio-autoFocus">Automatic Focus</label>
-								<input id="pacing-radio-noPace" class='toggle-button-radio pacing-radio noPace' type="radio" data-selector-type="pacing" name="selector" value='noPace'> <label for="pacing-radio-noPace"">No pace</label>
 							</div>
 							<div class="row">
 								<div class="label-input-pair pacingIntervalLabelInputPair">
@@ -102,7 +102,7 @@
 						</div>
 						<hr>
 					</div>
-					<div id="propagation-box">
+					<div class="tools-box" id="propagation-box">
 						<p class="tools-section-title">Propagation direction</p>
 							
 							<div class="prop-box-container">
@@ -162,7 +162,7 @@
 					<hr>
 					</div>
 					
-					<div id="square-inspector-toggle-box" class="square-inspector-toggle-box">
+					<div class="tools-box square-inspector-toggle-box" id="square-inspector-toggle-box">
 						<div class="container">
 							<div class="radio-row">
 								<input id="squareInspector-toggle-radio" class='toggle-button-radio square-inspector-toggle-radio' type="radio" data-selector-type="squareInspectorSelector" name="selector" value='squareInspectorSelector'> <label for="squareInspector-toggle-radio">Cell Inspector</label>
@@ -191,7 +191,7 @@
 								<input type="range" class="fps-slider">
 								<label for="">Framerate</label>
 							</div>
-							<input type="number" class="fps-number">
+							<input type="number" class="fps-number" id="fps-number">
 						</div>
 						<div class="master-frame-box">
 							<p>Frame count:</p>
@@ -344,7 +344,7 @@
 	<script type="text/javascript" src='/static/main.js'></script>
 	<script type="text/javascript" src='/static/squareInspector.js'></script>
 
-	<script type="text/javascript" src='/static/pages/{{page["serverName"]}}/infoDiv/infoDiv.js'></script>
+	<script type="text/javascript" src='/static/pages/{{page["serverName"]}}/pageSpecifics/1.js'></script>
 
 
 	<script type="text/javascript" src='/static/eventListeners.js'></script>

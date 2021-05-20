@@ -64,9 +64,9 @@ class SquareInspectorDivWrapper {
 					<div class="squareInspectorSectionTitle collapsible-pacing active"> Pacing </div>
 						<div class="collapsible-content">
 							<div class="radio-row">
+								<input id='pacing-radio-noPace-squareInspector-${this.col}-${this.row}' class='toggle-button-radio pacing-radio noPace simpleSelectorRadio' type="radio" data-selector-type="pacing" name="squareInspectorSetting-pacing-${this.col}-${this.row}" value='noPace' data-col=${this.col} data-row=${this.row}> <label for='pacing-radio-noPace-squareInspector-${this.col}-${this.row}'>No pace</label> 
 								<input id='pacing-radio-extPace-squareInspector-${this.col}-${this.row}' class='toggle-button-radio pacing-radio extPace simpleSelectorRadio' type="radio" data-selector-type="pacing" name="squareInspectorSetting-pacing-${this.col}-${this.row}" value='extPace' data-col=${this.col} data-row=${this.row}> <label for='pacing-radio-extPace-squareInspector-${this.col}-${this.row}'>External Pacing</label> 
 								<input id='pacing-radio-autoFocus-squareInspector-${this.col}-${this.row}' class='toggle-button-radio pacing-radio autoFocus simpleSelectorRadio' type="radio" data-selector-type="pacing" name="squareInspectorSetting-pacing-${this.col}-${this.row}" value='autoFocus' data-col=${this.col} data-row=${this.row}> <label for='pacing-radio-autoFocus-squareInspector-${this.col}-${this.row}'>Automatic Focus</label> 
-								<input id='pacing-radio-noPace-squareInspector-${this.col}-${this.row}' class='toggle-button-radio pacing-radio noPace simpleSelectorRadio' type="radio" data-selector-type="pacing" name="squareInspectorSetting-pacing-${this.col}-${this.row}" value='noPace' data-col=${this.col} data-row=${this.row}> <label for='pacing-radio-noPace-squareInspector-${this.col}-${this.row}'>No pace</label> 
 							</div>
 							<div class="row">
 								<div class="label-input-pair pacingIntervalLabelInputPair-squareInspector-${this.col}-${this.row}">

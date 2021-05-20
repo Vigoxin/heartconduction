@@ -17,6 +17,7 @@ function setEventListeners() {
 		fps = parseInt($(this).val());
 	})
 
+
 	$('.fps-number').prop({
 		'max': fpsMax,
 		'min': 1,

@@ -46,3 +46,7 @@ function isCyclic (obj) {
 
   return detect(obj);
 }
+
+function decimalToRGB(decimal) {
+  return `rgb(${(decimal >> 16) & 0xff}, ${(decimal >> 8) & 0xff}, ${decimal & 0xff})`;
+};

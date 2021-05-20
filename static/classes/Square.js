@@ -344,6 +344,10 @@ class Square {
 			this.applySquareInspectorDivChangesInitialOnly();
 		}
 
+		if (typeof pageSpecificChangesWithEachFrame !== 'undefined') {
+			pageSpecificChangesWithEachFrame();
+		}
+
 	}
 
 	onlyClickSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector) {
