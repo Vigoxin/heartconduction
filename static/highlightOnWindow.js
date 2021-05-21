@@ -4,7 +4,7 @@ function highlightElementOnWindow(el) {
 	elHeight = elToHighlight[0].offsetHeight;
 	elTop = elToHighlight.offset().top;
 	elLeft = elToHighlight.offset().left;
-	overHang = 0.3;
+	overHang = 0.2;
 
 	$(".highlight-on-window").css({
 	    "width": elWidth+2*elWidth*overHang,
@@ -37,6 +37,7 @@ function dehighlightElementOnWindow() {
 }
 
 function setHighlightOnWindowEventListeners() {
+	console.log($(".will-highlight-element-on-window"));
 	$(".will-highlight-element-on-window").hover(function() {
 	    highlightElementOnWindow($(this).data("elToHighlight"));
 	}, function() {

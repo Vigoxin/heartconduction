@@ -518,8 +518,38 @@ nav {
 		color: #333;
 		letter-spacing: 0.3px;
 
+		.will-highlight-element-on-window {
+			text-decoration: underline;
+			font-weight: bold;
+			color: blue;
+		}
+
 		.info {
 			height: 380px;
+
+			h4 {
+				margin-bottom: 5px;
+			}
+
+			.square-bullet-caption-pair {
+				display: flex;
+				align-items: center;
+				margin-bottom: 5px;
+
+				img {
+					margin: 0 25px;
+					height: 11px;
+					width: 11px;
+				}
+			}
+
+			ol {
+				margin-left: 30px;
+
+				li {
+					margin-bottom: 5px;
+				}
+			}
 		}
 
 		.info-section-footer {
@@ -554,7 +584,7 @@ nav {
 		}
 
 		p {
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 		}
 
 		.no-mb {
@@ -563,21 +593,7 @@ nav {
 
 		ul {
 			list-style: none;
-			margin-bottom: 20px;
-		}
-
-
-		a {
-			transition: font-size 0.2s ease-out;
-
-			text-decoration: underline;
-			color: blue;
-			font-weight: bold;
-
-			&:visited {
-				color: blue;
-			}
-
+			margin-bottom: 10px;
 		}
 
 	}

@@ -366,8 +366,32 @@ nav ul > li > ul > li > ul {
   color: #333;
   letter-spacing: 0.3px;
 }
+.page-specifics .info-section .will-highlight-element-on-window {
+  text-decoration: underline;
+  font-weight: bold;
+  color: blue;
+}
 .page-specifics .info-section .info {
   height: 380px;
+}
+.page-specifics .info-section .info h4 {
+  margin-bottom: 5px;
+}
+.page-specifics .info-section .info .square-bullet-caption-pair {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.page-specifics .info-section .info .square-bullet-caption-pair img {
+  margin: 0 25px;
+  height: 11px;
+  width: 11px;
+}
+.page-specifics .info-section .info ol {
+  margin-left: 30px;
+}
+.page-specifics .info-section .info ol li {
+  margin-bottom: 5px;
 }
 .page-specifics .info-section .info-section-footer {
   display: flex;
@@ -394,23 +418,14 @@ nav ul > li > ul > li > ul {
   background-color: white;
 }
 .page-specifics .info-section p {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .page-specifics .info-section .no-mb {
   margin-bottom: 5px;
 }
 .page-specifics .info-section ul {
   list-style: none;
-  margin-bottom: 20px;
-}
-.page-specifics .info-section a {
-  transition: font-size 0.2s ease-out;
-  text-decoration: underline;
-  color: blue;
-  font-weight: bold;
-}
-.page-specifics .info-section a:visited {
-  color: blue;
+  margin-bottom: 10px;
 }
 .page-specifics .instructions {
   color: blue;

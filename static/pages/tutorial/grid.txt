@@ -54,7 +54,8 @@
   },
   {
     "cellSize": 20,
-    "cellNum": 1,
+    "cellNumX": 1,
+    "cellNumY": 1,
     "masterRefracLength": "normal",
     "masterCondVel": "normal",
     "squareInspectorSquareNumberList": [],

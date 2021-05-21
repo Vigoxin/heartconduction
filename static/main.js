@@ -11,7 +11,7 @@ function setup() {
 	timeStripPanel = new TimeStripPanel();
 
 			// a = performance.now();
-	grid = new Grid('.canvas-parent', cellSize=15, cellNum=60);
+	grid = new Grid('.canvas-parent', cellSize=15, cellNumX=40, cellNumY=40);
 			// b = performance.now(); console.log((b-a)/1000);
 
 			// a = performance.now();

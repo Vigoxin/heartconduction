@@ -1,12 +1,14 @@
 class Grid extends Array {
-	constructor(canvasElementSelector='.canvas', cellSize=10, cellNum=60) {
+	constructor(canvasElementSelector='.canvas', cellSize=10, cellNumX=60, cellNumY=60) {
 		// Inherit from Array
 		super();
 
 		// Sets constants
 			// constants specific to class
 		this.cellSize = cellSize;
-		this.cellNum = cellNum;
+		// this.cellNum = cellNum;
+		this.cellNumX = cellNumX;
+		this.cellNumY = cellNumY;
 		this.masterState = 'repo';
 		this.masterRefracLength = 'normal';
 		this.masterCondVel = 'normal';
@@ -33,8 +35,8 @@ class Grid extends Array {
 		this.rainbowTrails = true;
 
 			// pixi constants
-		this.cWidth = this.cellSize*this.cellNum;
-		this.cHeight = this.cellSize*this.cellNum;
+		this.cWidth = this.cellSize*this.cellNumX;
+		this.cHeight = this.cellSize*this.cellNumY;
 		this.canvasElementSelector = canvasElementSelector;
 
 		// Initialises PIXI Application f
@@ -82,9 +84,9 @@ class Grid extends Array {
 
 
 		// Transforms grid into a two dimensional grid of Square objects
-		for (var i=0; i<this.cellNum; i++) {
+		for (var i=0; i<this.cellNumX; i++) {
 			this[i] = [];
-			for (var j=0; j<this.cellNum; j++) {
+			for (var j=0; j<this.cellNumY; j++) {
 				this[i].push(new Square(i, j, this));
 			}
 		}
@@ -146,8 +148,8 @@ class Grid extends Array {
 				}
 			} else if (shiftKey) {
 				if (buttons === 1) {			
-					var col = constrain(this.pixel2grid(mouseX), 0, this.cellNum-1);
-					var row = constrain(this.pixel2grid(mouseY), 0, this.cellNum-1);
+					var col = constrain(this.pixel2grid(mouseX), 0, this.cellNumX-1);
+					var row = constrain(this.pixel2grid(mouseY), 0, this.cellNumY-1);
 					var square = this[col][row];
 					this.tempSelecting.square2 = square;
 					this.multipleHighlight(this.tempSelecting);
@@ -251,8 +253,8 @@ class Grid extends Array {
 
 	resize(size) {
 		this.cellSize = size;
-		[this.cWidth, this.cHeight] = [this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1];
-		this.app.renderer.resize(this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1);
+		[this.cWidth, this.cHeight] = [this.cellSize*this.cellNumX+1, this.cellSize*this.cellNumY+1];
+		this.app.renderer.resize(this.cWidth, this.cHeight);
 		for (let col of this) {
 			for (let square of col) {
 				square.resize();
@@ -260,61 +262,121 @@ class Grid extends Array {
 		}
 	}
 
-	renum(num, masterState) {
-		this.masterState = masterState;
+	// renum(num, masterState) {
+	// 	this.masterState = masterState;
 		
-		if (num > this.cellNum) {
-			var l = this.length;
+	// 	if (num > this.cellNum) {
+	// 		var l = this.length;
 			
-			for (var i=0; i<num; i++) {
-				if (i >= l) {
-					this.push([]);
+	// 		for (var i=0; i<num; i++) {
+	// 			if (i >= l) {
+	// 				this.push([]);
+	// 			}
+	// 			for (var j=0; j<num; j++) {
+	// 				if (i < l) {
+	// 					if (j >= l) {
+	// 						this[i].push(new Square(i, j, this));
+	// 					}
+	// 				} else if (i >= l) {
+	// 					this[i].push(new Square(i, j, this));
+	// 				}
+	// 			}
+	// 		}
+
+
+	// 	} else if (num < this.cellNum) {
+	// 		var l = num;
+
+	// 		for (var i=this.cellNum-1; i>=0; i--) {
+	// 			if (i >= l) {
+	// 				for (var j=this.cellNum-1; j>=0; j--) {
+	// 					this[i][j].destroy();						
+	// 				}
+	// 				this.pop();
+	// 			} else if (i < l) {
+	// 				for (var j=this.cellNum-1; j>=l; j--) {
+	// 					this[i][j].destroy();
+	// 					this[i].pop();
+	// 				}					
+	// 			}
+
+	// 		}
+	// 	}
+
+	// 	this.cellNum = this.length;
+	// 	[this.cWidth, this.cHeight] = [this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1];
+	// 	this.app.renderer.resize(this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1);
+
+	// 	for (var i=0; i<this.cellNum; i++) {
+	// 		for (var j=0; j<this.cellNum; j++) {
+	// 			this[i][j].setNeighbours();
+	// 		}
+	// 	}
+
+	// 	$('.resize-slider').prop({
+	// 		'max': grid.resizeMax,
+	// 		'min': grid.resizeMin,
+	// 	});
+	// }
+
+	renum(numX, numY) {
+		this.cellNumX = this.length;
+		this.cellNumY = this[0].length;
+
+		if (numX < this.cellNumX) {
+			for (var i=this.cellNumX-1; i>-1; i--) {
+				if (i>=numX) {
+					for (var j=this.cellNumY-1; j>=0; j--) {
+						this[i][j].destroy();						
+					}
+					this.pop();
 				}
-				for (var j=0; j<num; j++) {
-					if (i < l) {
-						if (j >= l) {
-							this[i].push(new Square(i, j, this));
-						}
-					} else if (i >= l) {
+			}
+		}
+		if (numY < this.cellNumY) {
+			for (var i=0; i<this.length; i++) {
+				for (var j=this.cellNumY-1; j>-1; j--) {
+					if (j>=numY) {
+						this[i][j].destroy();
+						this[i].pop();
+					}
+				}
+			}
+		}
+		this.cellNumX = this.length;
+		this.cellNumY = this[0].length;
+		
+		if (numX > this.cellNumX) {
+			for (var i=0; i<numX; i++) {
+				if (i >= this.cellNumX) {
+					this.push([]);
+					for (var j=0; j<this.cellNumY; j++) {
 						this[i].push(new Square(i, j, this));
 					}
 				}
 			}
-
-
-		} else if (num < this.cellNum) {
-			var l = num;
-
-			for (var i=this.cellNum-1; i>=0; i--) {
-				if (i >= l) {
-					for (var j=this.cellNum-1; j>=0; j--) {
-						this[i][j].destroy();						
+		}
+		if (numY > this.cellNumY) {
+			for (var i=0; i<this.length; i++) {
+				for (var j=0; j<numY; j++) {
+					if (j >= this.cellNumY) {
+						this[i].push(new Square(i, j, this));
 					}
-					this.pop();
-				} else if (i < l) {
-					for (var j=this.cellNum-1; j>=l; j--) {
-						this[i][j].destroy();
-						this[i].pop();
-					}					
 				}
-
 			}
 		}
+		this.cellNumX = this.length;
+		this.cellNumY = this[0].length;
+		this.cellNum = this.cellNumX;
 
-		this.cellNum = this.length;
-		[this.cWidth, this.cHeight] = [this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1];
-		this.app.renderer.resize(this.cellSize*this.cellNum+1, this.cellSize*this.cellNum+1);
+		[this.cWidth, this.cHeight] = [this.cellSize*this.cellNumX+1, this.cellSize*this.cellNumY+1];
+		this.app.renderer.resize(this.cWidth, this.cHeight);
 
-		for (var i=0; i<this.cellNum; i++) {
-			for (var j=0; j<this.cellNum; j++) {
+		for (var i=0; i<this.cellNumX; i++) {
+			for (var j=0; j<this.cellNumY; j++) {
 				this[i][j].setNeighbours();
 			}
 		}
-
-		$('.resize-slider').prop({
-			'max': grid.resizeMax,
-			'min': grid.resizeMin,
-		});
 	}
 
 	dragStart(e) {
@@ -325,8 +387,8 @@ class Grid extends Array {
 		var {shiftKey, altKey, buttons} = e.data.originalEvent;
 		var {x: mouseX, y: mouseY} = e.data.global;
 
-		var col = constrain(this.pixel2grid(mouseX), 0, this.cellNum-1);
-		var row = constrain(this.pixel2grid(mouseY), 0, this.cellNum-1);
+		var col = constrain(this.pixel2grid(mouseX), 0, this.cellNumX-1);
+		var row = constrain(this.pixel2grid(mouseY), 0, this.cellNumY-1);
 		var square = this[col][row];
 		
 			this.tempSelecting.square2 = square;
@@ -385,12 +447,12 @@ class Grid extends Array {
 
 		var squareKeysToExclude = ['neighbours', 'parentGrid', 'sprites', 'rainbow', 'squareInspectorDivWrapper', 'isInSquareInspector', 'isInTimeStripPanel'];
 		var saved2dArray = {};
-		for (var i=0; i<toSave.cellNum; i++) {
+		for (var i=0; i<this.cellNumX; i++) {
 			saved2dArray[i] = [];
 			for (var j=0; j<toSave[0].length; j++) {
 				saved2dArray[i].push({});
 				for (let key in toSave[i][j] ) {
-					if (i == 0 && j == 0) {console.log(key, !squareKeysToExclude.includes(key) ? 'yes' : 'no')} // debugging 
+					// if (i == 0 && j == 0) {console.log(key, !squareKeysToExclude.includes(key) ? 'yes' : 'no')} // debugging 
 
 					!(squareKeysToExclude.includes(key)) ? saved2dArray[i][j][key] = toSave[i][j][key] : null;
 				}
@@ -432,8 +494,9 @@ class Grid extends Array {
 
 
 		// Repopulate cells
-		var cellNum = savedGridProperties.cellNum || savedGridProperties.cellDim;
-		this.renum(cellNum);
+		var cellNumX = savedGridProperties.cellNumX;
+		var cellNumY = savedGridProperties.cellNumY;
+		this.renum(cellNumX, cellNumY);
 
 
 		// Resize cells
@@ -506,9 +569,9 @@ class Grid extends Array {
 
 	copy2Darray() {
 		var a = [];
-		for (let i=0; i<this.cellNum; i++) {
+		for (let i=0; i<this.cellNumX; i++) {
 			a.push([]);
-			for (let j=0;j<this.cellNum; j++) {
+			for (let j=0;j<this.cellNumY; j++) {
 				a[i].push(this[i][j].copy());
 			}
 		}
@@ -517,9 +580,9 @@ class Grid extends Array {
 
 	map2Darray(string) {
 		var a = [];
-		for (let i=0; i<this.cellNum; i++) {
+		for (let i=0; i<this.cellNumX; i++) {
 			a.push([]);
-			for (let j=0;j<this.cellNum; j++) {
+			for (let j=0;j<this.cellNumY; j++) {
 				a[i].push(this[i][j][string]);
 			}
 		}

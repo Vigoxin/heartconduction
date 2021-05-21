@@ -67,6 +67,7 @@ function pageSpecifics() {
 
 	$(".outside-of-canvas").append(APDemonstration);
 
+	// Related to changes with each frame
 	APDemonstrationSquareCoords = [
 		[120, 174],
 		[126, 33],
@@ -92,38 +93,78 @@ function pageSpecifics() {
 		[356, 180],
 		[365, 214],
 		[377, 254],
-		[389, 287],
-		[423, 293],
-		[458, 291],
-		[485, 292],
-		[21, 288],
-		[40, 289],
-		[63, 290],
-		[88, 289],
-		[111, 288]
+		[389, 288],
+		[423, 290],
+		[458, 290],
+		[485, 290],
+		[21, 287],
+		[40, 287],
+		[63, 287],
+		[88, 287],
+		[111, 287]
 	]
-
 	APDidx = APDemonstrationSquareCoords.length-1;
-}
-	
-function pageSpecificChangesWithEachFrame() {
-	var sq = $(".AP-img-tracking-square");
 
-	if (grid[0][0].state === "depo") {
+	// Set changes with each frame function
+	pageSpecificChangesWithEachFrame = pageSpecificChangesWithEachFrame1;
+	
+	// Set window highlight event listeners
+	setHighlightOnWindowEventListeners();
+}
+
+function pageSpecificChangesWithEachFrame1() {
+	var sq = $(".AP-img-tracking-square");
+	var mirrorSq = grid[0][0];
+	if (mirrorSq.state === "depo") {
 		APDidx = 0;
 	}
 	if (APDidx >= APDemonstrationSquareCoords.length) {
 		APDidx = APDemonstrationSquareCoords.length-1;
 	}
 
-	var left = `${APDemonstrationSquareCoords[APDidx][0]-sq[0].offsetWidth/2}px`;
-	var top = `${APDemonstrationSquareCoords[APDidx][1]-sq[0].offsetHeight/2}px`;
+	var left = `${(APDemonstrationSquareCoords[APDidx][0]-sq[0].offsetWidth/2)*$(".AP-img")[0].offsetWidth/500}px`;
+	var top = `${(APDemonstrationSquareCoords[APDidx][1]-sq[0].offsetHeight/2)*$(".AP-img")[0].offsetHeight/298}px`;
 	sq.css("top", top);
 	sq.css("left", left);
 
 	APDidx++;
+	sq.css("backgroundColor", decimalToRGB(mirrorSq.sprites.square.tint));
+}
 
-	sq.css("backgroundColor", decimalToRGB(grid[0][0].sprites.square.tint));
+function pageSpecificChangesWithEachFrame2() {
+	var sq = $(".AP-img-tracking-square");
+	var mirrorSq = grid[0][0];
+	if (mirrorSq.state === "depo") {
+		APDidx = 0;
+	}
+	if (APDidx >= APDemonstrationSquareCoords.length) {
+		APDidx = APDemonstrationSquareCoords.length-1;
+	}
+
+	var left = `${(APDemonstrationSquareCoords[APDidx][0]-sq[0].offsetWidth/2)*$(".AP-img")[0].offsetWidth/500}px`;
+	var top = `${(APDemonstrationSquareCoords[APDidx][1]-sq[0].offsetHeight/2)*$(".AP-img")[0].offsetHeight/298}px`;
+	sq.css("top", top);
+	sq.css("left", left);
+
+	APDidx++;
+	sq.css("backgroundColor", decimalToRGB(mirrorSq.sprites.square.tint));
+
+	var sq = $(".AP-img-tracking-square");
+	var mirrorSq = grid[9][0];
+	if (mirrorSq.state === "depo") {
+		APDidx = 0;
+	}
+	if (APDidx >= APDemonstrationSquareCoords.length) {
+		APDidx = APDemonstrationSquareCoords.length-1;
+	}
+
+	var left = `${(APDemonstrationSquareCoords[APDidx][0]-sq[0].offsetWidth/2)*$(".AP-img")[0].offsetWidth/500}px`;
+	var top = `${(APDemonstrationSquareCoords[APDidx][1]-sq[0].offsetHeight/2)*$(".AP-img")[0].offsetHeight/298}px`;
+	sq.css("top", top);
+	sq.css("left", left);
+
+	APDidx++;
+	sq.css("backgroundColor", decimalToRGB(mirrorSq.sprites.square.tint));
 }
 
 function pageSpecifics2() {
@@ -146,6 +187,10 @@ function pageSpecifics2() {
 
 	$(".info-section-footer .page-num").text("Page 2");
 
+	// Set changes with each frame function
+	pageSpecificChangesWithEachFrame = pageSpecificChangesWithEachFrame1;
+	
+	setHighlightOnWindowEventListeners();
 }
 
 function pageSpecifics3() {
@@ -167,8 +212,49 @@ function pageSpecifics3() {
 	$(".info-footer-next").on("click", pageSpecifics4);
 
 	$(".info-section-footer .page-num").text("Page 3");
+
+	// Outside-of-canvas div changes
+	$(".outside-of-canvas").empty();
+
+	function addAPDemonstration() {
+		var APDemonstration = $(`
+			<div class="APDemonstration">
+				<img src="/static/images/ventricular_AP.png" class="AP-img">
+				<div class="AP-img-tracking-square">
+			</div>
+		`)
+		APDemonstration.css({
+			"position": "relative",
+			"margin": "auto",
+			"width": "300px",
+		})
+		APDemonstration.find(".AP-img").css({
+			"width": "300px",
+			"display": "block",
+			"position": "relative",
+		})
+
+		APDemonstration.find(".AP-img-tracking-square").css({
+			"width": "9px",
+			"height": "9px",
+			"backgroundColor": "white",
+			"border": "1px solid black",
+			"position": "absolute",
+			"top": "0px",
+			"left": "0px",
+		})
+
+		$(".outside-of-canvas").append(APDemonstration);
+	}
+
+	addAPDemonstration();
+	addAPDemonstration();
+
+	pageSpecificChangesWithEachFrame = pageSpecificsWithEachFrame2;
+
+	setHighlightOnWindowEventListeners();
 }
 
 function pageSpecifics4() {
-	
+
 }

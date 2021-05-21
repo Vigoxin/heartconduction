@@ -52,30 +52,30 @@ function setEventListeners() {
 	})
 
 	// Renumber settings
-	grid.renumMin = 1;
-	grid.renumMax = 100;
-	$('.renum-slider').prop({
-		'max': grid.renumMax,
-		'min': grid.renumMin,
-		'value': grid.cellNum
-	});
+	// grid.renumMin = 1;
+	// grid.renumMax = 100;
+	// $('.renum-slider').prop({
+	// 	'max': grid.renumMax,
+	// 	'min': grid.renumMin,
+	// 	'value': grid.cellNum
+	// });
 	
-	$('.renum-slider').on('change', function() {
-		grid.renum(parseInt($(this).val()), 'repo');
-	})
-	$('.renum-slider').on('input', function() {	
-		$('.renum-number').val($(this).val());
-	})
+	// $('.renum-slider').on('change', function() {
+	// 	grid.renum(parseInt($(this).val()), 'repo');
+	// })
+	// $('.renum-slider').on('input', function() {	
+	// 	$('.renum-number').val($(this).val());
+	// })
 
-	$('.renum-number').prop({
-		'max': grid.renumMax,
-		'min': grid.renumMin,
-		'value': grid.cellNum
-	});
-	$('.renum-number').on('change', function() {
-		$('.renum-slider').val($(this).val());
-		grid.renum(parseInt($(this).val()), 'repo');
-	})
+	// $('.renum-number').prop({
+	// 	'max': grid.renumMax,
+	// 	'min': grid.renumMin,
+	// 	'value': grid.cellNum
+	// });
+	// $('.renum-number').on('change', function() {
+	// 	$('.renum-slider').val($(this).val());
+	// 	grid.renum(parseInt($(this).val()), 'repo');
+	// })
 
 	// Setting state, condVel and refracLengths, and randomRefracLengths, propDirectionSetting, isInSquareInspector, and isInTimeStripPanel
 	$("input[name='selector']").on('click', function() {
@@ -133,8 +133,8 @@ function setEventListeners() {
 	// Rainbow box
 	$('.rainbow-checkbox').on('click', function() {
 		grid.rainbowTrails = $(this).is(':checked');
-		for (var i=0; i<grid.cellNum; i++) {
-			for (var j=0; j<grid.cellNum; j++) {
+		for (var i=0; i<grid.cellNumX; i++) {
+			for (var j=0; j<grid.cellNumY; j++) {
 				grid[i][j].display();
 			}
 		}
@@ -144,8 +144,8 @@ function setEventListeners() {
 	// Diagonal propagation whole grid (not individual)
 	$('.diagprop-checkbox').on('click', function() {
 		grid.diagonalPropagation = $(this).is(':checked');
-		for (var i=0; i<grid.cellNum; i++) {
-			for (var j=0; j<grid.cellNum; j++) {
+		for (var i=0; i<grid.cellNumX; i++) {
+			for (var j=0; j<grid.cellNumY; j++) {
 				grid[i][j].setNeighbours();
 			}
 		}
