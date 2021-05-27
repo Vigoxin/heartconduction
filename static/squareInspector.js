@@ -237,23 +237,43 @@ class SquareInspectorDivWrapper {
 
 		// state, conduction velocity, refracLength and randomRefracLengths, and pacingSetting event
 		$(div).find(`.simpleSelectorRadio`).on('click', function() {
-			grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val(), '.squareInspectorDiv');
+			if (!grid[col][row].settingsLocked) {
+				grid[col][row].clickAndMoveSet($(this).data('selectorType'), $(this).val(), '.squareInspectorDiv');
+			} else {
+				grid[col][row].applySquareInspectorDivChanges();
+				grid[col][row].applySquareInspectorDivChangesInitialOnly();
+			}
 		})
 
 		// propagation direction box
 		$(div).find('input.prop-direction').on('change', function() {
 			console.log("running event for prop dir box");
-			grid[col][row].clickAndMoveSet($(this).data('selectorType'), 'propagation direction', '.squareInspectorDiv');
+			if (!grid[col][row].settingsLocked) {
+				grid[col][row].clickAndMoveSet($(this).data('selectorType'), 'propagation direction', '.squareInspectorDiv');
+			} else {
+				grid[col][row].applySquareInspectorDivChanges();
+				grid[col][row].applySquareInspectorDivChangesInitialOnly();
+			}
 		})
 
 		$(div).find('input.nonConductionRate').on('change', function() {
 			console.log("running event for nonConduction rate");
-			grid[col][row].clickAndMoveSet("propagationDirectionSetting", 'propagation direction', '.squareInspectorDiv');
+			if (!grid[col][row].settingsLocked) {
+				grid[col][row].clickAndMoveSet("propagationDirectionSetting", 'propagation direction', '.squareInspectorDiv');
+			} else {
+				grid[col][row].applySquareInspectorDivChanges();
+				grid[col][row].applySquareInspectorDivChangesInitialOnly();
+			}
 		})
 
 		// pacingTracker and pacingInterval events
 		$(div).find('.squareInspector-pacingNumber').on('change', function() {
-			grid[col][row].clickAndMoveSet('pacing', grid[col][row].squareInspectorDivWrapper.div.find('.pacing-radio:checked').val(), '.squareInspectorDiv');
+			if (!grid[col][row].settingsLocked) {
+				grid[col][row].clickAndMoveSet('pacing', grid[col][row].squareInspectorDivWrapper.div.find('.pacing-radio:checked').val(), '.squareInspectorDiv');
+			} else {
+				grid[col][row].applySquareInspectorDivChanges();
+				grid[col][row].applySquareInspectorDivChangesInitialOnly();
+			}
 		})
 
 		// Tooltip functionality for this squareInspectorDiv and tab only

@@ -29,7 +29,9 @@
 		<div class="info-section">
 			<h3 class="tac page-title">{{page["neatName"] if "neatName" in page else page["serverName"]}}</h3>
 			<div class="info"></div>
+			<button class="reset-page-specifics-page">Reset</button>
 			<div class="info-section-footer">
+				
 				<button class="info-footer-button info-footer-previous"><<</button>
 				<p class="page-num">Page 1</p>
 				<button class="info-footer-button info-footer-next">>></button>
@@ -361,7 +363,7 @@
 	<script type="text/javascript" src='/static/main.js'></script>
 	<script type="text/javascript" src='/static/squareInspector.js'></script>
 
-	<script type="text/javascript" src='/static/pages/{{page["serverName"]}}/pageSpecifics/1.js'></script>
+	<script type="text/javascript" src='/static/pages/{{page["serverName"]}}/pageSpecifics/pageSpecifics.js'></script>
 
 
 	<script type="text/javascript" src='/static/eventListeners.js'></script>

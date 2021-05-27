@@ -349,9 +349,6 @@ nav ul > li > ul > li > ul {
   display: flex;
   flex-direction: row;
 }
-.page-specifics h3 {
-  margin-bottom: 10px;
-}
 .page-specifics .related-pages {
   flex: 1;
 }
@@ -361,18 +358,15 @@ nav ul > li > ul > li > ul {
 .page-specifics .info-section {
   padding: 0 10px;
   width: 980px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.2;
   color: #333;
   letter-spacing: 0.3px;
 }
-.page-specifics .info-section .will-highlight-element-on-window {
+.page-specifics .info-section .will-highlight-element-on-window, .page-specifics .info-section .will-highlight-grid-section-on-window {
   text-decoration: underline;
   font-weight: bold;
   color: blue;
-}
-.page-specifics .info-section .info {
-  height: 380px;
 }
 .page-specifics .info-section .info h4 {
   margin-bottom: 5px;
@@ -382,10 +376,14 @@ nav ul > li > ul > li > ul {
   align-items: center;
   margin-bottom: 5px;
 }
-.page-specifics .info-section .info .square-bullet-caption-pair img {
-  margin: 0 25px;
-  height: 11px;
+.page-specifics .info-section .info .square-bullet-caption-pair .square-as-div {
   width: 11px;
+  height: 11px;
+  margin: 0 25px;
+  border: 1px solid black;
+}
+.page-specifics .info-section .info .square-bullet-caption-pair .caption {
+  flex: 1;
 }
 .page-specifics .info-section .info ol {
   margin-left: 30px;
@@ -393,15 +391,37 @@ nav ul > li > ul > li > ul {
 .page-specifics .info-section .info ol li {
   margin-bottom: 5px;
 }
+.page-specifics .info-section .info .square-bullet-list {
+  margin-bottom: 10px;
+}
+.page-specifics .info-section .reset-page-specifics-page {
+  display: block;
+  width: 60px;
+  height: 20px;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  background-color: #906fa1;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.page-specifics .info-section .reset-page-specifics-page:hover {
+  color: #906fa1;
+  background-color: white;
+}
 .page-specifics .info-section .info-section-footer {
   display: flex;
   justify-content: center;
-}
-.page-specifics .info-section .info-section-footer p {
-  margin: 0 100px;
+  align-items: center;
 }
 .page-specifics .info-section .info-section-footer .info-footer-previous {
   visibility: hidden;
+}
+.page-specifics .info-section .info-section-footer .page-num {
+  margin: 0 100px;
+  margin-bottom: 0;
 }
 .page-specifics .info-section .info-section-footer .info-footer-button {
   height: 30px;
@@ -539,15 +559,19 @@ nav ul > li > ul > li > ul {
 }
 .main .grid-split-in-three .canvas-wrapper .canvas {
   padding-top: 35px;
+  position: relative;
 }
 .main .grid-split-in-three .canvas-wrapper .canvas .container {
   width: 50px;
   margin: 0 auto;
 }
-.main .grid-split-in-three .canvas-wrapper .canvas canvas {
+.main .grid-split-in-three .canvas-wrapper .canvas .canvas-parent canvas {
   padding: 0;
   margin: auto;
   display: block;
+}
+.main .grid-split-in-three .canvas-wrapper .canvas .outside-of-canvas {
+  position: relative;
 }
 .main .grid-split-in-three .squareInspector-section {
   height: 650px;

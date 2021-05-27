@@ -24,6 +24,8 @@ class Square {
 		this.neighbours = [];
 		this.setNeighbours();
 
+		this.settingsLocked = false;
+
 		this.isPacing = false;
 		this.isExtPace = false;
 		this.isAutoFocus = false;
@@ -292,11 +294,20 @@ class Square {
 		console.log("clickAndMoveSet");
 		if (selectorType === 'state') {
 			if (selector === 'clear') {
+				if (this.settingsLocked) { // If a square's settings are locked, then only depolarisation should be possible
+					return;
+				}
 				this.clickClear();
 			} else if (selector === 'depo') {
 				this.clickDepolarise();
 			} else if (selector === 'repo') {
 				this.clickRepolarise();
+			}
+		} else if (this.settingsLocked) { // If a square's settings are locked, then only depolarisation should be possible (above)
+			if (selector === "lockSettings") {
+				this.settingsLocked = false;
+			} else {
+				return;
 			}
 		} else if (selectorType === 'condVel' && this.state !== 'clear') {
 			this.condVelSetting = selector;

@@ -46,7 +46,7 @@ class Grid extends Array {
 		// dicts and mappings for the squares
 		
 		this.stateColorMapping = {
-			'repo': 0xffffff,
+			'repo': 0x333333,
 			'depo': 0xf94466,
 			'clear': 0x333333,
 			'refrac': 0xff8e00

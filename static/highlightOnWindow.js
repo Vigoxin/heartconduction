@@ -15,14 +15,14 @@ function highlightElementOnWindow(el) {
 }
 
 function highlightGridSectionOnWindow(squares) {
-	elToHighlight = $(".canvas-wrapper canvas");
+	elToHighlight = $(".canvas-parent canvas");
     cellSize = grid.cellSize;
     elLeft = elToHighlight.offset().left+grid[squares[0][0]][squares[0][1]].x;
     // elLeft = elToHighlight.offset().left+1;
     elTop = elToHighlight.offset().top+grid[squares[0][0]][squares[0][1]].y;
     // elTop = elToHighlight.offset().top+1;
-    elWidth = grid[squares[1][0]][squares[1][1]].x-grid[squares[0][0]][squares[0][1]].x+1;
-    elHeight = grid[squares[1][0]][squares[1][1]].y-grid[squares[0][0]][squares[0][1]].y+1;
+    elWidth = grid[squares[1][0]][squares[1][1]].x-grid[squares[0][0]][squares[0][1]].x+cellSize+1;
+    elHeight = grid[squares[1][0]][squares[1][1]].y-grid[squares[0][0]][squares[0][1]].y+cellSize+1;
 
 	$(".highlight-on-window").css({
 	    "width": elWidth,
@@ -37,7 +37,6 @@ function dehighlightElementOnWindow() {
 }
 
 function setHighlightOnWindowEventListeners() {
-	console.log($(".will-highlight-element-on-window"));
 	$(".will-highlight-element-on-window").hover(function() {
 	    highlightElementOnWindow($(this).data("elToHighlight"));
 	}, function() {

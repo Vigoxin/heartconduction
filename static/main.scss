@@ -495,8 +495,8 @@ nav {
 	display: flex;
 	flex-direction: row;
 
-	h3 {
-		margin-bottom: 10px;
+	.page-title {
+		// margin-bottom: 10px;
 	}
 
 	// border-left: 3px $main-content-border-color solid;
@@ -513,19 +513,19 @@ nav {
 		padding: 0 10px;
 		width: 980px;
 		
-		font-size: 18px;
+		font-size: 16px;
 		line-height: 1.2;
 		color: #333;
 		letter-spacing: 0.3px;
 
-		.will-highlight-element-on-window {
+		.will-highlight-element-on-window, .will-highlight-grid-section-on-window {
 			text-decoration: underline;
 			font-weight: bold;
 			color: blue;
 		}
 
 		.info {
-			height: 380px;
+			// height: 380px;
 
 			h4 {
 				margin-bottom: 5px;
@@ -536,10 +536,15 @@ nav {
 				align-items: center;
 				margin-bottom: 5px;
 
-				img {
-					margin: 0 25px;
-					height: 11px;
+				.square-as-div {
 					width: 11px;
+					height: 11px;
+					margin: 0 25px;
+					border: 1px solid black;
+				}
+
+				.caption {
+					flex: 1;
 				}
 			}
 
@@ -550,18 +555,43 @@ nav {
 					margin-bottom: 5px;
 				}
 			}
+
+			.square-bullet-list {
+				margin-bottom: 10px;
+			}
+		}
+
+		.reset-page-specifics-page {
+			display: block;
+			width: 60px;
+			height: 20px;
+			margin: 0 auto;
+			margin-bottom: 5px;
+			background-color: $primary-medium-light;
+			border: none;
+			color: white;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s;
+
+			&:hover {
+				color: $primary-medium-light;
+				background-color: white;
+			}
 		}
 
 		.info-section-footer {
 			display: flex;
 			justify-content: center;
-
-			p {
-				margin: 0 100px;
-			}
+			align-items: center;
 
 			.info-footer-previous {
 				visibility: hidden;
+			}
+
+			.page-num {
+				margin: 0 100px;
+				margin-bottom: 0;
 			}
 
 			.info-footer-button {
@@ -741,16 +771,21 @@ nav {
 			.canvas {
 				// overflow: auto;
 				padding-top: 35px;
+				position: relative;
 
 				.container {
 					width: 50px;
 					margin: 0 auto;
 				}
 
-				canvas {
+				.canvas-parent canvas {
 						padding: 0;
 						margin: auto;
 						display: block;
+				}
+
+				.outside-of-canvas {
+					position: relative;
 				}
 			}
 		}
