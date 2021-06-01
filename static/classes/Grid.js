@@ -204,7 +204,8 @@ class Grid extends Array {
 		// this[25][29].isDebugging = true;
 		// this[26][49].isDebugging = true;
 
-		this.APcounterGrid = this.map2Darray('APcounter');
+		// this.APcounterGrid = this.map2Darray('APcounter');
+		this.isPropagatingGrid = this.map2Darray('isPropagating')
 
 		for (let col of this) {
 			for (let square of col) {

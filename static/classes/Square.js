@@ -19,6 +19,7 @@ class Square {
 
 		this.state = this.parentGrid.masterState;
 		this.APcounter = -1;
+		this.isPropagating = false;
 		
 		this.neighbourVectors = [];
 		this.neighbours = [];
@@ -110,7 +111,8 @@ class Square {
 		// Updating of cell itself
 		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
 
-		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
+		// if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
+		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.isPropagatingGrid[x.col][x.row])) {
 			// If this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. whatever AP counter squares this square will receive propagation from), then depolarise this square
 			var randomNumberForNonConduction = this.nonConductionRate === 0 ? 1 : Math.random();
 			this.nonConductionRate === 0 ? 1 : console.log(randomNumberForNonConduction);
@@ -151,6 +153,13 @@ class Square {
 			} else if ( this.APcounter >= (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
 				this.APcounter = -1;
 			}
+		}
+
+		// Changes this.isPropagating (whether this cell will propagate AP to neihbouring cells on the next frame)
+		if (this.APcounter === this.condVel) {
+			this.isPropagating = true;
+		} else {
+			this.isPropagating = false;
 		}
 	}
 
@@ -463,7 +472,15 @@ class Square {
 	clickDepolarise() {
 		// console.log(`(${this.col}, ${this.row}) - Depolarising`);
 		this.state = 'depo';
+		
 		this.APcounter = 0;
+		// Changes this.isPropagating (whether this cell will propagate AP to neihbouring cells on the next frame)
+		if (this.APcounter === this.condVel) {
+			this.isPropagating = true;
+		} else {
+			this.isPropagating = false;
+		}
+		
 		this.display();
 	}
 	
