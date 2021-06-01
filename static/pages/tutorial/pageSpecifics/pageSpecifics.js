@@ -70,11 +70,43 @@ function pageSpecificChangesWithEachFrame2() {
 	sq.css("backgroundColor", decimalToRGB(mirrorSq.sprites.square.tint));
 }
 
+function resetPageSpecifics() {
+	// Info Div changes
+	$(".info").empty();
+
+	// Change next and prev button links
+	$(".reset-page-specifics-page").off("click");
+	$(".info-footer-button").css("visibility", "visible");
+	$(".info-footer-button").off("click");
+
+	// Grid section changes
+	$(".fps-slider").val(30);
+	$(".fps-slider").trigger("input");
+	$(".canvas-parent canvas").css("borderRight", "1px solid #444");
+	$(".canvas-parent canvas").css("borderBottom", "1px solid #444");
+
+	// Grid changes
+	isPlaying = true;
+
+	// Outside-of-canvas div changes
+	$(".outside-of-canvas").empty();
+
+	// Tools section changes
+	$(".tools-section *").css("visibility", "");
+	$(".tools-section *").css("display", "");
+
+	// Extra changes with each frame - starts off as none
+	pageSpecificChangesWithEachFrame = undefined;
+
+}
+
 function pageSpecifics() {
+	resetPageSpecifics();
+
 	// Update related pages section
 	$(".related-pages .page-list").empty();
 	$.ajax({
-	    url: `/static/pages/${page["serverName"]}/pageSpecifics/relatedPAges.html`,
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/relatedPages.html`,
 	    async: false,
 	    success: function(data){ 
 			$(".related-pages .page-list").append(data);
@@ -82,7 +114,6 @@ function pageSpecifics() {
 	});
 
 	// Info Div changes
-	$(".info").empty();
 	$.ajax({
 	    url: `/static/pages/${page["serverName"]}/pageSpecifics/1.html`,
 	    async: false,
@@ -95,22 +126,12 @@ function pageSpecifics() {
 	});
 
 	// Change next and prev button links
-	$(".reset-page-specifics-page").off("click");
 	$(".reset-page-specifics-page").on("click", pageSpecifics);
-	
-	$(".info-footer-button").css("visibility", "visible");
-	$(".info-footer-button").off("click");
 	
 	$(".info-footer-previous").css("visibility", "hidden");
 	$(".info-footer-next").on("click", pageSpecifics2);
 
 	$(".info-section-footer .page-num").text("Page 1");
-
-	// Grid section changes
-	$(".fps-slider").val(30);
-	$(".fps-slider").trigger("input");
-	$(".canvas-parent canvas").css("borderRight", "1px solid #444");
-	$(".canvas-parent canvas").css("borderBottom", "1px solid #444");
 
 	// Grid changes
 	$.ajax({
@@ -118,13 +139,12 @@ function pageSpecifics() {
 	    async: false,
 	    success: function(data){ 
 			grid.loadGrid(data);
+			grid.masterFrameCount = 0;
+			$(".master-frame").text(grid.masterFrameCount);
 	    }
 	});	
 
-
 	// Outside-of-canvas div changes
-	$(".outside-of-canvas").empty();
-
 	var APDemonstration = $(`
 		<div class="APDemonstration">
 			<img src="/static/images/ventricular_AP.png" class="AP-img">
@@ -202,10 +222,118 @@ function pageSpecifics() {
 	setHighlightOnWindowEventListeners();
 }
 
+// function pageSpecifics2() {
+// 	resetPageSpecifics();
+
+// 	// Info Div changes
+// 	$.ajax({
+// 	    url: `/static/pages/${page["serverName"]}/pageSpecifics/2.html`,
+// 	    async: false,
+// 	    success: function(data){ 
+// 			$(".info").append(data);
+// 	    }
+// 	});
+
+// 	// Change next and prev button links
+// 	$(".reset-page-specifics-page").on("click", pageSpecifics2);
+	
+// 	$(".info-footer-previous").on("click", pageSpecifics);
+// 	$(".info-footer-next").on("click", pageSpecifics3);
+
+// 	$(".info-section-footer .page-num").text("Page 2");
+
+// 	// Grid changes
+// 	$.ajax({
+// 	    url: `/static/pages/${page["serverName"]}/grid.txt`,
+// 	    async: false,
+// 	    success: function(data){ 
+// 			grid.loadGrid(data);
+			// grid.masterFrameCount = 0;
+			// $(".master-frame").text(grid.masterFrameCount);
+// 	    }
+// 	});
+
+// 	// Outside-of-canvas div changes
+// 	var APDemonstration = $(`
+// 		<div class="APDemonstration">
+// 			<img src="/static/images/ventricular_AP.png" class="AP-img">
+// 			<div class="AP-img-tracking-square">
+// 		</div>
+// 	`)
+// 	APDemonstration.css({
+// 		"position": "relative",
+// 		"margin": "auto",
+// 		"width": "500px",
+// 	})
+// 	APDemonstration.find(".AP-img").css({
+// 		"width": "500px",
+// 		"height": "298.33px",
+// 		"display": "block",
+// 		"position": "relative",
+// 	})
+
+// 	APDemonstration.find(".AP-img-tracking-square").css({
+// 		"width": "15px",
+// 		"height": "15px",
+// 		"backgroundColor": "white",
+// 		"border": "1px solid black",
+// 		"position": "absolute",
+// 	})
+
+// 	$(".outside-of-canvas").append(APDemonstration);
+// 	$(".APDemonstration").css("margin-top", "20px");
+
+// 	// Related to changes with each frame
+// 	APDemonstrationSquareCoords = [
+// 		[120, 174],
+// 		[126, 33],
+// 		[131, 48],
+// 		[141, 54],
+// 		[150, 54],
+// 		[162, 54],
+// 		[167, 54],
+// 		[178, 54],
+// 		[189, 54],
+// 		[198, 54],
+// 		[204, 54],
+// 		[216, 54],
+// 		[229, 54],
+// 		[245, 54],
+// 		[260, 54],
+// 		[276, 54],
+// 		[294, 54],
+// 		[308, 54],
+// 		[318, 71],
+// 		[333, 104],
+// 		[342, 134],
+// 		[356, 180],
+// 		[365, 214],
+// 		[377, 254],
+// 		[389, 288],
+// 		[423, 290],
+// 		[458, 290],
+// 		[485, 290],
+// 		[21, 287],
+// 		[40, 287],
+// 		[63, 287],
+// 		[88, 287],
+// 		[111, 287]
+// 	]
+// 	APDidx = APDemonstrationSquareCoords.length-1;
+// 	APDidx2 = APDemonstrationSquareCoords.length-1;
+// 	APDidx3 = APDemonstrationSquareCoords.length-1;
+
+// 	// Set changes with each frame function
+// 	pageSpecificChangesWithEachFrame = pageSpecificChangesWithEachFrame1;
+// 	pageSpecificChangesWithEachFrame();
+
+// 	// Set window highlight event listeners
+// 	setHighlightOnWindowEventListeners();
+// }
+
 function pageSpecifics2() {
 	pageSpecifics();
-
-	// Info Div changes
+	
 	$(".info").empty();
 	$.ajax({
 	    url: `/static/pages/${page["serverName"]}/pageSpecifics/2.html`,
@@ -213,31 +341,26 @@ function pageSpecifics2() {
 	    success: function(data){ 
 			$(".info").append(data);
 	    }
-	});
+	});	
 
 	// Change next and prev button links
 	$(".reset-page-specifics-page").off("click");
 	$(".reset-page-specifics-page").on("click", pageSpecifics2);
-
-	$(".info-footer-button").css("visibility", "visible");
-	$(".info-footer-button").off("click");
 	
+	$(".info-footer-button").off("click");
+	$(".info-footer-button").css("visibility", "visible");
 	$(".info-footer-previous").on("click", pageSpecifics);
 	$(".info-footer-next").on("click", pageSpecifics3);
 
 	$(".info-section-footer .page-num").text("Page 2");
 
-	// Set changes with each frame function
-	pageSpecificChangesWithEachFrame = pageSpecificChangesWithEachFrame1;
-	
 	setHighlightOnWindowEventListeners();
 }
 
 function pageSpecifics3() {
-	pageSpecifics2();
+	resetPageSpecifics();
 
 	// Info Div changes
-	$(".info").empty();
 	$.ajax({
 	    url: `/static/pages/${page["serverName"]}/pageSpecifics/3.html`,
 	    async: false,
@@ -247,12 +370,8 @@ function pageSpecifics3() {
 	});	
 
 	// Change next and prev button links
-	$(".reset-page-specifics-page").off("click");
 	$(".reset-page-specifics-page").on("click", pageSpecifics3);
-	
-	$(".info-footer-button").css("visibility", "visible");
-	$(".info-footer-button").off("click");
-	
+
 	$(".info-footer-previous").on("click", pageSpecifics2);
 	$(".info-footer-next").on("click", pageSpecifics4);
 
@@ -264,13 +383,13 @@ function pageSpecifics3() {
 	    async: false,
 	    success: function(data){ 
 			grid.loadGrid(data);
+			grid.masterFrameCount = 0;
+			$(".master-frame").text(grid.masterFrameCount);
 	    }
 	});
 	isPlaying = false;
 
 	// Outside-of-canvas div changes
-	$(".outside-of-canvas").empty();
-
 	$(".outside-of-canvas").append($("<div></div>").attr({
 		"class": "APDemonstrationsWrapper",
 	}))
@@ -349,10 +468,9 @@ function pageSpecifics3() {
 }
 
 function pageSpecifics4() {
-	pageSpecifics3();
+	resetPageSpecifics();
 	
 	// Info Div changes
-	$(".info").empty();
 	$.ajax({
 	    url: `/static/pages/${page["serverName"]}/pageSpecifics/4.html`,
 	    async: false,
@@ -362,11 +480,8 @@ function pageSpecifics4() {
 	});	
 
 	// Change next and prev button links
-	$(".reset-page-specifics-page").off("click");
 	$(".reset-page-specifics-page").on("click", pageSpecifics4);
-	
-	$(".info-footer-button").css("visibility", "visible");
-	$(".info-footer-button").off("click");
+
 	
 	$(".info-footer-previous").on("click", pageSpecifics3);
 	$(".info-footer-next").on("click", pageSpecifics5);
@@ -379,24 +494,170 @@ function pageSpecifics4() {
 	    async: false,
 	    success: function(data){ 
 			grid.loadGrid(data);
+			grid.masterFrameCount = 0;
+			$(".master-frame").text(grid.masterFrameCount);
 	    }
 	});
-	isPlaying = true;
 
 	// Tools section changes
-	$(".tools-box").css("display", "none");
-	$("#state-box").css("display", "block");
-	$("#condVel-box").css("display", "block");
-
-	// Outside-of-canvas div changes
-	$(".outside-of-canvas").empty();
-
-
-	pageSpecificChangesWithEachFrame = undefined;
+	$(".tools-box").css("visibility", "hidden");
+	$("#state-box").css("visibility", "");
+	$("#condVel-box").css("visibility", "");
+	
+		// Start off with tools section closed
+	var sidebar = $(".tools-section .sidebar");
+	if (sidebar.css("transform").split(", ")[4] === "0") {
+		$(".tools-section .expand-or-collapse-arrow").click();
+	}
 
 	setHighlightOnWindowEventListeners();
 }
 
 function pageSpecifics5() {
+	resetPageSpecifics();
+
+	// Info Div changes
+	$.ajax({
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/5.html`,
+	    async: false,
+	    success: function(data){ 
+			$(".info").append(data);
+	    }
+	});	
+
+	// Change next and prev button links
+	$(".reset-page-specifics-page").on("click", pageSpecifics5);
+
+	$(".info-footer-previous").on("click", pageSpecifics4);
+	$(".info-footer-next").on("click", pageSpecifics6);
+
+	$(".info-section-footer .page-num").text("Page 5");
+
+	// Grid changes
+	$.ajax({
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/grid5.txt`,
+	    async: false,
+	    success: function(data){ 
+			grid.loadGrid(data);
+			grid.masterFrameCount = 0;
+			$(".master-frame").text(grid.masterFrameCount);
+	    }
+	});
+
+	// Tools section changes
+	$(".tools-box").css("visibility", "hidden");
+	$("#state-box").css("visibility", "");
+	$("#condVel-box").css("visibility", "");
+	$("#refracLength-box").css("visibility", "");
+
+	$("#refracLength-box>.container>*").eq(1).css("display", "none");
+	$("#refracLength-box>.container>*").eq(2).css("display", "none");
+	
+		// Start with tools section open
+	var sidebar = $(".tools-section .sidebar");
+	if (sidebar.css("transform").split(", ")[4].includes("330")) {
+		$(".tools-section .expand-or-collapse-arrow").click();
+	}
+
+	setHighlightOnWindowEventListeners();
+
+}
+
+function pageSpecifics6() {
+	resetPageSpecifics();
+
+	// Info Div changes
+	$.ajax({
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/6.html`,
+	    async: false,
+	    success: function(data){ 
+			$(".info").append(data);
+	    }
+	});	
+
+	// Change next and prev button links
+	$(".reset-page-specifics-page").on("click", pageSpecifics6);
+
+	$(".info-footer-previous").on("click", pageSpecifics5);
+	$(".info-footer-next").on("click", pageSpecifics7);
+
+	$(".info-section-footer .page-num").text("Page 6");
+
+	// Grid changes
+	$.ajax({
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/grid6.txt`,
+	    async: false,
+	    success: function(data){ 
+			grid.loadGrid(data);
+			grid.masterFrameCount = 0;
+			$(".master-frame").text(grid.masterFrameCount);
+	    }
+	});
+
+	// Tools section changes
+	$(".tools-box").css("visibility", "hidden");
+	$("#state-box").css("visibility", "");
+	$("#condVel-box").css("visibility", "");
+	$("#refracLength-box").css("visibility", "");
+	
+		// Start with tools section open
+	var sidebar = $(".tools-section .sidebar");
+	if (sidebar.css("transform").split(", ")[4].includes("330")) {
+		$(".tools-section .expand-or-collapse-arrow").click();
+	}
+
+	setHighlightOnWindowEventListeners();
+
+}
+
+function pageSpecifics7() {
+	resetPageSpecifics();
+
+	// Info Div changes
+	$.ajax({
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/7.html`,
+	    async: false,
+	    success: function(data){ 
+			$(".info").append(data);
+	    }
+	});	
+
+	// Change next and prev button links
+	$(".reset-page-specifics-page").on("click", pageSpecifics7);
+
+	$(".info-footer-previous").on("click", pageSpecifics6);
+	$(".info-footer-next").on("click", pageSpecifics8);
+
+	$(".info-section-footer .page-num").text("Page 7");
+
+	// Grid changes
+	$.ajax({
+	    url: `/static/pages/${page["serverName"]}/pageSpecifics/grid7.txt`,
+	    async: false,
+	    success: function(data){ 
+			grid.loadGrid(data);
+			grid.masterFrameCount = 0;
+			$(".master-frame").text(grid.masterFrameCount);
+	    }
+	});
+
+	// Tools section changes
+	$(".tools-box").css("visibility", "hidden");
+	$("#state-box").css("visibility", "");
+	$("#condVel-box").css("visibility", "");
+	$("#refracLength-box").css("visibility", "");
+	$("#pacing-box").css("visibility", "");
+	$("#square-inspector-toggle-box").css("visibility", "");
+	
+		// Start with tools section open
+	var sidebar = $(".tools-section .sidebar");
+	if (sidebar.css("transform").split(", ")[4].includes("330")) {
+		$(".tools-section .expand-or-collapse-arrow").click();
+	}
+
+	setHighlightOnWindowEventListeners();
+}
+
+function pageSpecifics8() {
 
 }

@@ -42,8 +42,8 @@ class Square {
 		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
 
 		this.randomRefracLengths = false;
-		this.randomRefracRangeConstant = 0.1;
-		this.masterRandomRefracRangeConstant = 0.1;
+		this.randomRefracRangeConstant = 0.2;
+		this.masterRandomRefracRangeConstant = 0.2;
 		this.refracPoint;
 
 		this.nameLabel = `[${col.toString()}, ${row.toString()}]`;
@@ -300,6 +300,9 @@ class Square {
 				this.clickClear();
 			} else if (selector === 'depo') {
 				this.clickDepolarise();
+				if (this.pacingSetting === 'autoFocus') { // if this is an automatic focus cell, reset its pacing tracker
+					this.resetPacingTracker();
+				}
 			} else if (selector === 'repo') {
 				this.clickRepolarise();
 			}

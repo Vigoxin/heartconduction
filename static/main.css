@@ -15,6 +15,19 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+     supported by Chrome, Edge, Opera and Firefox */
 }
 
 .highlight-on-window {
@@ -345,7 +358,7 @@ nav ul > li > ul > li > ul {
 
 .page-specifics {
   background: lavenderblush;
-  padding: 10px;
+  padding: 20px 10px;
   display: flex;
   flex-direction: row;
 }
@@ -398,8 +411,7 @@ nav ul > li > ul > li > ul {
   display: block;
   width: 60px;
   height: 20px;
-  margin: 0 auto;
-  margin-bottom: 5px;
+  margin: 5px auto;
   background-color: #906fa1;
   border: none;
   color: white;
@@ -449,6 +461,10 @@ nav ul > li > ul > li > ul {
 }
 .page-specifics .instructions {
   color: blue;
+}
+.page-specifics .general-tips {
+  color: red;
+  font-weight: bold;
 }
 
 .main {

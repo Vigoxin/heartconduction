@@ -45,13 +45,16 @@ body {
 
 	padding: 0;
 
+}
+
+.content {
 	// zoom: 0.8; 
- //    -moz-transform: scale(0.8); 
- //    -moz-transform-origin: 0 0;
+    
 
+  //   -moz-transform: scale(0.8); 
+  //   -moz-transform-origin: 50% 0;
  	// transform: scale(0.8);
- 	// transform-origin: 0 0;
-
+ 	// transform-origin: 50% 0;
 }
 
 .cursor-question-mark {
@@ -63,6 +66,15 @@ body {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	 -khtml-user-select: none; /* Konqueror HTML */
+	   -moz-user-select: none; /* Old versions of Firefox */
+	    -ms-user-select: none; /* Internet Explorer/Edge */
+	        user-select: none; /* Non-prefixed version, currently
+	                              supported by Chrome, Edge, Opera and Firefox */
+
 }
 
 // Highlight and tooltips
@@ -490,7 +502,7 @@ nav {
 .page-specifics {
 	// height: 300px;
 	background: lavenderblush;
-	padding: 10px;
+	padding: 20px 10px;
 
 	display: flex;
 	flex-direction: row;
@@ -565,8 +577,7 @@ nav {
 			display: block;
 			width: 60px;
 			height: 20px;
-			margin: 0 auto;
-			margin-bottom: 5px;
+			margin: 5px auto;
 			background-color: $primary-medium-light;
 			border: none;
 			color: white;
@@ -630,6 +641,11 @@ nav {
 
 	.instructions {
 		color: blue;
+	}
+
+	.general-tips {
+		color: red;
+		font-weight: bold;
 	}
 }
 
