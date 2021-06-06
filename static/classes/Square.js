@@ -24,6 +24,8 @@ class Square {
 		this.neighbourVectors = [];
 		this.neighbours = [];
 		this.setNeighbours();
+		this.allPossibleNeighbours = [];
+		this.setAllPossibleNeighbours();
 
 		this.settingsLocked = false;
 
@@ -112,7 +114,7 @@ class Square {
 		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
 
 		// if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
-		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.isPropagatingGrid[x.col][x.row])) {
+		if (this.APcounter < 0 && this.allPossibleNeighbours[0] && this.allPossibleNeighbours.filter(x => x.parentGrid.isPropagatingGrid[x.col][x.row]).some(x => x.neighbours.some(y => y.col === this.col && y.row === this.row))) {
 			// If this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. whatever AP counter squares this square will receive propagation from), then depolarise this square
 			var randomNumberForNonConduction = this.nonConductionRate === 0 ? 1 : Math.random();
 			this.nonConductionRate === 0 ? 1 : console.log(randomNumberForNonConduction);
@@ -300,7 +302,7 @@ class Square {
 	}
 
 	clickAndMoveSet(selectorType=this.parentGrid.selectorType, selector=this.parentGrid.selector, via='.settings-section') {
-		console.log("clickAndMoveSet");
+		// console.log("clickAndMoveSet");
 		if (selectorType === 'state') {
 			if (selector === 'clear') {
 				if (this.settingsLocked) { // If a square's settings are locked, then only depolarisation should be possible
@@ -335,23 +337,23 @@ class Square {
 		} else if (selectorType === 'propagationDirectionSetting') {
 			// Makes neighbourVectors an array of vectors (e.g. [-1, 1])
 			var propDirBox = via === '.settings-section' ? $('#propagation-box') : $('.squareInspector-propagation-box') ;
-			console.log(propDirBox);
+			// console.log(propDirBox);
 			this.neighbourVectors = Array.from(propDirBox.find('input.prop-direction:checked')).map(function(el){
 				return $(el).data('directionCode');
 			})
 			this.setNeighboursFromNeighbourVectors();
 
-			console.log(parseFloat(propDirBox.find(".nonConductionRate").val()));
+			// console.log(parseFloat(propDirBox.find(".nonConductionRate").val()));
 			this.nonConductionRate = parseFloat(propDirBox.find(".nonConductionRate").val());
 		} else if (selectorType === 'pacing' && this.state !== 'clear') {
 			this.pacingSetting = selector;
 			if (selector !== 'noPace')	{
 				this.isPacing = true;
-				console.log(via);
+				// console.log(via);
 				var pacingIntervalInput = via === '.settings-section' ? $('#pacing-box').find('.pacingInterval') : this.squareInspectorDivWrapper.div.find('.squareInspector-pacingInterval');
-				console.log(pacingIntervalInput);
+				// console.log(pacingIntervalInput);
 				var pacingTrackerInput = via === '.settings-section' ? $('#pacing-box').find('.pacingTracker') : this.squareInspectorDivWrapper.div.find('.squareInspector-pacingTracker');
-				console.log(pacingTrackerInput);
+				// console.log(pacingTrackerInput);
 				this.pacingInterval = parseInt(pacingIntervalInput.val());
 				this.pacingTracker = parseInt(pacingTrackerInput.val());
 				
@@ -513,12 +515,12 @@ class Square {
 	}
 
 	applyCondVelSetting() {
-		console.log(`(${this.col}, ${this.row}) - Setting conduction velocity to ${this.condVelSetting}`);
+		// console.log(`(${this.col}, ${this.row}) - Setting conduction velocity to ${this.condVelSetting}`);
 		this.condVel = this.parentGrid.condVelDict[this.condVelSetting];
 	}
 
 	applyRefracLengthSetting() {
-		console.log(`(${this.col}, ${this.row}) - Setting refractory period length to ${this.refracLengthSetting}`);
+		// console.log(`(${this.col}, ${this.row}) - Setting refractory period length to ${this.refracLengthSetting}`);
 		this.refracLength = this.parentGrid.refracLengthDict[this.refracLengthSetting];
 		this.rainbow.setNumberRange(0, this.refracLength);
 	}
@@ -543,6 +545,14 @@ class Square {
 	setNeighbours() {
 		this.setNeighbourVectors();
 		this.setNeighboursFromNeighbourVectors();	
+	}
+
+	setAllPossibleNeighbours() {
+		this.allPossibleNeighbours = [];
+		for (let vector of [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]) {
+			this.allPossibleNeighbours.push(this.getNeighbourFromVector(vector));
+			this.allPossibleNeighbours = this.allPossibleNeighbours.filter(x => x !== undefined);
+		}	
 	}
 
 	highlightNeighbours() {

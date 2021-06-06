@@ -446,7 +446,7 @@ class Grid extends Array {
 		var toSave = Object.assign({}, this);
 		console.log('toSave: ', toSave);
 
-		var squareKeysToExclude = ['neighbours', 'parentGrid', 'sprites', 'rainbow', 'squareInspectorDivWrapper', 'isInSquareInspector', 'isInTimeStripPanel'];
+		var squareKeysToExclude = ["allPossibleNeighbours", 'neighbours', 'parentGrid', 'sprites', 'rainbow', 'squareInspectorDivWrapper', 'isInSquareInspector', 'isInTimeStripPanel'];
 		var saved2dArray = {};
 		for (var i=0; i<this.cellNumX; i++) {
 			saved2dArray[i] = [];
@@ -542,6 +542,11 @@ class Grid extends Array {
 		for (let col of this) {
 			for (let square of col) {
 				square.setNeighbours();
+			}
+		}
+		for (let col of this) {
+			for (let square of col) {
+				square.setAllPossibleNeighbours();
 			}
 		}
 										b = performance.now(); console.log((b-a)/1000);
