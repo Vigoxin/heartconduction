@@ -489,7 +489,10 @@ class Square {
 	clickClear() {
 		// console.log(`(${this.col}, ${this.row}) - Clearing`);
 		this.state = 'clear';
+		
 		this.APcounter = -1;
+		this.isPropagating = false;
+		
 		this.display();
 	}
 
@@ -497,6 +500,8 @@ class Square {
 		// console.log(`(${this.col}, ${this.row}) - Repolarising`);
 		this.state = 'repo';
 		this.APcounter = -1;
+		this.isPropagating = false;
+
 		this.display();
 	}
 
