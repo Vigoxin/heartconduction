@@ -19,10 +19,13 @@ class Square {
 
 		this.state = this.parentGrid.masterState;
 		this.APcounter = -1;
+		this.isPropagating = false;
 		
 		this.neighbourVectors = [];
 		this.neighbours = [];
 		this.setNeighbours();
+		this.allPossibleNeighbours = [];
+		this.setAllPossibleNeighbours();
 
 		this.settingsLocked = false;
 
@@ -110,7 +113,8 @@ class Square {
 		// Updating of cell itself
 		// Each time through the cycle, a square is either depolarised (either through a neighbour or a pacing stimulus) OR it undergoes the AP pathway - never both
 
-		if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
+		// if (this.APcounter < 0 && this.neighbours[0] && this.neighbours.some(x => x.parentGrid.APcounterGrid[x.col][x.row] === this.condVel)) {
+		if (this.APcounter < 0 && this.allPossibleNeighbours[0] && this.allPossibleNeighbours.filter(x => x.parentGrid.isPropagatingGrid[x.col][x.row]).some(x => x.neighbours.some(y => y.col === this.col && y.row === this.row))) {
 			// If this square is repolarised (APcounter < 0) and has at least one neighbour and at least one neighbour is 'depolarised' ('at the APcounter number which is equal to what the condVel for this square is set to, i.e. whatever AP counter squares this square will receive propagation from), then depolarise this square
 			var randomNumberForNonConduction = this.nonConductionRate === 0 ? 1 : Math.random();
 			this.nonConductionRate === 0 ? 1 : console.log(randomNumberForNonConduction);
@@ -151,6 +155,13 @@ class Square {
 			} else if ( this.APcounter >= (this.randomRefracLengths ? this.refracPoint : this.refracLength) ) {
 				this.APcounter = -1;
 			}
+		}
+
+		// Changes this.isPropagating (whether this cell will propagate AP to neihbouring cells on the next frame)
+		if (this.APcounter === this.condVel) {
+			this.isPropagating = true;
+		} else {
+			this.isPropagating = false;
 		}
 	}
 
@@ -463,14 +474,25 @@ class Square {
 	clickDepolarise() {
 		// console.log(`(${this.col}, ${this.row}) - Depolarising`);
 		this.state = 'depo';
+		
 		this.APcounter = 0;
+		// Changes this.isPropagating (whether this cell will propagate AP to neihbouring cells on the next frame)
+		if (this.APcounter === this.condVel) {
+			this.isPropagating = true;
+		} else {
+			this.isPropagating = false;
+		}
+		
 		this.display();
 	}
 	
 	clickClear() {
 		// console.log(`(${this.col}, ${this.row}) - Clearing`);
 		this.state = 'clear';
+		
 		this.APcounter = -1;
+		this.isPropagating = false;
+		
 		this.display();
 	}
 
@@ -478,6 +500,8 @@ class Square {
 		// console.log(`(${this.col}, ${this.row}) - Repolarising`);
 		this.state = 'repo';
 		this.APcounter = -1;
+		this.isPropagating = false;
+
 		this.display();
 	}
 
@@ -526,6 +550,14 @@ class Square {
 	setNeighbours() {
 		this.setNeighbourVectors();
 		this.setNeighboursFromNeighbourVectors();	
+	}
+
+	setAllPossibleNeighbours() {
+		this.allPossibleNeighbours = [];
+		for (let vector of [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]) {
+			this.allPossibleNeighbours.push(this.getNeighbourFromVector(vector));
+			this.allPossibleNeighbours = this.allPossibleNeighbours.filter(x => x !== undefined);
+		}	
 	}
 
 	highlightNeighbours() {
