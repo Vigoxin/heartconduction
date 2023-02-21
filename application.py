@@ -3,7 +3,7 @@ import os
 import re
 import json
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 # Variables to pass in
 textures_path = 'static/textures/'
@@ -42,19 +42,19 @@ for pageName in pages_to_include:
 	pages.append(to_add)
 
 # Routes
-@app.route('/')
+@application.route('/')
 def index():
 	return render_template('home.html', pages=pages)
 
-@app.route('/about')
+@application.route('/about')
 def about():
 	return render_template('about.html', pages=pages)
 
-@app.route('/contact')
+@application.route('/contact')
 def contact():
 	return render_template('contact.html', pages=pages)
 
-@app.route('/blank')
+@application.route('/blank')
 def blank():
 	pd = {
 		'textureFiles': texture_files,
@@ -62,7 +62,7 @@ def blank():
 	}
 	return render_template('page.html', pd=pd)
 
-@app.route('/learn/<pageName>')
+@application.route('/learn/<pageName>')
 def learn(pageName):
 	print(pageName)
 	page = [a for a in pages if a["serverName"] == pageName][0]
@@ -82,10 +82,10 @@ def learn(pageName):
 	return render_template('page.html', pd=pd, page=page, pages=pages)
 	# return render_template('normal.html', pd=pd, pages=pages)
 
-@app.route('/testing')
+@application.route('/testing')
 def testing():
 	return render_template('testing.html', pd=pd)
 
 if __name__ == '__main__':
-	app.run(debug=True, port=5001)
+	application.run(debug=True, port=8000)
 
