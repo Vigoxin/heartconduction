@@ -32,7 +32,7 @@
 	".pacingIntervalLabelInputPair": "The cycle length (in frames) at which a cell will pace, when given pacing functionality with one of the buttons above",
 	".pacingTrackerLabelInputPair": "The initial pacing timer value for a cell (counts down with each frame and paces when it reaches 0), when given pacing functionality with one of the buttons above",
 
-	".propagation-settings-directions-grid": "Selects which neighbours a cell receives propagation from (useful for simulating unidirectional block). Choose the neighbouring cells, then press the middle button, then click on a cell",
+	".propagation-settings-directions-grid": "Selects which neighbours a cell transmits propagation to (useful for simulating unidirectional block). Choose the neighbouring cells, then press the middle button, then click on a cell",
 	".nonConductionRateLabelInputPair": "Sets a probability (between 0 and 1) that a cell will not depolarise when receiving propagation from a neighbouring cell. Choose the number, then press the middle button on the left, then click on a cell",
 
 	"#squareInspector-toggle-radio+label": "Select this and click on a cell to add it to the Cell Inspector (in order to change multiple features individually)",
