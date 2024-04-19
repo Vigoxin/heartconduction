@@ -80,7 +80,7 @@ class SquareInspectorDivWrapper {
 				</div>
 
 				<div class="squareInspector-propagation-box squareInspector-settings-section">
-					<div class="squareInspectorSectionTitle collapsible-propagation active"> Receives propagation from... </div>
+					<div class="squareInspectorSectionTitle collapsible-propagation active"> Transmits propagation to... </div>
 					<div class="prop-box-container">
 						<div class="propagation-settings-directions-grid">
 								<div class='prop-set-dir-grid-sec'>
@@ -282,7 +282,7 @@ class SquareInspectorDivWrapper {
 			".squareInspector-highlight-checkbox-label": "Add/remove highlighting of this cell",
 			".removeSquareInspectorDivLabel": "Remove this cell from Cell Inspector",
 
-			".propagation-settings-directions-grid": "Determines which neighbours this cell receives propagation from (useful for simulating unidirectional conduction block).",
+			".propagation-settings-directions-grid": "Determines which neighbours this cell transmits propagation to (useful for simulating unidirectional conduction block).",
 			".nonConductionRateLabelInputPair": "Sets the probability (between 0 and 1) that this cell will not depolarise when receiving propagation from a neighbouring cell"
 		}
 		tooltipsDict[`#state-radio-depo-squareInspector-${this.col}-${this.row}+label`] = "Depolarise this cell";
